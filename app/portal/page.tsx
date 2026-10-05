@@ -1,88 +1,78 @@
-import type { Metadata } from 'next'
-import SectionLabel from '@/components/ui/SectionLabel'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
-import { Lock } from 'lucide-react'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, FolderOpen } from "lucide-react";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: 'Client Portal',
-  description: 'Secure client login for Shubham Surveyors project tracking and document access.',
-  robots: { index: false, follow: false },
-}
+  title: "Client project support",
+  description:
+    "Contact Shubham Surveyors for project updates, survey drawings and document support.",
+  alternates: { canonical: `${SITE.url}/portal` },
+  robots: { index: false, follow: true },
+};
 
 export default function PortalPage() {
   return (
-    <section
-      className="min-h-screen flex items-center justify-center pt-20"
-      style={{
-        backgroundColor: 'var(--color-brand-navy)',
-        paddingLeft: 'clamp(1rem, 4vw, 4rem)',
-        paddingRight: 'clamp(1rem, 4vw, 4rem)',
-      }}
-    >
-      <div className="bg-blueprint-dark absolute inset-0 opacity-40 pointer-events-none" />
-
-      <RevealOnScroll className="relative z-10 w-full max-w-md">
+    <section className="section-wrap">
+      <div className="page-shell">
+        <nav className="breadcrumb" aria-label="Breadcrumb">
+          <Link href="/">Home</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Client support</span>
+        </nav>
         <div
-          className="p-12"
-          style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-outline)' }}
+          className="detail-panel"
+          style={{
+            maxWidth: 740,
+            margin: "2rem auto",
+            padding: "clamp(1.5rem, 4vw, 3.5rem)",
+          }}
         >
-          <div className="flex justify-center mb-8">
-            <div
-              className="flex items-center justify-center"
-              style={{ width: '64px', height: '64px', backgroundColor: 'var(--color-brand-navy)', border: '1px solid var(--color-brand-gold)' }}
-            >
-              <Lock size={28} style={{ color: 'var(--color-brand-gold)' }} />
-            </div>
-          </div>
-
-          <SectionLabel index="§ PRT" label="Client Portal" />
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: '1.75rem',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '2rem',
-            }}
-          >
-            SECURE CLIENT LOGIN
+          <FolderOpen
+            size={36}
+            aria-hidden="true"
+            style={{ marginBottom: "1.5rem" }}
+          />
+          <p className="eyebrow">For our clients</p>
+          <h1 className="section-heading">
+            Your project. A direct connection.
           </h1>
-
-          <form className="flex flex-col gap-6">
-            <div>
-              <label className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>
-                PROJECT ID / EMAIL
-              </label>
-              <input
-                type="text"
-                placeholder="e.g. SHB-2024-0042"
-                className="input-underline"
-              />
-            </div>
-            <div>
-              <label className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>
-                PASSWORD
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="input-underline"
-              />
-            </div>
-            <button type="button" className="btn-primary w-full justify-center">
-              ACCESS PORTAL →
-            </button>
-          </form>
-
-          <p
-            className="label-caps mt-6 text-center"
-            style={{ color: 'var(--color-on-surface-variant)' }}
-          >
-            Don&apos;t have access? Contact your project manager.
+          <p className="lead">
+            Need a progress update, survey drawing or project document? Our team
+            is here to help.
+          </p>
+          <p style={{ color: "#58675e", margin: "1.5rem 0 2rem" }}>
+            Send your project reference or site location using your usual
+            contact details. We’ll confirm your connection to the project and
+            arrange the information you need. Online account access is not
+            currently available.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent("Hello, I am an existing client and would like help with my survey project.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button button-dark"
+            >
+              Contact project support{" "}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            <a
+              href={`tel:${SITE.phone.replace(/\s/g, "")}`}
+              className="button button-outline"
+            >
+              Call the team
+            </a>
+          </div>
+          <p style={{ marginTop: "1.5rem", fontSize: ".9rem" }}>
+            Or email{" "}
+            <a className="text-link" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>
+            .
           </p>
         </div>
-      </RevealOnScroll>
+      </div>
     </section>
-  )
+  );
 }

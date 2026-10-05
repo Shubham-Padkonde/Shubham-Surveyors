@@ -1,63 +1,52 @@
-import type { Metadata } from 'next'
-import IndustryPageTemplate from '@/components/industries/IndustryPageTemplate'
-import { SITE } from '@/lib/constants'
+import type { Metadata } from "next";
+import IndustryPageTemplate from "@/components/industries/IndustryPageTemplate";
+import { SITE } from "@/lib/constants";
+
+const content = {
+  slug: "infrastructure",
+  sector: "Infrastructure & highways",
+  headline: "Understand the ground. Connect the route.",
+  intro:
+    "Corridor, alignment and level surveys that give infrastructure teams a consistent base for planning, design and construction.",
+  capabilities: [
+    {
+      title: "Corridor mapping",
+      desc: "Record ground conditions and visible features across the agreed road, railway or infrastructure corridor.",
+    },
+    {
+      title: "Profiles and cross-sections",
+      desc: "Capture levels at the required intervals and locations so engineers can assess terrain and develop alignment options.",
+    },
+    {
+      title: "Control and setting-out",
+      desc: "Establish agreed survey references and set out design points for construction teams, with the coordinate and height systems made clear.",
+    },
+    {
+      title: "Structures and interfaces",
+      desc: "Survey the agreed bridge approaches, junctions, drainage features and connections where the new works meet existing assets.",
+    },
+  ],
+  deliverables: [
+    "Corridor survey drawings and feature information.",
+    "Longitudinal profiles and cross-sections as specified.",
+    "Control-point and benchmark schedules.",
+    "Setting-out or as-built records for the agreed works.",
+  ],
+  briefing: [
+    "Proposed alignment, chainage limits and corridor width.",
+    "Client specifications and the engineer’s output requirements.",
+    "Existing control points, drawings and benchmarks.",
+    "Access permissions, traffic restrictions and work programme.",
+  ],
+  note: "Formats, tolerances and acceptance criteria should come from the project specification and appointing authority; they are agreed before mobilisation.",
+};
 
 export const metadata: Metadata = {
-  title: 'Infrastructure & Highway Survey',
-  description:
-    'NHAI, PWD and railway corridor surveys. Precision linear mapping, cross-sections, and profile leveling for India\'s critical infrastructure.',
-  alternates: { canonical: 'https://shubhamsurveyors.com/industries/infrastructure' },
-}
+  title: "Infrastructure & highways survey services",
+  description: content.intro,
+  alternates: { canonical: SITE.url + "/industries/" + content.slug },
+};
 
-const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Infrastructure & Highway Survey Services',
-  serviceType: 'Highway & Infrastructure Survey',
-  description:
-    'NHAI, PWD and railway corridor surveys. Precision linear mapping, cross-sections, and profile leveling for India\'s critical infrastructure.',
-  provider: { '@type': 'ProfessionalService', name: SITE.name, url: SITE.url },
-  areaServed: { '@type': 'Country', name: 'India' },
-  url: `${SITE.url}/industries/infrastructure`,
-}
-
-export default function InfrastructurePage() {
-  return (
-    <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-    <IndustryPageTemplate
-      index="§ IND-01"
-      slug="infrastructure"
-      sector="Infrastructure & Highways"
-      headline="MAPPING INDIA'S MODERN FOUNDATIONS."
-      intro="Delivering sub-centimeter topographical precision for the nation's most critical highway corridors, railway alignments, and structural marvels. Engineering truth, codified."
-      coordinate="28.6139° N, 77.2090° E"
-      capabilities={[
-        { title: 'Highway Corridor Mapping', desc: 'End-to-end linear surveys for NHAI and PWD projects. Alignment, cross-sections, longitudinal profiles, and earthwork calculations.' },
-        { title: 'Railway Alignment Surveys', desc: 'Track geometry surveys, level crossing mapping, and station area topography for Indian Railways and Metro Rail projects.' },
-        { title: 'Bridge & Structure Surveys', desc: 'Foundation surveys, settlement monitoring, and as-built verification for bridges, flyovers, and elevated corridors.' },
-        { title: 'Earthwork Volume Calculations', desc: 'Cut-and-fill analysis for road construction. Accurate volume estimates that prevent budget overruns and contractor disputes.' },
-      ]}
-      steps={[
-        { num: '01', title: 'Alignment Reconnaissance', desc: 'Initial site walkthrough, control point establishment, and survey plan finalization.' },
-        { num: '02', title: 'Corridor Survey', desc: 'Total Station and RTK DGPS field surveys along the entire project corridor.' },
-        { num: '03', title: 'Data Processing', desc: 'Point cloud processing, cross-section generation, and volume calculations in AutoCAD.' },
-        { num: '04', title: 'Report Delivery', desc: 'NHAI/PWD-compliant drawings, earthwork reports, and digital files delivered.' },
-      ]}
-      deliverables={[
-        { format: 'Longitudinal Profile Drawings', standard: 'NHAI Standard', timeline: '7–14 days' },
-        { format: 'Cross-Section Drawings @ 20m', standard: 'PWD Standard', timeline: '7–14 days' },
-        { format: 'Earthwork Volume Report', standard: 'IS Code', timeline: '10–15 days' },
-        { format: '.DWG / .PDF Files', standard: 'AutoCAD 2020+', timeline: 'Included' },
-      ]}
-      advantages={[
-        { title: 'NHAI Empaneled', desc: 'Directly empaneled with NHAI for project surveys. Reports accepted without third-party verification.' },
-        { title: '1,200+ km Mapped', desc: 'Over 1,200 km of highway corridors surveyed to sub-centimeter accuracy across India.' },
-        { title: 'Court & DPR Ready', desc: 'All reports structured for use in Detailed Project Reports and legal dispute resolution.' },
-      ]}
-      statValue="1,200+"
-      statLabel="KM OF HIGHWAYS MAPPED"
-    />
-    </>
-  )
+export default function IndustryPage() {
+  return <IndustryPageTemplate {...content} />;
 }

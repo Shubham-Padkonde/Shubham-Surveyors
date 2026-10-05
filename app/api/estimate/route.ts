@@ -1,26 +1,44 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { calculateEstimate, TERRAIN_MULTIPLIERS } from '@/lib/pricing'
-import type { SurveyType, TerrainType } from '@/lib/pricing'
-import { PRICING } from '@/lib/constants'
+import { NextResponse } from "next/server";
+import {
+  calculateEstimate,
+  estimateSchema,
+  TERRAIN_MULTIPLIERS,
+} from "@/lib/pricing";
+import { readJsonBody, RequestBodyError } from "@/lib/contact-validation";
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const { surveyType, area, terrain } = await req.json()
-
-    if (!surveyType || !area || !terrain) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+    const parsed = estimateSchema.safeParse(await readJsonBody(request, 2048));
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Choose a valid survey type, size and terrain." },
+        { status: 400 },
+      );
     }
-
-    if (!(surveyType in PRICING)) {
-      return NextResponse.json({ error: 'Invalid survey type' }, { status: 400 })
+    const { surveyType, area, terrain } = parsed.data;
+    const estimate = calculateEstimate(
+      surveyType,
+      area,
+      TERRAIN_MULTIPLIERS[terrain].value,
+    );
+    return NextResponse.json({
+      ...estimate,
+      indicative: true,
+      basis: "total",
+      currency: "INR",
+    });
+  } catch (error) {
+    if (error instanceof RequestBodyError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      );
     }
-
-    const multiplier = TERRAIN_MULTIPLIERS[terrain as TerrainType]?.value ?? 1
-    const result = calculateEstimate(surveyType as SurveyType, Number(area), multiplier)
-
-    return NextResponse.json(result)
-  } catch (err) {
-    console.error('Estimate error:', err)
-    return NextResponse.json({ error: 'Calculation failed' }, { status: 500 })
+    return NextResponse.json(
+      {
+        error: "The estimate could not be calculated. Please contact our team.",
+      },
+      { status: 500 },
+    );
   }
 }

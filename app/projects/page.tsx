@@ -1,140 +1,166 @@
-import type { Metadata } from 'next'
-import SectionLabel from '@/components/ui/SectionLabel'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
-import AnimatedCounter from '@/components/ui/AnimatedCounter'
-import Link from 'next/link'
-import { Compass } from 'lucide-react'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, Building2, Route, Mountain, Sprout } from "lucide-react";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: 'Project Portfolio',
+  title: "Survey project applications | Pune & Maharashtra",
   description:
-    '5,000+ precision survey projects delivered across 29 Indian states — highways, real estate, mining, and government infrastructure.',
-  alternates: { canonical: 'https://shubhamsurveyors.com/projects' },
-}
+    "Explore how land surveys support development, road design, earthworks and agricultural planning. Discuss relevant surveying experience with Shubham Surveyors.",
+  alternates: { canonical: SITE.url + "/projects" },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: SITE.name,
+    title: "Survey project applications | Pune & Maharashtra | Shubham Surveyors",
+    description:
+      "Explore how land surveys support development, road design, earthworks and agricultural planning. Discuss relevant surveying experience with Shubham Surveyors.",
+    url: `${SITE.url}/projects`,
+  },
+};
 
-const stats = [
-  { target: 5000, suffix: '+', label: 'Projects' },
-  { target: 29, suffix: '', label: 'States' },
-  { target: 30, suffix: '+', label: 'Years' },
-  { target: 100, suffix: '%', label: 'Govt Accepted' },
-]
+const applications = [
+  {
+    title: "A development site, ready for design",
+    icon: Building2,
+    sector: "Real estate",
+    challenge:
+      "An architect needs a reliable base before positioning buildings, roads and drainage.",
+    scope:
+      "Site features, spot levels, contours and a boundary reference, with the survey extent agreed against the available records.",
+    output: "A coordinated CAD base and level information for the design team.",
+    href: "/industries/real-estate",
+  },
+  {
+    title: "A corridor, understood in section",
+    icon: Route,
+    sector: "Infrastructure",
+    challenge:
+      "An engineering team needs to compare an alignment with the actual terrain.",
+    scope:
+      "Control points, longitudinal profiles, cross-sections and visible features along the agreed corridor.",
+    output:
+      "Profiles, sections and survey drawings matched to the engineer’s brief.",
+    href: "/industries/infrastructure",
+  },
+  {
+    title: "Earthworks, measured over time",
+    icon: Mountain,
+    sector: "Mining & earthworks",
+    challenge:
+      "A site team needs a consistent basis for comparing ground or stockpile quantities.",
+    scope:
+      "Surface measurement at an agreed date, repeatable control, and clearly defined volume boundaries and reference surfaces.",
+    output:
+      "Surface models and a quantity statement that explains its assumptions.",
+    href: "/industries/mining",
+  },
+  {
+    title: "Farmland, planned with the terrain",
+    icon: Sprout,
+    sector: "Agriculture",
+    challenge:
+      "A landowner wants to understand levels, access and the physical extent of a site.",
+    scope:
+      "Field features, levels and available boundary information, with access and crop conditions considered before the visit.",
+    output:
+      "A practical site plan to support irrigation, grading or further professional review.",
+    href: "/industries/agriculture",
+  },
+];
 
 export default function ProjectsPage() {
   return (
-    <>
-      {/* Hero */}
-      <section
-        className="pt-40 pb-20 relative overflow-hidden"
-        style={{
-          backgroundColor: 'var(--color-brand-navy)',
-          paddingLeft: 'clamp(1rem, 4vw, 4rem)',
-          paddingRight: 'clamp(1rem, 4vw, 4rem)',
-        }}
-      >
-        <div className="bg-blueprint-dark absolute inset-0 opacity-40 pointer-events-none" />
-        <RevealOnScroll className="relative z-10">
-          <SectionLabel index="§ PRJ" label="Project Portfolio" dark />
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(2rem, 6vw, 4rem)',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
-              color: 'var(--color-brand-offwhite)',
-              maxWidth: '700px',
-              marginBottom: '1.5rem',
-            }}
-          >
-            30+ YEARS OF SURVEY WORK ACROSS INDIA
+    <div className="page-shell">
+      <section className="page-hero">
+        <div className="section-wrap">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span>Project applications</span>
+          </nav>
+          <p className="eyebrow">From fieldwork to the next decision</p>
+          <h1>
+            Every site has
+            <br />a question to answer.
           </h1>
-        </RevealOnScroll>
-      </section>
-
-      {/* Stats bar */}
-      <section
-        style={{
-          backgroundColor: 'var(--color-surface)',
-          borderBottom: '1px solid var(--color-outline)',
-        }}
-      >
-        <div
-          className="grid grid-cols-2 md:grid-cols-4"
-          style={{ borderLeft: '1px solid var(--color-outline)' }}
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="p-10 text-center"
-              style={{ borderRight: '1px solid var(--color-outline)' }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  fontWeight: '800',
-                  color: 'var(--color-on-surface)',
-                  lineHeight: '1',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                <AnimatedCounter target={stat.target} suffix={stat.suffix} />
-              </div>
-              <div className="label-caps" style={{ color: 'var(--color-on-surface-variant)' }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
+          <p className="lead">
+            5,000+ surveys since 1994. The applications below show how a
+            considered survey scope can support your project.
+          </p>
+          <Link href="/contact" className="button button-lime">
+            Discuss relevant experience <ArrowUpRight size={18} />
+          </Link>
         </div>
       </section>
-
-      {/* Empty state */}
       <section
-        className="py-24"
-        style={{ backgroundColor: 'var(--color-surface)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
+        className="section-wrap"
+        style={{
+          paddingTop: "clamp(3rem, 6vw, 6rem)",
+          paddingBottom: "clamp(3rem, 6vw, 6rem)",
+        }}
       >
-        <RevealOnScroll>
-          <div
-            className="flex flex-col items-center justify-center text-center py-32 px-8"
-            style={{ border: '1px dashed var(--color-brand-slate)' }}
-          >
-            <Compass
-              size={64}
-              style={{ color: 'var(--color-brand-slate)', opacity: 0.4, marginBottom: '2rem' }}
-            />
-            <h2
-              style={{
-                fontFamily: 'var(--font-syne)',
-                fontSize: 'clamp(1.25rem, 3vw, 2rem)',
-                fontWeight: '700',
-                textTransform: 'uppercase',
-                color: 'var(--color-on-surface)',
-                marginBottom: '1rem',
-              }}
-            >
-              PORTFOLIO BEING COMPILED
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Typical survey applications</p>
+            <h2 className="section-heading">
+              A clearer brief.
+              <br />A more useful result.
             </h2>
-            <p
-              style={{
-                fontFamily: 'var(--font-jost)',
-                fontSize: '1rem',
-                lineHeight: '1.7',
-                color: 'var(--color-on-surface-variant)',
-                maxWidth: '560px',
-                marginBottom: '2rem',
-              }}
-            >
-              With thousands of surveys completed across every state, terrain, and project
-              type, this section will soon document our finest work in full detail.
-              Contact us to discuss projects similar to yours.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/contact" className="btn-primary">DISCUSS YOUR PROJECT →</Link>
-              <Link href="/services" className="btn-secondary">VIEW OUR SERVICES</Link>
-            </div>
           </div>
-        </RevealOnScroll>
+          <p className="lead">
+            These are illustrative survey scenarios, not published client case
+            studies. Client identities and confidential project records are kept
+            private.
+          </p>
+        </div>
+        <div
+          className="detail-grid"
+          style={{
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
+          }}
+        >
+          {applications.map(
+            ({ title, icon: Icon, sector, challenge, scope, output, href }) => (
+              <article className="detail-panel" key={title}>
+                <Icon size={30} />
+                <p className="eyebrow" style={{ marginTop: "1.5rem" }}>
+                  {sector} · Illustrative application
+                </p>
+                <h3 style={{ fontSize: "1.6rem" }}>{title}</h3>
+                <p>{challenge}</p>
+                <h4 style={{ marginTop: "1.5rem" }}>The survey brief</h4>
+                <p>{scope}</p>
+                <h4 style={{ marginTop: "1.5rem" }}>The handover</h4>
+                <p>{output}</p>
+                <Link href={href} className="text-link">
+                  Explore {sector.toLowerCase()} surveys{" "}
+                  <ArrowUpRight size={16} />
+                </Link>
+              </article>
+            ),
+          )}
+        </div>
       </section>
-    </>
-  )
+      <section className="cta-band">
+        <div className="section-wrap">
+          <p className="eyebrow">Your project is the starting point</p>
+          <h2 className="section-heading">Let’s discuss a site like yours.</h2>
+          <p>
+            Tell us the sector, location and intended use. We can discuss
+            relevant experience and the examples we’re able to share.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/quote" className="button button-lime">
+              Share your project brief <ArrowUpRight size={18} />
+            </Link>
+            <Link href="/services" className="button button-outline">
+              Explore survey services
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }

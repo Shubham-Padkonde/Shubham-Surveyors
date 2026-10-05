@@ -1,227 +1,377 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { motion, AnimatePresence } from 'framer-motion'
-import SectionLabel from '@/components/ui/SectionLabel'
-import { SITE } from '@/lib/constants'
-import { Phone, Mail, MapPin } from 'lucide-react'
-import type { ContactFormData } from '@/types'
-
-const schema = z.object({
-  name: z.string().min(2, 'Enter your name'),
-  phone: z.string().min(10, 'Enter valid phone'),
-  email: z.string().email('Enter valid email'),
-  service: z.string().min(1, 'Select a service'),
-  state: z.string().min(2, 'Enter your state'),
-  projectDetails: z.string().min(10, 'Describe your project'),
-})
-
-type FormSchema = z.infer<typeof schema>
+import { useId, useState } from "react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { SITE } from "@/lib/constants";
+import {
+  CONTACT_SERVICES,
+  contactSchema,
+  type ContactInput,
+} from "@/lib/contact-validation";
 
 export default function ContactSection() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const formId = useId();
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [message, setMessage] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactInput>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { website: "" },
+  });
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormSchema>({
-    resolver: zodResolver(schema),
-  })
+  const field = (name: keyof ContactInput) => ({
+    id: `${formId}-${name}`,
+    "aria-invalid": Boolean(errors[name]),
+    "aria-describedby": errors[name] ? `${formId}-${name}-error` : undefined,
+  });
+  const error = (name: keyof ContactInput) =>
+    errors[name] && (
+      <p id={`${formId}-${name}-error`} className="form-error">
+        {errors[name]?.message}
+      </p>
+    );
 
-  const onSubmit = async (data: ContactFormData) => {
-    setStatus('loading')
+  const onSubmit = async (data: ContactInput) => {
+    setStatus("loading");
+    setMessage("");
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      })
-      if (!res.ok) throw new Error()
-      setStatus('success')
-      reset()
-    } catch {
-      setStatus('error')
+      });
+      const body = await response.json().catch(() => null);
+      if (!response.ok || body?.success !== true) {
+        throw new Error(
+          typeof body?.error === "string"
+            ? body.error
+            : "Your enquiry could not be sent. Please call or WhatsApp our team.",
+        );
+      }
+      setStatus("success");
+      setMessage(
+        "Thank you. Your enquiry has been sent to our team. We’ll get back to you using the details you provided.",
+      );
+      reset();
+    } catch (err) {
+      setStatus("error");
+      setMessage(
+        err instanceof Error && err.message !== "Failed to fetch"
+          ? err.message
+          : "We could not confirm your enquiry was sent. Please check your connection, or call or WhatsApp our team.",
+      );
     }
-  }
+  };
 
   return (
     <section
-      style={{
-        backgroundColor: 'var(--color-brand-navy)',
-        borderTop: '1px solid transparent',
-        backgroundImage: 'linear-gradient(90deg, transparent, #B8860B, transparent)',
-        backgroundSize: '100% 1px',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'top',
-      }}
+      id="enquiry"
+      className="contact-section section-wrap"
+      aria-labelledby={`${formId}-heading`}
     >
-      <div
-        className="py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16"
-        style={{ paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        {/* Left */}
-        <div>
-          <SectionLabel index="§ 07" label="Get In Touch" dark />
+      <div className="page-shell contact-grid">
+        <div style={{ color: "#f5f4ee" }}>
+          <p className="eyebrow" style={{ color: "#d7ee9d" }}>
+            Let’s talk about your site
+          </p>
           <h2
+            id={`${formId}-heading`}
+            className="section-heading"
+            style={{ color: "#f5f4ee" }}
+          >
+            Every good project starts with clarity.
+          </h2>
+          <p
+            className="lead"
+            style={{ color: "#d5ded7", marginBottom: "2rem" }}
+          >
+            Tell us where your land is and what you need to achieve. Our Pune
+            and Lonavala teams will help define the right survey, scope and next
+            steps.
+          </p>
+          <div
+            style={{ display: "grid", gap: "1.25rem", marginBottom: "2rem" }}
+          >
+            <a
+              href={`tel:${SITE.phone.replace(/\s/g, "")}`}
+              className="flex items-center gap-3"
+              style={{ fontSize: "1.3rem", fontWeight: 600 }}
+            >
+              <Phone size={20} aria-hidden="true" />
+              {SITE.phone}
+            </a>
+            <a
+              href={`mailto:${SITE.email}`}
+              className="flex items-center gap-3"
+            >
+              <Mail size={20} aria-hidden="true" />
+              <span style={{ overflowWrap: "anywhere" }}>{SITE.email}</span>
+            </a>
+            <div className="flex items-start gap-3">
+              <MapPin
+                size={20}
+                aria-hidden="true"
+                style={{ flexShrink: 0, marginTop: 3 }}
+              />
+              <div>
+                <strong>Pune office</strong>
+                <p style={{ color: "#d5ded7", marginTop: ".35rem" }}>
+                  {SITE.address}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin
+                size={20}
+                aria-hidden="true"
+                style={{ flexShrink: 0, marginTop: 3 }}
+              />
+              <div>
+                <strong>Lonavala office</strong>
+                <p style={{ color: "#d5ded7", marginTop: ".35rem" }}>
+                  {SITE.addressLonavala}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent("Hello, I would like to discuss a survey for my project.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button button-lime"
+            >
+              Chat on WhatsApp <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            <a
+              href="https://share.google/jhxqVbuElVFH4Ocna"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button button-outline"
+              style={{ color: "#f5f4ee", borderColor: "#6e8175" }}
+            >
+              Find us on Google
+            </a>
+          </div>
+          <p
             style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-offwhite)',
-              marginBottom: '1rem',
+              color: "#d5ded7",
+              fontSize: ".875rem",
+              marginTop: "1.25rem",
             }}
           >
-            START YOUR SURVEY TODAY.
-          </h2>
-          <p style={{ fontFamily: 'var(--font-jost)', fontSize: '1rem', lineHeight: '1.7', color: 'var(--color-inverse-primary)', marginBottom: '2.5rem' }}>
-            Get a response within 4 business hours. Our team covers all 29 states.
-            We don&apos;t outsource — every survey is done by our certified field teams.
+            Prefer another number?{" "}
+            <a
+              href={`tel:${SITE.phoneAlt.replace(/\s/g, "")}`}
+              style={{ textDecoration: "underline" }}
+            >
+              {SITE.phoneAlt}
+            </a>
           </p>
-
-          {/* Contact methods */}
-          <div className="flex flex-col gap-4 mb-8">
-            {[
-              { icon: <Phone size={18} />, text: SITE.phone },
-              { icon: <Mail size={18} />, text: SITE.email },
-              { icon: <MapPin size={18} />, text: SITE.address },
-              { icon: <MapPin size={18} />, text: SITE.addressLonavala },
-            ].map(({ icon, text }) => (
-              <div
-                key={text}
-                className="flex items-center gap-5 px-5 py-4 transition-colors duration-200"
-                style={{
-                  border: '1px solid var(--color-brand-slate)',
-                  color: 'var(--color-inverse-primary)',
-                  fontFamily: 'var(--font-jost)',
-                  fontSize: '0.9rem',
-                }}
-              >
-                <span style={{ color: 'var(--color-brand-gold)', flexShrink: 0 }}>{icon}</span>
-                {text}
-              </div>
-            ))}
-          </div>
-
-          {/* WhatsApp CTA */}
-          <a
-            href={`https://wa.me/${SITE.whatsappNumber}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 w-full p-5 transition-all duration-200"
-            style={{ backgroundColor: '#25D366', color: 'var(--color-brand-navy)' }}
-            onMouseEnter={(e) => { e.currentTarget.style.filter = 'brightness(1.1)' }}
-            onMouseLeave={(e) => { e.currentTarget.style.filter = 'none' }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--color-brand-navy)">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            <span style={{ fontFamily: 'var(--font-syne)', fontSize: '1.1rem', fontWeight: '700', textTransform: 'uppercase' }}>
-              CHAT ON WHATSAPP NOW →
-            </span>
-          </a>
         </div>
 
-        {/* Right: form */}
-        <div style={{ backgroundColor: 'var(--color-brand-offwhite)', padding: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
-          <h3
+        <div
+          className="detail-panel"
+          style={{
+            background: "#fff",
+            color: "#15291f",
+            padding: "clamp(1.5rem, 3vw, 2.75rem)",
+          }}
+        >
+          <h3 style={{ fontSize: "1.65rem", marginBottom: ".5rem" }}>
+            Tell us about your project
+          </h3>
+          <p
             style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: '1.25rem',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '2rem',
+              color: "#58675e",
+              marginBottom: "1.75rem",
+              fontSize: ".9rem",
             }}
           >
-            SEND AN ENQUIRY
-          </h3>
-
-          <form onSubmit={handleSubmit(onSubmit as (data: FormSchema) => void)} className="flex flex-col gap-6">
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="contact-name" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>NAME *</label>
-                <input id="contact-name" {...register('name')} placeholder="Full Name" className="input-underline" />
-                {errors.name && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.name.message}</p>}
-              </div>
-              <div>
-                <label htmlFor="contact-phone" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>PHONE *</label>
-                <input id="contact-phone" {...register('phone')} type="tel" placeholder="+91 XXXXX XXXXX" className="input-underline" />
-                {errors.phone && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.phone.message}</p>}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="contact-email" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>EMAIL *</label>
-              <input id="contact-email" {...register('email')} type="email" placeholder="you@company.com" className="input-underline" />
-              {errors.email && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.email.message}</p>}
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="contact-service" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>SERVICE</label>
-                <select id="contact-service" {...register('service')} className="input-underline">
-                  <option value="">Select service</option>
-                  <option value="Boundary Survey">Boundary Survey</option>
-                  <option value="Topographic Survey">Topographic Survey</option>
-                  <option value="RTK DGPS">RTK DGPS</option>
-                  <option value="Highway Corridor">Highway Corridor</option>
-                  <option value="Layout / RERA">Layout / RERA</option>
-                  <option value="GIS Mapping">GIS Mapping</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="contact-state" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>STATE</label>
-                <input id="contact-state" {...register('state')} placeholder="e.g. Maharashtra" className="input-underline" />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="contact-details" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>PROJECT DETAILS *</label>
-              <textarea
-                id="contact-details"
-                {...register('projectDetails')}
-                rows={4}
-                placeholder="Describe your project, location, and survey requirements..."
-                className="input-underline resize-none"
-              />
-              {errors.projectDetails && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.projectDetails.message}</p>}
-            </div>
-
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="btn-primary w-full justify-center"
+            All fields are required. A location, approximate area and intended
+            use help us respond usefully.
+          </p>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            aria-busy={status === "loading"}
+          >
+            <fieldset
+              disabled={status === "loading"}
+              className="form-grid"
+              style={{ border: 0, padding: 0, minWidth: 0 }}
             >
-              {status === 'loading' ? 'SENDING...' : 'SEND ENQUIRY →'}
-            </button>
+              <legend className="sr-only">Survey enquiry details</legend>
+              <div className="form-field">
+                <label htmlFor={`${formId}-name`}>Full name</label>
+                <input
+                  {...register("name")}
+                  {...field("name")}
+                  className="form-control"
+                  autoComplete="name"
+                  maxLength={80}
+                  required
+                />
+                {error("name")}
+              </div>
+              <div className="form-field">
+                <label htmlFor={`${formId}-phone`}>Phone number</label>
+                <input
+                  {...register("phone")}
+                  {...field("phone")}
+                  type="tel"
+                  className="form-control"
+                  autoComplete="tel"
+                  placeholder="+91"
+                  maxLength={32}
+                  required
+                />
+                {error("phone")}
+              </div>
+              <div className="form-field" style={{ gridColumn: "1 / -1" }}>
+                <label htmlFor={`${formId}-email`}>Email address</label>
+                <input
+                  {...register("email")}
+                  {...field("email")}
+                  type="email"
+                  className="form-control"
+                  autoComplete="email"
+                  maxLength={254}
+                  required
+                />
+                {error("email")}
+              </div>
+              <div className="form-field">
+                <label htmlFor={`${formId}-service`}>Survey requirement</label>
+                <select
+                  {...register("service")}
+                  {...field("service")}
+                  className="form-control"
+                  defaultValue=""
+                  required
+                >
+                  <option value="" disabled>
+                    Choose a service
+                  </option>
+                  {CONTACT_SERVICES.map((service) => (
+                    <option key={service} value={service}>
+                      {service}
+                    </option>
+                  ))}
+                </select>
+                {error("service")}
+              </div>
+              <div className="form-field">
+                <label htmlFor={`${formId}-state`}>
+                  Project city / district
+                </label>
+                <input
+                  {...register("state")}
+                  {...field("state")}
+                  className="form-control"
+                  placeholder="e.g. Pune, Maharashtra"
+                  maxLength={120}
+                  required
+                />
+                {error("state")}
+              </div>
+              <div className="form-field" style={{ gridColumn: "1 / -1" }}>
+                <label htmlFor={`${formId}-projectDetails`}>
+                  Project details
+                </label>
+                <textarea
+                  {...register("projectDetails")}
+                  {...field("projectDetails")}
+                  className="form-control"
+                  rows={4}
+                  maxLength={3000}
+                  placeholder="Approximate area, purpose of the survey, and any timing or drawing requirements."
+                  required
+                />
+                {error("projectDetails")}
+              </div>
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  left: "-10000px",
+                  width: 1,
+                  height: 1,
+                  overflow: "hidden",
+                }}
+              >
+                <label htmlFor={`${formId}-website`}>
+                  Leave this field empty
+                </label>
+                <input
+                  {...register("website")}
+                  id={`${formId}-website`}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+              <p
+                style={{
+                  gridColumn: "1 / -1",
+                  fontSize: ".8rem",
+                  color: "#58675e",
+                }}
+              >
+                We’ll use these details to respond to your enquiry. Please avoid
+                sending confidential land records here. Read our{" "}
+                <Link
+                  href="/privacy-policy"
+                  style={{ textDecoration: "underline" }}
+                >
+                  privacy policy
+                </Link>
+                .
+              </p>
+              <button
+                type="submit"
+                className="button button-dark"
+                style={{ gridColumn: "1 / -1", width: "100%" }}
+                disabled={status === "loading"}
+              >
+                {status === "loading"
+                  ? "Sending your enquiry…"
+                  : "Send enquiry"}{" "}
+                <ArrowUpRight size={17} aria-hidden="true" />
+              </button>
+            </fieldset>
           </form>
-
-          <AnimatePresence>
-            {status === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-4 p-4 label-caps text-center"
-                style={{ backgroundColor: '#d1fae5', color: '#065f46', border: '1px solid #6ee7b7' }}
+          <div aria-live="polite" aria-atomic="true">
+            {message && (
+              <p
+                role={status === "error" ? "alert" : "status"}
+                style={{
+                  marginTop: "1rem",
+                  padding: "1rem",
+                  background: status === "error" ? "#fff0ee" : "#edf5dd",
+                  color: status === "error" ? "#9a3025" : "#234329",
+                }}
               >
-                ✓ Enquiry sent! We&apos;ll respond within 4 hours.
-              </motion.div>
+                {message}
+              </p>
             )}
-            {status === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-4 p-4 label-caps text-center"
-                style={{ backgroundColor: '#fee2e2', color: '#991b1b', border: '1px solid #fca5a5' }}
-              >
-                Something went wrong. Please call us directly.
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </div>
+          <noscript>
+            <p>
+              Please call, email or WhatsApp us to make an enquiry when
+              JavaScript is disabled.
+            </p>
+          </noscript>
         </div>
       </div>
     </section>
-  )
+  );
 }

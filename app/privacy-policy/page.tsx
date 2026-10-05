@@ -1,89 +1,95 @@
-import type { Metadata } from 'next'
-import Breadcrumb from '@/components/ui/Breadcrumb'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
-import { SITE } from '@/lib/constants'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'How Shubham Surveyors collects, uses, and protects information shared through our website and services.',
+  title: "Privacy policy",
+  description:
+    "How Shubham Surveyors uses information shared through website enquiries and survey project conversations.",
   alternates: { canonical: `${SITE.url}/privacy-policy` },
-}
+};
 
 const sections = [
   {
-    heading: 'Information We Collect',
-    body: 'When you request a quote, contact us, or use our client portal, we collect information you provide directly — such as your name, phone number, email address, project location, and survey requirements. We do not collect sensitive personal information beyond what is necessary to deliver our services.',
+    heading: "Information you share",
+    body: "Our enquiry form asks for your name, phone number, email address, project location, survey requirement and project details. We use these details to respond to your enquiry and discuss the requested work. Please share only the information needed for this initial conversation.",
   },
   {
-    heading: 'How We Use Your Information',
-    body: 'We use the information you provide to respond to quote requests, schedule site visits, prepare survey reports, and communicate project updates. We do not sell or rent your personal information to third parties.',
+    heading: "The survey cost calculator",
+    body: "The calculator does not ask for your name, phone number or email address. It calculates the estimate in your browser. It does not submit an enquiry automatically. If you choose to discuss an estimate on WhatsApp, the survey details are included in a message for you to review and send.",
   },
   {
-    heading: 'Data Security',
-    body: 'Survey data, land records, and client documents are stored securely and access is restricted to personnel directly involved in your project. Our client portal uses authenticated access to protect project documents.',
+    heading: "How enquiries are handled",
+    body: "Website enquiries are sent to our team through our email provider. Information you provide may be used to clarify requirements, arrange a site visit, prepare a quotation and communicate about your project. We do not sell or rent personal information.",
   },
   {
-    heading: 'Third-Party Services',
-    body: 'Our website may use third-party analytics and communication tools (such as WhatsApp Business) to help us respond to inquiries efficiently. These services operate under their own privacy policies.',
+    heading: "Website and third-party services",
+    body: "Our hosting provider may process technical information, such as IP addresses and request logs, to operate and protect the website. Links to WhatsApp, Google and other external services open those services, which have their own privacy policies. Please review their policies when using them.",
   },
   {
-    heading: 'Your Rights',
-    body: 'You may request access to, correction of, or deletion of personal information we hold about you by contacting us directly using the details below.',
+    heading: "Project information and retention",
+    body: "Enquiry and project information is retained as needed to respond to your request, manage the project and meet applicable record-keeping requirements. Client names and confidential project documents are not published on this website. Contact us to arrange an appropriate way to share documents needed for your survey.",
   },
   {
-    heading: 'Contact Us',
-    body: `For any privacy-related questions, reach us at ${SITE.email} or ${SITE.phone}.`,
+    heading: "Questions, corrections or deletion requests",
+    body: "You can contact us to ask about information you have shared, correct inaccurate details or request deletion. We will review the request and explain any information we need to retain for an ongoing project or applicable requirements.",
   },
-]
+];
 
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <Breadcrumb items={[{ name: 'Privacy Policy', href: '/privacy-policy' }]} />
-      <section
-        className="pt-40 pb-24"
-        style={{ backgroundColor: 'var(--color-surface)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <RevealOnScroll className="max-w-2xl">
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 5vw, 3rem)',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '1rem',
-            }}
-          >
-            Privacy Policy
-          </h1>
-          <p style={{ fontFamily: 'var(--font-jost)', fontSize: '0.9rem', color: 'var(--color-on-surface-variant)', marginBottom: '3rem' }}>
-            Last updated: June 2026
+      <section className="page-hero">
+        <div className="page-shell">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Privacy policy</span>
+          </nav>
+          <p className="eyebrow">Your information</p>
+          <h1>Privacy policy</h1>
+          <p className="lead">
+            A clear explanation of how this website handles your enquiries.
           </p>
-
-          {sections.map((section) => (
-            <div key={section.heading} className="mb-10">
-              <h2
-                style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontSize: '1.1rem',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-on-surface)',
-                  marginBottom: '0.75rem',
-                  borderBottom: '1px solid var(--color-outline-variant)',
-                  paddingBottom: '0.5rem',
-                }}
+        </div>
+      </section>
+      <section className="section-wrap">
+        <div className="page-shell">
+          <div style={{ maxWidth: 800 }}>
+            <p style={{ color: "#58675e", marginBottom: "2rem" }}>
+              Last updated: 5 October 2026
+            </p>
+            {sections.map(({ heading, body }) => (
+              <section key={heading} style={{ marginBottom: "2.5rem" }}>
+                <h2 style={{ fontSize: "1.4rem", marginBottom: ".75rem" }}>
+                  {heading}
+                </h2>
+                <p style={{ color: "#58675e", lineHeight: 1.8 }}>{body}</p>
+              </section>
+            ))}
+            <h2 style={{ fontSize: "1.4rem", marginBottom: ".75rem" }}>
+              Contact Shubham Surveyors
+            </h2>
+            <p>
+              Email{" "}
+              <a className="text-link" href={`mailto:${SITE.email}`}>
+                {SITE.email}
+              </a>{" "}
+              or call{" "}
+              <a
+                className="text-link"
+                href={`tel:${SITE.phone.replace(/\s/g, "")}`}
               >
-                {section.heading}
-              </h2>
-              <p style={{ fontFamily: 'var(--font-jost)', fontSize: '1rem', lineHeight: '1.8', color: 'var(--color-on-surface-variant)' }}>
-                {section.body}
-              </p>
-            </div>
-          ))}
-        </RevealOnScroll>
+                {SITE.phone}
+              </a>
+              .
+            </p>
+            <p style={{ marginTop: "1rem", color: "#58675e" }}>
+              {SITE.address}
+            </p>
+          </div>
+        </div>
       </section>
     </>
-  )
+  );
 }
