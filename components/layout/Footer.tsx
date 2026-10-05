@@ -46,7 +46,7 @@ export default function Footer() {
             on solid ground.
           </h2>
         </div>
-        <Link href="/quote" className="button button-lime">
+        <Link href="/quote" prefetch={false} className="button button-lime">
           Talk to a surveyor <ArrowUpRight size={20} aria-hidden="true" />
         </Link>
       </div>
@@ -79,7 +79,12 @@ export default function Footer() {
             <ul>
               {column.links.map(([label, href]) => (
                 <li key={href}>
-                  <Link href={href}>{label}</Link>
+                  <Link
+                    href={href}
+                    prefetch={href === "/quote" ? false : undefined}
+                  >
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
