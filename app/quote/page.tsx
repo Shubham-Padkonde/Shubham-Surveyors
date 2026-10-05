@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import CostEstimator from "@/components/sections/CostEstimator";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Land survey cost calculator & quotation",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     "Estimate land survey costs in India for boundary, Total Station, RTK DGPS, highway and GIS surveys. No contact details required. Request a tailored quotation.",
   alternates: { canonical: `${SITE.url}/quote` },
   openGraph: {
+    images: SOCIAL_IMAGES,
     title: "Plan your land survey budget",
     description:
       "An indicative survey cost calculator from Shubham Surveyors. Calculate privately, then discuss your scope with our team.",
@@ -59,8 +61,9 @@ export default function QuotePage() {
                 <span>A clearer budget.</span>
               </h1>
               <p className="lead">
-                Put a starting figure to your next survey. Explore an indicative
-                cost in a few simple steps, then shape the scope with our team.
+                Put a starting figure to your next survey, wherever your site is
+                in India. Explore an indicative cost, then shape the scope with
+                our team.
               </p>
               <div className="conversion-hero-actions">
                 <a href="#estimate" className="button button-lime">

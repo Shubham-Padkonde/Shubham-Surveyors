@@ -363,9 +363,9 @@ export const SERVICE_DETAILS: SurveyService[] = [
           "A surface survey can record visible utility features. Buried-utility detection or verification must be explicitly scoped and should not be assumed from a corridor drawing.",
       },
       {
-        question: "Can you survey outside Maharashtra?",
+        question: "Can you support infrastructure projects across India?",
         answer:
-          "We review infrastructure enquiries across India. Availability and mobilisation depend on the location, route length, specification and programme.",
+          "Yes. We plan the survey around the corridor location, route length, specification and programme. Field access, travel, mobilisation and deliverables are confirmed in the project scope.",
       },
     ],
     related: ["dgps-survey", "topographic-survey", "gis-mapping"],

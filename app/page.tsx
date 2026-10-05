@@ -1,427 +1,397 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  ArrowRight,
-  MapPinned,
-  Mountain,
-  Satellite,
-  ScanLine,
-  Route,
-  Map,
-  Plus,
-  Crosshair,
-} from "lucide-react";
+import { ArrowUpRight, Crosshair } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
+import BrandMark from "@/components/brand/BrandMark";
+import HeroVideo from "@/components/sections/HeroVideo";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Land Surveyors in Pune & Maharashtra | Shubham Surveyors",
+    absolute: "Land Surveyors in India | DGPS & Mapping | Shubham Surveyors",
   },
   description:
-    "Land surveyors in Pune and Lonavala since 1994. Expert DGPS, Total Station, boundary and topographic surveys across Maharashtra and India. Get a project quote.",
+    "Land surveying and geospatial services across India since 1994. DGPS, topographic, boundary, engineering and GIS surveys. Discuss your site with Shubham Surveyors.",
   alternates: { canonical: SITE.url },
   openGraph: {
+    images: SOCIAL_IMAGES,
     url: SITE.url,
-    title: "Shubham Surveyors | Clarity on the ground.",
+    title: "Shubham Surveyors | Know the land. See what’s possible.",
     description:
-      "Land surveying in Pune, Maharashtra and across India. 30+ years of field experience. Start your project with the right survey.",
+      "Precise land surveys and geospatial insight for projects across India. On the ground since 1994.",
   },
 };
+
 const services = [
   {
-    icon: MapPinned,
-    name: "Boundary & land",
-    description:
-      "Understand your land. Map boundaries, site features and area with a clear survey plan.",
+    title: "Land & boundary surveys",
     href: "boundary-survey",
-    label: "LANDOWNERS & DEVELOPERS",
+    body: "Understand site extent, physical boundary features and land area against the available records. A clear starting point for your plans.",
   },
   {
-    icon: Mountain,
-    name: "Topographic & contour",
-    description:
-      "See the shape of your site. Levels, contours and features for better design decisions.",
+    title: "Topographic & contour surveys",
     href: "topographic-survey",
-    label: "ARCHITECTS & PLANNERS",
+    body: "Levels, contours and existing features translated into useful terrain information for architects, engineers and planning teams.",
   },
   {
-    icon: Satellite,
-    name: "DGPS & control",
-    description:
-      "Connect your project to a reliable coordinate framework with satellite-based surveying.",
+    title: "DGPS & survey control",
     href: "dgps-survey",
-    label: "ENGINEERING & INFRASTRUCTURE",
+    body: "Satellite-based positioning and control measurements, scoped around the coordinate framework and accuracy your project requires.",
   },
   {
-    icon: ScanLine,
-    name: "Total Station",
-    description:
-      "Detailed site measurements and construction setting out, aligned to your project brief.",
+    title: "Total Station & setting out",
     href: "total-station-survey",
-    label: "BUILDERS & CONTRACTORS",
+    body: "Detailed site measurements and construction setting out that connect your design to positions and levels on the ground.",
   },
   {
-    icon: Route,
-    name: "Highways & corridors",
-    description:
-      "Alignment, longitudinal profiles and cross-sections for roads and linear infrastructure.",
+    title: "Highways & infrastructure",
     href: "highway-survey",
-    label: "INFRASTRUCTURE TEAMS",
+    body: "Alignment surveys, longitudinal profiles and cross-sections for roads, corridors and linear infrastructure.",
   },
   {
-    icon: Map,
-    name: "GIS & digital mapping",
-    description:
-      "Turn field observations into organised spatial data your project team can use.",
+    title: "GIS & digital mapping",
     href: "gis-mapping",
-    label: "PLANNING & ASSET MANAGEMENT",
+    body: "Organised spatial information that makes field data easier to understand, manage and use across your project.",
   },
 ];
 const faqs = [
   [
-    "Which survey do I need for my land?",
-    "For site levels and design, a topographic survey is usually the starting point. For land extents, discuss a boundary survey. For construction coordinates and setting out, Total Station and DGPS methods may be combined. Share your site location and objective and we will help define the scope.",
+    "Do you carry out surveys across India?",
+    "Yes. Shubham Surveyors has worked on projects across India. Share your site location, area and objectives so we can confirm the survey method, field-team availability, travel and schedule for your project.",
   ],
   [
-    "Do you work outside Pune?",
-    "Yes. Our bases are in Pune and Lonavala, with surveying services across Maharashtra and projects across India. We confirm field-team availability, travel and the proposed schedule when we review your enquiry.",
-  ],
-  [
-    "What does a land survey cost?",
-    "Cost depends on the survey type, area, terrain, access, control requirements and deliverables. Our estimator gives an indicative range; your written project quotation confirms the final scope and price.",
+    "Which type of survey does my project need?",
+    "Topographic surveys help with levels and design, boundary surveys document site extents and relevant features, and DGPS and Total Station methods support survey control and detailed measurement. We help define the right scope after understanding your site and purpose.",
   ],
   [
     "What will I receive after the survey?",
-    "The agreed scope may include a survey plan, coordinate and level data, area calculations, contour drawings, CAD files or GIS layers. File formats, reference system and drawing requirements are agreed before fieldwork.",
+    "Your agreed scope may include survey drawings, coordinate and level data, area calculations, contours, CAD files or GIS layers. We confirm deliverables, formats and the reference system before fieldwork begins.",
   ],
   [
-    "Can a private survey replace government Mojani?",
-    "A private survey can support your understanding of the site and document preparation. Official land measurement and revenue-record decisions follow the relevant government process. We can help you understand the distinction and prepare for Maharashtra Mojani.",
+    "How is the survey cost calculated?",
+    "The survey type, area, terrain, access, control requirements, travel and deliverables all affect the price. Our cost estimator provides an indicative range. A written quotation confirms the scope and final price.",
+  ],
+  [
+    "What should I share before requesting a survey?",
+    "Start with the site location, approximate area, your project objective and any available plans or land records. We will clarify access and the additional information needed to prepare a useful survey brief.",
   ],
 ];
+
 export default function HomePage() {
+  const poster = "/images/grove-film-poster.avif";
   return (
-    <>
-      <section className="editorial-hero">
-        <div className="editorial-hero-image">
-          <Image src="/images/terrain-editorial.webp" alt="Illustrative aerial landscape of mountain ridges, fields and a reservoir" fill preload sizes="100vw" />
+    <div className="grove-home">
+      <section className="grove-hero" aria-labelledby="grove-title">
+        <div className="grove-hero-still">
+          <Image
+            src={poster}
+            alt="Illustrative aerial landscape of green fields and woodland"
+            fill
+            preload
+            unoptimized
+            sizes="100vw"
+          />
         </div>
-        <div className="editorial-hero-overlay" />
-        <div className="editorial-hero-content">
-          <p className="eyebrow">
-            <span className="hero-line" /> LAND SURVEYING & GEOSPATIAL · SINCE 1994
-          </p>
-          <h1>
-            A clearer view.<br />
-            <span>A stronger</span><br />
-            foundation.
-          </h1>
-          <p className="hero-description">
-            We turn the complexity of the land into the confidence to move forward.
-            Precise surveys. Practical insight. Possibilities, mapped.
-          </p>
-          <div className="hero-actions">
-            <Link href="/quote" prefetch={false} className="button button-cobalt">
-              Start your project <ArrowUpRight size={19} aria-hidden="true" />
-            </Link>
-            <Link href="/services" className="hero-secondary">
-              Explore our expertise <ArrowUpRight size={19} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-        <div className="hero-field-marker" aria-hidden="true"><Crosshair size={44} strokeWidth={.7} /><span>THE BIG PICTURE.<br />DOWN TO THE LAST DETAIL.</span></div>
-        <div className="editorial-hero-bottom">
-          <span><span className="live-dot" /> PUNE & LONAVALA <span className="hero-slash">/</span> SERVING INDIA</span>
-          <span className="hero-image-credit">AI-generated landscape illustration</span>
-          <a href="#services" aria-label="Explore below: our expertise">EXPLORE BELOW <span aria-hidden="true">↓</span></a>
-        </div>
-      </section>
-      <section className="trust-strip" aria-label="Our experience">
-        <div>
-          <strong>
-            1994<span>↗</span>
-          </strong>
-          <span>Our foundation</span>
-        </div>
-        <div>
-          <strong>30+</strong>
-          <span>Years on the ground</span>
-        </div>
-        <div>
-          <strong>5,000+</strong>
-          <span>Surveys. Real-world insight.</span>
-        </div>
-        <div className="trust-statement">
-          <span>
-            Good decisions start
-            <br />
-            with <strong>good ground data.</strong>
-          </span>
-          <Link href="/about" aria-label="Discover our surveying approach">
-            <ArrowUpRight size={30} aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-      <section className="section-wrap services-section" id="services">
-        <div className="section-head">
+        <HeroVideo poster={poster} />
+        <div className="grove-hero-shade" />
+        <div className="grove-hero-content">
           <div>
-            <p className="eyebrow">01 / Our expertise</p>
-            <h2 className="section-heading">
-              Precision is the start.
-              <br />
-              <span>Possibility is the point.</span>
-            </h2>
-          </div>
-          <div>
-            <p>
-              Know what’s there before you decide what comes next. We turn
-              complex ground conditions into practical information.
+            <p className="grove-eyebrow">
+              <span /> Land & geospatial surveying · Since 1994
             </p>
-            <Link href="/services" className="text-link">
-              View all services <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-        <div className="expertise-index">
-          {services.map((service, i) => (
-            <Link
-              className="expertise-row"
-              href={`/services/${service.href}`}
-              key={service.href}
-            >
-              <span className="expertise-number">0{i + 1}</span>
-              <div className="expertise-title"><service.icon size={27} strokeWidth={1.2} aria-hidden="true" /><h3>{service.name}</h3></div>
-              <p>{service.description}</p>
-              <span className="expertise-arrow"><ArrowUpRight size={24} aria-hidden="true" /></span>
-            </Link>
-          ))}
-        </div>
-        <div className="service-footnote">
-          <span>Need help with land measurement in Maharashtra?</span>
-          <Link href="/services/mojani-support" className="text-link">
-            Explore Mojani support <ArrowRight size={17} aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-      <section className="approach-section field-approach">
-        <figure className="field-photo">
-          <Image src="/images/survey-editorial.webp" alt="Illustrative Total Station instrument set up on a tripod in open terrain" fill sizes="(max-width: 800px) 100vw, 50vw" />
-          <div className="field-photo-label"><span>01 / ON THE GROUND</span><Crosshair size={34} strokeWidth={1} /></div>
-          <figcaption>AI-generated illustration · not a client project</figcaption>
-        </figure>
-        <div className="approach-copy">
-          <p className="eyebrow">02 / From field to finished plan</p>
-          <h2 className="section-heading">
-            Technology measures.
-            <br /><span>Experience understands.</span>
-          </h2>
-          <p className="lead">
-            A survey is more than a drawing. It’s the starting point for
-            everything you’re planning to build.
-          </p>
-          <div className="process-list">
-            {[
-              [
-                "01",
-                "Understand the brief",
-                "Your site, your objective and the information your team needs.",
-              ],
-              [
-                "02",
-                "Measure & verify",
-                "Fieldwork using methods suited to the terrain, control and required accuracy.",
-              ],
-              [
-                "03",
-                "Make the data useful",
-                "Checked plans and digital deliverables, with a clear handover.",
-              ],
-            ].map(([n, title, body]) => (
-              <div key={n}>
-                <span>{n}</span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <Link href="/about" className="text-link">
-            Get to know our approach{" "}
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-      <section className="section-wrap sectors-section">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">03 / Built around your project</p>
-            <h2 className="section-heading">
-              Different challenges.
+            <h1 id="grove-title">
+              Know the land.
               <br />
-              <span>The same commitment.</span>
-            </h2>
+              See what’s <em>possible.</em>
+            </h1>
           </div>
-          <Link href="/industries" className="text-link">
-            Explore industries <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="sector-list">
-          {[
-            [
-              "01",
-              "Real estate & construction",
-              "From development planning to setting out.",
-              "real-estate",
-            ],
-            [
-              "02",
-              "Infrastructure & highways",
-              "Ground data for projects that connect us.",
-              "infrastructure",
-            ],
-            [
-              "03",
-              "Landowners & agriculture",
-              "Understand the land you own and manage.",
-              "agriculture",
-            ],
-            [
-              "04",
-              "Mining, utilities & urban planning",
-              "Survey information for complex environments.",
-              "mining",
-            ],
-          ].map(([n, title, body, slug]) => (
-            <Link href={`/industries/${slug}`} key={n}>
-              <span>{n}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
-              <ArrowUpRight size={24} aria-hidden="true" />
-            </Link>
-          ))}
-        </div>
-      </section>
-      <section className="local-section">
-        <div>
-          <p className="eyebrow">04 / Local knowledge. Wider reach.</p>
-          <h2 className="section-heading">
-            Rooted in Maharashtra.
-            <br />
-            <span>Ready for your next site.</span>
-          </h2>
-          <p>
-            Our story began in 1994. Today, our Pune and Lonavala teams support
-            landowners, architects, developers and engineering teams across
-            India.
-          </p>
-          <div className="hero-actions">
-            <Link href="/land-surveyors-pune" className="button button-lime">
-              Surveyors in Pune <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
-            <Link href="/locations" className="text-link">
-              Explore our coverage <ArrowRight size={18} aria-hidden="true" />
+          <div className="grove-hero-aside">
+            <p>
+              Land surveys, DGPS and spatial insight for projects across India.
+              A clear foundation for whatever comes next.
+            </p>
+            <Link href="/contact" prefetch={false} className="grove-line-link">
+              Discuss your land <ArrowUpRight size={25} aria-hidden="true" />
             </Link>
           </div>
         </div>
-        <div className="location-cards">
-          <Link href="/land-surveyors-pune">
-            <span className="eyebrow">PUNE / OUR BASE</span>
-            <h3>Pune</h3>
-            <p>Ambegaon (Bk), Pune 411046</p>
-            <ArrowUpRight size={21} aria-hidden="true" />
-          </Link>
-          <Link href="/locations/maharashtra">
-            <span className="eyebrow">LONAVALA / LOCAL EXPERTISE</span>
-            <h3>Lonavala</h3>
-            <p>Siddharth Nagar, Lonavala 410401</p>
-            <ArrowUpRight size={21} aria-hidden="true" />
-          </Link>
-          <a
-            href={SITE.googleBusinessUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="google-link"
-          >
-            Find our business on Google{" "}
-            <ArrowUpRight size={17} aria-hidden="true" />
+        <div className="grove-hero-bottom">
+          <span>Serving projects across India</span>
+          <span className="grove-media-credit">
+            Illustrative landscape imagery
+          </span>
+          <a href="#perspective" aria-label="Explore below: our perspective">
+            Explore below ↓
           </a>
         </div>
       </section>
-      <section className="section-wrap insights-section">
-        <div className="section-head">
+
+      <section className="grove-intro grove-pad" id="perspective">
+        <div className="grove-intro-label">
+          <p className="grove-eyebrow">An experienced perspective</p>
+          <BrandMark size={45} />
+        </div>
+        <div>
+          <h2>
+            Every great project begins with the land.
+            <br />
+            <em>And a clear understanding of it.</em>
+          </h2>
+          <div className="grove-intro-bottom">
+            <p>
+              From individual plots to infrastructure across India, we bring
+              field experience, precise measurement and practical insight to the
+              decisions that shape your project.
+            </p>
+            <div className="grove-stat">
+              <strong>30+</strong>
+              <span>Years in the field</span>
+            </div>
+            <div className="grove-stat">
+              <strong>5,000+</strong>
+              <span>Projects delivered</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="grove-services grove-pad"
+        id="expertise"
+        aria-labelledby="expertise-title"
+      >
+        <figure className="grove-equipment">
+          <Image
+            src="/images/dgps-grove.webp"
+            alt="Illustrative DGPS GNSS rover receiver on a survey pole in open terrain"
+            fill
+            sizes="(max-width: 760px) 100vw, 43vw"
+          />
+          <figcaption>
+            <span>DGPS / SATELLITE POSITIONING</span>
+            <span>Concept imagery</span>
+          </figcaption>
+          <Crosshair
+            className="grove-photo-mark"
+            size={35}
+            strokeWidth={0.8}
+            aria-hidden="true"
+          />
+        </figure>
+        <div className="grove-services-copy">
+          <p className="grove-eyebrow">Our expertise</p>
+          <h2 id="expertise-title">
+            The right measure.
+            <br />
+            <em>For your next move.</em>
+          </h2>
+          <div className="grove-service-list">
+            {services.map((service, index) => (
+              <details key={service.href} open={index === 0}>
+                <summary>
+                  <small>0{index + 1}</small>
+                  <span>{service.title}</span>
+                  <span className="grove-plus" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <div className="grove-service-detail">
+                  <p>{service.body}</p>
+                  <Link href={`/services/${service.href}`}>
+                    Explore {service.title.toLowerCase()}{" "}
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </Link>
+                </div>
+              </details>
+            ))}
+          </div>
+          <Link href="/services" className="grove-services-all">
+            Explore all survey services{" "}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
+      <section className="grove-approach grove-pad" id="approach">
+        <div className="grove-approach-top">
           <div>
-            <p className="eyebrow">05 / Field notes</p>
-            <h2 className="section-heading">
-              A little knowledge.
+            <p className="grove-eyebrow">From field to finished plan</p>
+            <h2>
+              Care in the process.
               <br />
-              <span>A stronger start.</span>
+              <em>Confidence in the outcome.</em>
             </h2>
           </div>
-          <Link href="/knowledge" className="text-link">
+          <p>
+            The tools matter. So do the people interpreting what they measure.
+          </p>
+        </div>
+        <div className="grove-steps">
+          {[
+            [
+              "01",
+              "Understand the brief",
+              "Your location, your purpose and the information your team needs. A clear scope before the first measurement.",
+            ],
+            [
+              "02",
+              "Measure & verify",
+              "Field methods matched to the terrain, control requirements and agreed accuracy. Observations checked with care.",
+            ],
+            [
+              "03",
+              "Make the data useful",
+              "Survey plans and digital deliverables your architect, engineer or project team can use, with a clear handover.",
+            ],
+          ].map(([number, title, body]) => (
+            <article key={number}>
+              <span>{number} /</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+        <Link href="/about" className="grove-line-link">
+          Get to know our practice <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+      </section>
+
+      <section className="grove-reach grove-pad" aria-labelledby="reach-title">
+        <div>
+          <p className="grove-eyebrow">One practice. A wider perspective.</p>
+          <h2 id="reach-title">
+            Across India.
+            <br />
+            <em>Close to the detail.</em>
+          </h2>
+          <p>
+            We have worked across India, supporting landowners, architects,
+            developers and engineering teams. Every landscape is different. Our
+            commitment to understanding it remains the same.
+          </p>
+          <Link href="/locations" className="grove-line-link">
+            Explore our national coverage{" "}
+            <ArrowUpRight size={20} aria-hidden="true" />
+          </Link>
+        </div>
+        <figure>
+          <Image
+            src="/images/grove-aerial.webp"
+            alt="Illustrative aerial view of agricultural land parcels and undulating terrain"
+            fill
+            sizes="(max-width: 760px) 100vw, 50vw"
+          />
+          <figcaption>Concept imagery · not a client project</figcaption>
+        </figure>
+      </section>
+
+      <section className="grove-sectors grove-pad">
+        <div className="grove-section-head">
+          <p className="grove-eyebrow">Built around your project</p>
+          <h2>
+            Different ambitions.
+            <br />
+            <em>The same attention.</em>
+          </h2>
+        </div>
+        <div className="grove-sector-list">
+          {[
+            [
+              "Real estate & construction",
+              "real-estate",
+              "From a first feasibility study to the detail of setting out.",
+            ],
+            [
+              "Infrastructure & highways",
+              "infrastructure",
+              "Ground information for the connections that move India.",
+            ],
+            [
+              "Landowners & agriculture",
+              "agriculture",
+              "A clearer understanding of the land you own and manage.",
+            ],
+            [
+              "Mining, utilities & urban planning",
+              "mining",
+              "Survey insight for complex sites and changing landscapes.",
+            ],
+          ].map(([title, href, description], index) => (
+            <Link key={href} href={`/industries/${href}`}>
+              <span>0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <ArrowUpRight size={23} strokeWidth={1} aria-hidden="true" />
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="grove-journal grove-pad">
+        <div className="grove-section-head">
+          <p className="grove-eyebrow">Notes from the practice</p>
+          <h2>
+            A more informed
+            <br />
+            <em>place to begin.</em>
+          </h2>
+          <Link href="/knowledge" className="grove-line-link">
             All survey guides <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </div>
-        <div className="insight-grid">
+        <div className="grove-journal-grid">
           {[
             [
-              "BEFORE YOU BEGIN",
+              "Before you begin",
               "How to prepare for your land survey",
-              "A practical checklist for site access, documents and the information to share with your surveyor.",
+              "A practical checklist for your site, available documents and project brief.",
               "survey-preparation",
             ],
             [
-              "METHODS EXPLAINED",
+              "Methods explained",
               "Total Station or DGPS?",
-              "Understand the strengths of each method and why your project may benefit from both.",
+              "The strengths of each method, and why your project may benefit from both.",
               "total-station-vs-dgps",
             ],
             [
-              "MAHARASHTRA LAND RECORDS",
-              "Understanding the Mojani process",
-              "Official land measurement, application preparation and where a private survey can help.",
-              "mojani-process",
+              "For landowners",
+              "A first step for a boundary enquiry",
+              "Gather the records and understand what a measured plan can tell you.",
+              "boundary-disputes",
             ],
-          ].map(([tag, title, body, slug], i) => (
-            <Link
-              href={`/knowledge/${slug}`}
-              className="insight-card"
-              key={slug}
-            >
-              <div className={`insight-art art-${i + 1}`} aria-hidden="true">
-                <span>0{i + 1}</span>
-                <Plus size={60} strokeWidth={0.65} />
+          ].map(([tag, title, body, slug], index) => (
+            <Link href={`/knowledge/${slug}`} key={slug}>
+              <div
+                className={`grove-journal-art grove-journal-art-${index + 1}`}
+                aria-hidden="true"
+              >
+                <BrandMark size={110} />
+                <span>0{index + 1}</span>
               </div>
-              <span className="eyebrow">{tag}</span>
+              <p className="grove-eyebrow">{tag}</p>
               <h3>{title}</h3>
               <p>{body}</p>
-              <span className="text-link">
+              <span className="grove-journal-link">
                 Read the guide <ArrowUpRight size={16} aria-hidden="true" />
               </span>
             </Link>
           ))}
         </div>
       </section>
-      <section className="section-wrap home-faq">
+
+      <section className="grove-faq grove-pad">
         <div>
-          <p className="eyebrow">Good questions. Clear answers.</p>
-          <h2 className="section-heading">
-            Let’s make
+          <p className="grove-eyebrow">A little clarity</p>
+          <h2>
+            Good questions.
             <br />
-            <span>things clear.</span>
+            <em>Clear answers.</em>
           </h2>
-          <p>
-            Not sure where to start?
-            <br />A conversation is a good first step.
-          </p>
-          <a
-            href={`tel:${SITE.phone.replace(/\s/g, "")}`}
-            className="text-link"
-          >
-            Call {SITE.phone} <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          <p>Your project is unique. A conversation is a good first step.</p>
+          <Link href="/contact" prefetch={false} className="grove-line-link">
+            Talk to our team <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
         </div>
         <div className="faq-list">
           {faqs.map(([question, answer]) => (
@@ -432,6 +402,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

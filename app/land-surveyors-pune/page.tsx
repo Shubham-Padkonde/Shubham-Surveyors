@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 import { SERVICE_DETAILS } from "@/lib/services";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     "Pune-based Shubham Surveyors, established in 1994. Boundary, topographic, DGPS and Total Station surveys with clear scopes, CAD plans and site measurements.",
   alternates: { canonical: `${SITE.url}/land-surveyors-pune` },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,

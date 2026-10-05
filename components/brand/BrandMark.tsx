@@ -5,7 +5,7 @@ interface BrandMarkProps {
   title?: string;
 }
 
-/** An angular parcel trace forms the S; the detached square is its control point. */
+/** A survey control point sits within a parcel and its terrain contours. */
 export default function BrandMark({
   size = 44,
   color = "currentColor",
@@ -15,7 +15,7 @@ export default function BrandMark({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 80 80"
+      viewBox="0 0 64 64"
       width={size}
       height={size}
       fill="none"
@@ -26,9 +26,11 @@ export default function BrandMark({
       focusable="false"
     >
       {title && <title>{title}</title>}
-      <g fill={color} transform="translate(-4 2)">
-        <path d="M62 10H30L10 30V40H44L36 48H10V66H44L66 44V30H32L40 22H62V10Z" />
-        <path d="M66 10H78V22H66V10Z" />
+      <g stroke={color} strokeWidth="1.25" strokeLinejoin="round">
+        <path d="M32 3 59 18v29L32 62 5 47V18L32 3Z" />
+        <path d="M32 3v59M5 18l27 15 27-15M5 47l27-14 27 14" opacity=".65" />
+        <path d="M5 39c8-10 14 8 24-1s19-10 30-7M5 46c8-10 14 8 24-1s19-10 30-7" />
+        <circle cx="32" cy="32" r="6" />
       </g>
     </svg>
   );

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 import { SERVICE_DETAILS, getSurveyService } from "@/lib/services";
 
 interface Props {
@@ -17,13 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = getSurveyService(slug);
   if (!service) notFound();
-  const title = `${service.shortTitle} in Pune & Maharashtra`;
+  const title = `${service.shortTitle} in ${service.slug === "mojani-support" ? "Maharashtra" : "India"}`;
   const url = `${SITE.url}/services/${service.slug}`;
   return {
     title,
     description: service.description,
     alternates: { canonical: url },
     openGraph: {
+      images: SOCIAL_IMAGES,
       title: `${title} | ${SITE.name}`,
       description: service.description,
       url,
@@ -50,7 +52,10 @@ export default async function ServicePage({ params }: Props) {
         description: service.description,
         url,
         provider: { "@id": `${SITE.url}/#organization` },
-        areaServed: { "@type": "State", name: "Maharashtra" },
+        areaServed:
+          service.slug === "mojani-support"
+            ? { "@type": "State", name: "Maharashtra" }
+            : { "@type": "Country", name: "India" },
       },
       {
         "@type": "BreadcrumbList",
@@ -108,7 +113,9 @@ export default async function ServicePage({ params }: Props) {
               </li>
             </ol>
           </nav>
-          <p className="eyebrow">{service.number} / Survey services</p>
+          <p className="eyebrow">
+            {service.number} / {service.slug === "mojani-support" ? "Maharashtra land-records support" : "Survey services across India"}
+          </p>
           <h1>{service.title}</h1>
           <p className="lead">{service.description}</p>
           <div className="flex flex-wrap gap-3">
@@ -265,8 +272,8 @@ export default async function ServicePage({ params }: Props) {
             <Link href="/quote" className="button button-lime">
               Request a survey <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
-            <Link href="/land-surveyors-pune" className="button button-outline">
-              Meet your Pune survey team
+            <Link href="/about" className="button button-outline">
+              Meet your survey team
             </Link>
           </div>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LOCATIONS } from "@/lib/locations";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 import LocationPageTemplate from "@/components/locations/LocationPageTemplate";
 
 interface Props {
@@ -29,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: { canonical: url },
     openGraph: {
+      images: SOCIAL_IMAGES,
       type: "website",
       locale: "en_IN",
       siteName: SITE.name,

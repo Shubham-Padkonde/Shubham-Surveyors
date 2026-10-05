@@ -37,10 +37,7 @@ export default function IndustryPageTemplate({
           name: SITE.name,
           url: SITE.url,
         },
-        areaServed: [
-          { "@type": "AdministrativeArea", name: "Maharashtra" },
-          { "@type": "Country", name: "India" },
-        ],
+        areaServed: { "@type": "Country", name: "India" },
       },
       {
         "@type": "BreadcrumbList",
@@ -104,9 +101,9 @@ export default function IndustryPageTemplate({
             </h2>
           </div>
           <p className="lead">
-            From our Pune base, we support work across Maharashtra and discuss
-            project mobilisation elsewhere in India. The method and deliverables
-            follow your project brief.
+            We support survey projects across India, planning the method,
+            mobilisation and deliverables around your site and the decisions
+            your team needs to make.
           </p>
         </div>
         <div
@@ -150,7 +147,7 @@ export default function IndustryPageTemplate({
               Read the survey preparation guide <ArrowUpRight size={16} />
             </Link>
           </div>
-          <div className="detail-panel" style={{ background: "#e9eef8" }}>
+          <div className="detail-panel" style={{ background: "#e5e3d7" }}>
             <p className="eyebrow">Outputs to agree</p>
             <h2 style={{ fontSize: "1.8rem", marginBottom: "1.5rem" }}>
               Information your team can use

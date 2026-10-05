@@ -2,20 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 import { SERVICE_DETAILS } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Land surveying services in Pune & Maharashtra",
+  title: "Land & geospatial surveying services across India",
   description:
-    "Explore boundary, topographic, DGPS, Total Station, highway, Mojani support and GIS surveying services. Clear scopes and practical deliverables.",
+    "Explore boundary, topographic, RTK DGPS, total station, highway and GIS surveys across India. Clear scopes, considered fieldwork and practical deliverables.",
   alternates: { canonical: `${SITE.url}/services` },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Land surveying services in Pune & Maharashtra | Shubham Surveyors",
+    title: "Land & geospatial surveying services across India | Shubham Surveyors",
     description:
-      "Explore boundary, topographic, DGPS, Total Station, highway, Mojani support and GIS surveying services. Clear scopes and practical deliverables.",
+      "Explore boundary, topographic, RTK DGPS, total station, highway and GIS surveys across India. Clear scopes, considered fieldwork and practical deliverables.",
     url: `${SITE.url}/services`,
   },
 };
@@ -90,7 +92,7 @@ export default function ServicesPage() {
               </li>
             </ol>
           </nav>
-          <p className="eyebrow">Our expertise</p>
+          <p className="eyebrow">Surveying landscapes across India</p>
           <h1>
             Know the ground.
             <br />
@@ -198,9 +200,9 @@ export default function ServicesPage() {
               more useful scope.
             </p>
             <p>
-              Based in Pune and Lonavala, we review work across Maharashtra and
-              enquiries elsewhere in India according to the project
-              requirements.
+              We support survey projects across India, planning field access,
+              travel and mobilisation around the site and your programme.
+              These details form part of the agreed scope.
             </p>
             <Link href="/locations" className="text-link">
               Explore our coverage <ArrowUpRight size={16} aria-hidden="true" />

@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Land survey guides | Pune & Maharashtra",
+  title: "Land survey guides & practical advice",
   description:
     "Practical guides to Mojani, preparing for a land survey, boundary enquiries, MahaRERA project information and total station versus RTK DGPS.",
   alternates: { canonical: SITE.url + "/knowledge" },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Land survey guides | Pune & Maharashtra | Shubham Surveyors",
+    title: "Land survey guides & practical advice | Shubham Surveyors",
     description:
       "Practical guides to Mojani, preparing for a land survey, boundary enquiries, MahaRERA project information and total station versus RTK DGPS.",
     url: `${SITE.url}/knowledge`,
