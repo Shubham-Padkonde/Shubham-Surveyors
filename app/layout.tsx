@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Jost } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import "./grove.css";
 import Navigation from "@/components/layout/Navigation";
@@ -11,11 +11,6 @@ import { SOCIAL_IMAGES } from "@/lib/metadata";
 const heading = Manrope({
   subsets: ["latin"],
   variable: "--font-syne-var",
-  display: "swap",
-});
-const body = Jost({
-  subsets: ["latin"],
-  variable: "--font-jost-var",
   display: "swap",
 });
 export const viewport: Viewport = {
@@ -94,7 +89,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" data-scroll-behavior="smooth" className={`${heading.variable} ${body.variable}`}>
+    <html
+      lang="en-IN"
+      data-scroll-behavior="smooth"
+      className={heading.variable}
+    >
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

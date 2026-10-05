@@ -22,7 +22,7 @@
   --color-primary-container: #153d32;
   --color-on-primary-container: #bec7b8;
   --font-syne: var(--font-syne-var), sans-serif;
-  --font-jost: var(--font-jost-var), sans-serif;
+  --font-jost: var(--font-syne-var), sans-serif;
   --font-cormorant: Georgia, serif;
 }
 :root {

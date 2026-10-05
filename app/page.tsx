@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import { ArrowUpRight, Crosshair } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import { SOCIAL_IMAGES } from "@/lib/metadata";
@@ -79,12 +79,7 @@ const faqs = [
 ];
 
 export default function HomePage() {
-  const poster = getImageProps({
-    src: "/images/video-poster.webp",
-    width: 600,
-    height: 338,
-    alt: "",
-  }).props.src;
+  const poster = "/images/grove-film-poster.avif";
   return (
     <div className="grove-home">
       <section className="grove-hero" aria-labelledby="grove-title">
