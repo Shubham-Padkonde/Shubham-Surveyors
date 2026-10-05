@@ -73,6 +73,14 @@ export default function Footer() {
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           <a
             className="text-link"
+            href={`https://wa.me/${SITE.whatsappNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chat on WhatsApp <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
+          <a
+            className="text-link"
             href={SITE.googleBusinessUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -88,11 +96,7 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    prefetch={
-                      href === "/quote" || href === "/contact"
-                        ? false
-                        : undefined
-                    }
+                    prefetch={false}
                   >
                     {label}
                   </Link>

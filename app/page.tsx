@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowUpRight, Crosshair } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import { SOCIAL_IMAGES } from "@/lib/metadata";
-import BrandMark from "@/components/brand/BrandMark";
+import GuideArtwork from "@/components/brand/GuideArtwork";
 import HeroVideo from "@/components/sections/HeroVideo";
 
 export const metadata: Metadata = {
@@ -98,7 +98,7 @@ export default function HomePage() {
         <div className="grove-hero-content">
           <div>
             <p className="grove-eyebrow">
-              <span /> Land & geospatial surveying · Since 1994
+              Land & geospatial surveying · Since 1994
             </p>
             <h1 id="grove-title">
               Know the land.
@@ -111,9 +111,20 @@ export default function HomePage() {
               Land surveys, DGPS and spatial insight for projects across India.
               A clear foundation for whatever comes next.
             </p>
-            <Link href="/contact" prefetch={false} className="grove-line-link">
-              Discuss your land <ArrowUpRight size={25} aria-hidden="true" />
-            </Link>
+            <div className="grove-hero-actions">
+              <Link
+                href="/contact"
+                prefetch={false}
+                className="grove-primary-link"
+              >
+                Discuss your project{" "}
+                <ArrowUpRight size={20} aria-hidden="true" />
+              </Link>
+              <a href="#expertise" className="grove-line-link">
+                Explore our services{" "}
+                <ArrowUpRight size={20} aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
         <div className="grove-hero-bottom">
@@ -121,22 +132,18 @@ export default function HomePage() {
           <span className="grove-media-credit">
             Illustrative landscape imagery
           </span>
-          <a href="#perspective" aria-label="Explore below: our perspective">
-            Explore below ↓
-          </a>
         </div>
       </section>
 
       <section className="grove-intro grove-pad" id="perspective">
         <div className="grove-intro-label">
           <p className="grove-eyebrow">An experienced perspective</p>
-          <BrandMark size={45} />
         </div>
         <div>
           <h2>
-            Every great project begins with the land.
+            Confidence begins
             <br />
-            <em>And a clear understanding of it.</em>
+            <em>with understanding.</em>
           </h2>
           <div className="grove-intro-bottom">
             <p>
@@ -330,12 +337,14 @@ export default function HomePage() {
 
       <section className="grove-journal grove-pad">
         <div className="grove-section-head">
-          <p className="grove-eyebrow">Notes from the practice</p>
-          <h2>
-            A more informed
-            <br />
-            <em>place to begin.</em>
-          </h2>
+          <div>
+            <p className="grove-eyebrow">The field guide</p>
+            <h2>
+              Good decisions start
+              <br />
+              <em>with better questions.</em>
+            </h2>
+          </div>
           <Link href="/knowledge" className="grove-line-link">
             All survey guides <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
@@ -344,7 +353,7 @@ export default function HomePage() {
           {[
             [
               "Before you begin",
-              "How to prepare for your land survey",
+              "Prepare for your land survey",
               "A practical checklist for your site, available documents and project brief.",
               "survey-preparation",
             ],
@@ -356,7 +365,7 @@ export default function HomePage() {
             ],
             [
               "For landowners",
-              "A first step for a boundary enquiry",
+              "Understand your boundary",
               "Gather the records and understand what a measured plan can tell you.",
               "boundary-disputes",
             ],
@@ -366,15 +375,16 @@ export default function HomePage() {
                 className={`grove-journal-art grove-journal-art-${index + 1}`}
                 aria-hidden="true"
               >
-                <BrandMark size={110} />
-                <span>0{index + 1}</span>
+                <GuideArtwork kind={index} />
               </div>
-              <p className="grove-eyebrow">{tag}</p>
-              <h3>{title}</h3>
-              <p>{body}</p>
-              <span className="grove-journal-link">
-                Read the guide <ArrowUpRight size={16} aria-hidden="true" />
-              </span>
+              <div className="grove-journal-copy">
+                <p className="grove-eyebrow">{tag}</p>
+                <h3>{title}</h3>
+                <p>{body}</p>
+                <span className="grove-journal-link">
+                  Read the guide <ArrowUpRight size={18} aria-hidden="true" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>

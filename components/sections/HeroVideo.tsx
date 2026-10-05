@@ -10,9 +10,11 @@ export default function HeroVideo({ poster }: { poster: string }) {
   const [enabled, setEnabled] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [ready, setReady] = useState(false);
+  const [controlsAvailable, setControlsAvailable] = useState(false);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const desktop = window.matchMedia("(min-width: 761px)");
     const connection = (
       navigator as Navigator & {
         connection?: { saveData?: boolean; effectiveType?: string };
@@ -26,12 +28,19 @@ export default function HeroVideo({ poster }: { poster: string }) {
       !connection?.saveData &&
       !["slow-2g", "2g"].includes(connection?.effectiveType ?? "");
     const maybeEnable = () => {
-      if (pageReady && inView && !document.hidden && eligible())
+      if (
+        pageReady &&
+        inView &&
+        !document.hidden &&
+        eligible() &&
+        desktop.matches
+      )
         setEnabled(true);
     };
     const observer = new IntersectionObserver(
       ([entry]) => {
         inView = entry.isIntersecting;
+        setControlsAvailable(eligible());
         maybeEnable();
       },
       { threshold: 0.05 },
@@ -48,6 +57,7 @@ export default function HeroVideo({ poster }: { poster: string }) {
     };
     const onMotionChange = () => {
       clearTimeout(timer);
+      setControlsAvailable(eligible());
       if (motion.matches) {
         video.current?.pause();
         setEnabled(false);
@@ -97,6 +107,11 @@ export default function HeroVideo({ poster }: { poster: string }) {
   const toggle = () => {
     const element = video.current;
     if (!element) return;
+    if (!enabled) {
+      manuallyPaused.current = false;
+      setEnabled(true);
+      return;
+    }
     if (element.paused) {
       manuallyPaused.current = false;
       element.play().catch(() => setPlaying(false));
@@ -133,15 +148,18 @@ export default function HeroVideo({ poster }: { poster: string }) {
           setReady(false);
         }}
       />
-      {enabled && ready && (
+      {controlsAvailable && (
         <button
           type="button"
           className="grove-video-control"
           onClick={toggle}
+          disabled={enabled && !ready}
           aria-label={
-            playing
-              ? "Pause film: background video"
-              : "Play film: background video"
+            enabled && !ready
+              ? "Loading film: background video"
+              : playing
+                ? "Pause film: background video"
+                : "Play film: background video"
           }
         >
           {playing ? (
@@ -149,7 +167,13 @@ export default function HeroVideo({ poster }: { poster: string }) {
           ) : (
             <Play size={13} aria-hidden="true" />
           )}
-          <span>{playing ? "Pause film" : "Play film"}</span>
+          <span>
+            {enabled && !ready
+              ? "Loading film"
+              : playing
+                ? "Pause film"
+                : "Play film"}
+          </span>
         </button>
       )}
     </>
