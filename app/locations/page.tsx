@@ -1,80 +1,167 @@
-import type { Metadata } from 'next'
-import SectionLabel from '@/components/ui/SectionLabel'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
-import PrecisionCard from '@/components/ui/PrecisionCard'
-import Breadcrumb from '@/components/ui/Breadcrumb'
-import { LOCATIONS } from '@/lib/locations'
-import { SITE } from '@/lib/constants'
-import { MapPin } from 'lucide-react'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, MapPin } from "lucide-react";
+import { SITE } from "@/lib/constants";
+import { LOCATIONS } from "@/lib/locations";
 
 export const metadata: Metadata = {
-  title: 'Land Survey Services Across India',
+  title: "Survey locations | Pune, Lonavala & project coverage",
   description:
-    'Professional DGPS, Total Station, and boundary surveys in 20+ Indian states. 30+ years experience. Government certified. Contact us for any location.',
+    "Contact Shubham Surveyors in Pune and Lonavala. Discuss land surveys across Maharashtra and project enquiries elsewhere in India.",
   alternates: { canonical: `${SITE.url}/locations` },
-}
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: SITE.name,
+    title: "Survey locations | Pune, Lonavala & project coverage | Shubham Surveyors",
+    description:
+      "Contact Shubham Surveyors in Pune and Lonavala. Discuss land surveys across Maharashtra and project enquiries elsewhere in India.",
+    url: `${SITE.url}/locations`,
+  },
+};
 
-export default function LocationsHubPage() {
+export default function LocationsPage() {
   return (
-    <>
-      <Breadcrumb items={[{ name: 'Locations', href: '/locations' }]} />
-
-      <section
-        className="pt-24 pb-20 relative overflow-hidden"
-        style={{ backgroundColor: 'var(--color-brand-navy)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <div className="bg-blueprint-dark absolute inset-0 opacity-40 pointer-events-none" />
-        <RevealOnScroll className="relative z-10">
-          <SectionLabel index="§ LOC" label="Locations" dark />
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(2rem, 6vw, 4rem)',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
-              color: 'var(--color-brand-offwhite)',
-              maxWidth: '700px',
-              marginBottom: '1.5rem',
-            }}
+    <div className="page-shell">
+      <section className="page-hero">
+        <div className="section-wrap">
+          <nav
+            className="breadcrumb"
+            style={{ padding: "0 0 24px", border: 0 }}
+            aria-label="Breadcrumb"
           >
-            Land Survey Services Across India
+            <ol>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <span aria-current="page">Locations</span>
+              </li>
+            </ol>
+          </nav>
+          <p className="eyebrow">Our locations & coverage</p>
+          <h1>
+            Based in Maharashtra.
+            <br />
+            Ready to discuss your site.
           </h1>
-          <p
-            style={{
-              fontFamily: 'var(--font-jost)',
-              fontSize: '1.1rem',
-              lineHeight: '1.7',
-              color: 'var(--color-inverse-primary)',
-              maxWidth: '560px',
-              borderLeft: '2px solid var(--color-brand-gold)',
-              paddingLeft: '1.5rem',
-            }}
-          >
-            Professional DGPS, Total Station, and boundary surveys in {LOCATIONS.length}+ Indian
-            states. 30 years. Government certified. Contact us for any location.
+          <p className="lead">
+            Our contact locations are Pune and Lonavala. We review survey
+            enquiries across Maharashtra and elsewhere in India, with
+            availability and mobilisation agreed for each project.
           </p>
-        </RevealOnScroll>
-      </section>
-
-      <section
-        className="py-24"
-        style={{ backgroundColor: 'var(--color-surface)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {LOCATIONS.map((location, i) => (
-            <RevealOnScroll key={location.state} delay={i * 0.04}>
-              <PrecisionCard
-                index={`§ ${String(i + 1).padStart(2, '0')}`}
-                icon={<MapPin size={32} />}
-                title={location.name}
-                description={`Boundary, DGPS, and topographic surveys across ${location.cities.slice(0, 3).join(', ')}.`}
-                href={`/locations/${location.state}`}
-              />
-            </RevealOnScroll>
-          ))}
+          <Link href="/contact" className="button button-lime">
+            Contact the team <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
         </div>
       </section>
-    </>
-  )
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Find us</p>
+            <h2 className="section-heading">Two local points of contact.</h2>
+          </div>
+          <p>
+            Please call ahead to arrange a visit. Field schedules mean the best
+            time to meet can vary.
+          </p>
+        </div>
+        <div className="detail-grid">
+          <article className="detail-panel">
+            <MapPin size={24} aria-hidden="true" />
+            <h3>Pune</h3>
+            <address className="not-italic">{SITE.address}</address>
+            <Link href="/land-surveyors-pune" className="text-link">
+              Land surveyors in Pune{" "}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </article>
+          <article className="detail-panel">
+            <MapPin size={24} aria-hidden="true" />
+            <h3>Lonavala</h3>
+            <address className="not-italic">{SITE.addressLonavala}</address>
+            <a
+              className="text-link"
+              href={`tel:${SITE.phone.replace(/\s/g, "")}`}
+            >
+              Call {SITE.phone} <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Our home region</p>
+            <h2 className="section-heading">Surveying in Maharashtra.</h2>
+          </div>
+          <p>
+            From property measurements to design surveys and infrastructure
+            corridors, share your location and project brief so we can assess
+            the right scope.
+          </p>
+        </div>
+        <Link href="/locations/maharashtra" className="service-card">
+          <p className="eyebrow">Pune · Lonavala · Maharashtra</p>
+          <h3>Local context. A clear project brief.</h3>
+          <p>
+            Explore survey services, preparation guidance and our approach to
+            field work across Maharashtra.
+          </p>
+          <span className="text-link">
+            Explore Maharashtra <ArrowUpRight size={18} aria-hidden="true" />
+          </span>
+        </Link>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Beyond Maharashtra</p>
+            <h2 className="section-heading">Tell us where your project is.</h2>
+          </div>
+          <p>
+            The regions below are enquiry routes, not a list of offices. We
+            confirm field availability, travel, permissions and programme after
+            reviewing the project.
+          </p>
+        </div>
+        <div className="service-grid">
+          {LOCATIONS.filter((location) => location.state !== "maharashtra").map(
+            (location) => (
+              <Link
+                className="service-card"
+                href={`/locations/${location.state}`}
+                key={location.state}
+              >
+                <p className="eyebrow">Project enquiries</p>
+                <h3>{location.name}</h3>
+                <span className="text-link">
+                  Discuss availability{" "}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </span>
+              </Link>
+            ),
+          )}
+        </div>
+      </section>
+
+      <section className="cta-band">
+        <div className="section-wrap">
+          <p className="eyebrow">Start with the location</p>
+          <h2>A pin on the map is a useful start.</h2>
+          <p>
+            Include the approximate area or corridor length, the survey purpose
+            and your preferred programme.
+          </p>
+          <Link href="/quote" className="button button-lime">
+            Send your project details{" "}
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
 }

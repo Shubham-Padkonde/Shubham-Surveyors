@@ -1,245 +1,329 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { motion, AnimatePresence } from 'framer-motion'
-import SectionLabel from '@/components/ui/SectionLabel'
-import { PRICING, SITE } from '@/lib/constants'
-import { calculateEstimate, formatINR, TERRAIN_MULTIPLIERS } from '@/lib/pricing'
-import type { SurveyType, TerrainType } from '@/lib/pricing'
-
-const schema = z.object({
-  surveyType: z.string().min(1, 'Select survey type'),
-  area: z.number().positive('Enter valid area'),
-  terrain: z.string().min(1, 'Select terrain'),
-  name: z.string().min(2, 'Enter your name'),
-  phone: z.string().min(10, 'Enter valid phone number'),
-})
-
-type FormData = z.infer<typeof schema>
-
-const refPricing = [
-  { label: 'Boundary Survey', range: '₹5,000 – ₹10,000 / acre' },
-  { label: 'Total Station', range: '₹5,000 – ₹20,000 / acre' },
-  { label: 'RTK DGPS', range: '₹8,000 – ₹30,000 / acre' },
-  { label: 'Highway Corridor', range: '₹2,500 – ₹4,000 / km' },
-  { label: 'Layout / RERA', range: '₹10,000 – ₹25,000 / acre' },
-  { label: 'GIS Mapping', range: '₹15,000 – ₹40,000 / acre' },
-]
+import { useId, useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import { useForm, useWatch } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowUpRight } from "lucide-react";
+import { PRICING, SITE } from "@/lib/constants";
+import {
+  calculateEstimate,
+  estimateSchema,
+  formatINR,
+  TERRAIN_MULTIPLIERS,
+  type EstimateInput,
+  type SurveyType,
+  type TerrainType,
+} from "@/lib/pricing";
 
 export default function CostEstimator() {
-  const [result, setResult] = useState<{ min: number; max: number; unit: string } | null>(null)
-  const [calcData, setCalcData] = useState<FormData | null>(null)
+  const formId = useId();
+  const [result, setResult] = useState<ReturnType<
+    typeof calculateEstimate
+  > | null>(null);
+  const [calculation, setCalculation] = useState<EstimateInput | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<EstimateInput>({ resolver: zodResolver(estimateSchema) });
+  const surveyType = useWatch({ control, name: "surveyType" });
+  const isKm = surveyType === "highway";
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: { surveyType: '', terrain: '', area: undefined as unknown as number },
-  })
+  useEffect(() => {
+    if (result) resultRef.current?.focus({ preventScroll: true });
+  }, [result]);
 
-  const surveyType = watch('surveyType')
-  const isKm = surveyType === 'highway'
-  const areaLabel = isKm ? 'LENGTH (KM)' : 'AREA (ACRES)'
-
-  const onSubmit = async (data: FormData) => {
-    const pricing = PRICING[data.surveyType as SurveyType]
-    if (!pricing) return
-    const multiplier = TERRAIN_MULTIPLIERS[data.terrain as TerrainType]?.value ?? 1
-    const est = calculateEstimate(data.surveyType as SurveyType, data.area, multiplier)
-    setResult(est)
-    setCalcData(data)
-
-    // Notify owner by email
-    const isKmType = data.surveyType === 'highway'
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: data.name,
-        phone: data.phone,
-        email: 'via-quote-form@noreply.com',
-        service: pricing.label,
-        state: '',
-        projectDetails: `Quote request — ${pricing.label}\nArea/Length: ${data.area} ${isKmType ? 'km' : 'acres'}\nTerrain: ${data.terrain}\nEstimated range: ₹${est.min.toLocaleString('en-IN')} – ₹${est.max.toLocaleString('en-IN')} per ${est.unit}`,
-      }),
-    }).catch(() => {/* fire-and-forget */})
-  }
-
-  const waMsg = calcData && result
-    ? encodeURIComponent(
-        `Hi, I used the estimator on your website.\n\nName: ${calcData.name}\nSurvey Type: ${PRICING[calcData.surveyType as SurveyType]?.label ?? calcData.surveyType}\nArea: ${calcData.area} ${result.unit}\nEstimated Range: ${formatINR(result.min)} – ${formatINR(result.max)}\n\nPlease provide a detailed quote.`
-      )
-    : ''
+  const onSubmit = (data: EstimateInput) => {
+    setResult(
+      calculateEstimate(
+        data.surveyType,
+        data.area,
+        TERRAIN_MULTIPLIERS[data.terrain].value,
+      ),
+    );
+    setCalculation(data);
+  };
+  const whatsappMessage =
+    calculation && result
+      ? `Hello, I used your survey cost estimator.\nService: ${PRICING[calculation.surveyType].label}\nSize: ${calculation.area} ${result.unit === "km" ? "km" : "acres"}\nTerrain: ${TERRAIN_MULTIPLIERS[calculation.terrain].label}\nIndicative total: ${formatINR(result.min)} – ${formatINR(result.max)}\nPlease help confirm the scope and provide a written quotation.`
+      : "";
 
   return (
-    <section style={{ backgroundColor: 'var(--color-brand-offwhite)', borderTop: '1px solid var(--color-outline)' }}>
-      <div
-        className="py-24 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
-        style={{ paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        {/* Left */}
+    <section className="section-wrap" aria-labelledby={`${formId}-heading`}>
+      <div className="page-shell contact-grid">
         <div>
-          <SectionLabel index="§ EST" label="Instant Quote" />
-          <h2
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '1.5rem',
-            }}
-          >
-            KNOW YOUR SURVEY COST INSTANTLY.
+          <p className="eyebrow">Plan with confidence</p>
+          <h2 id={`${formId}-heading`} className="section-heading">
+            A useful starting point for your budget.
           </h2>
-          <p style={{ fontFamily: 'var(--font-jost)', fontSize: '1rem', lineHeight: '1.7', color: 'var(--color-on-surface-variant)', marginBottom: '2rem' }}>
-            India&apos;s first transparent surveying price calculator. Get an accurate
-            cost estimate before speaking to anyone.
+          <p className="lead" style={{ marginBottom: "2rem" }}>
+            Choose a survey, enter your site size and select the terrain. Get an
+            indicative total without sharing your name or phone number.
           </p>
-
-          {/* Reference pricing table */}
-          <div style={{ border: '1px solid var(--color-outline)', marginBottom: '1.5rem' }}>
-            {refPricing.map((item, i) => (
-              <div
-                key={item.label}
-                className="flex justify-between items-center px-5 py-4"
-                style={{ borderBottom: i < refPricing.length - 1 ? '1px solid var(--color-outline-variant)' : 'none' }}
-              >
-                <span className="label-caps" style={{ color: 'var(--color-brand-slate)' }}>{item.label}</span>
-                <span style={{ fontFamily: 'var(--font-jost)', fontSize: '0.875rem', color: 'var(--color-on-surface)', fontWeight: '600' }}>{item.range}</span>
-              </div>
-            ))}
-          </div>
-
-          <p
-            style={{
-              fontFamily: 'var(--font-cormorant)',
-              fontStyle: 'italic',
-              fontSize: '1rem',
-              color: 'var(--color-brand-slate)',
-            }}
+          <div
+            className="detail-panel"
+            style={{ padding: 0, overflow: "hidden" }}
           >
-            Indicative only. Final quote requires site verification.
-          </p>
-        </div>
-
-        {/* Right: form */}
-        <div style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-brand-slate)', padding: 'clamp(1.5rem, 4vw, 3rem)' }}>
-          <p className="label-caps mb-8" style={{ color: '#8B6508' }}>
-            SURVEY COST ESTIMATOR
-          </p>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-7">
-            {/* Survey type */}
-            <div>
-              <label htmlFor="surveyType" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>
-                SURVEY TYPE
-              </label>
-              <select id="surveyType" {...register('surveyType')} className="input-underline">
-                <option value="">Select type</option>
-                <option value="boundary">Boundary Survey</option>
-                <option value="total_station">Total Station</option>
-                <option value="rtk_dgps">RTK DGPS</option>
-                <option value="highway">Highway Corridor</option>
-                <option value="layout_rera">Layout / RERA</option>
-                <option value="gis">GIS Mapping</option>
-              </select>
-              {errors.surveyType && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.surveyType.message}</p>}
-            </div>
-
-            {/* Area */}
-            <div>
-              <label htmlFor="area" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>
-                {areaLabel}
-              </label>
-              <input
-                id="area"
-                type="number"
-                step="0.01"
-                min="0"
-                placeholder={isKm ? 'e.g. 10' : 'e.g. 5'}
-                {...register('area', { valueAsNumber: true })}
-                className="input-underline"
-              />
-              {errors.area && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.area.message}</p>}
-            </div>
-
-            {/* Terrain */}
-            <div>
-              <label htmlFor="terrain" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>
-                TERRAIN
-              </label>
-              <select id="terrain" {...register('terrain')} className="input-underline">
-                <option value="">Select terrain</option>
-                <option value="flat">Flat (×1.0)</option>
-                <option value="urban">Urban / Semi-Urban (×1.2)</option>
-                <option value="hilly">Hilly / Forested (×1.4)</option>
-              </select>
-              {errors.terrain && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.terrain.message}</p>}
-            </div>
-
-            {/* Name + Phone */}
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>NAME</label>
-                <input id="name" {...register('name')} placeholder="Full Name" className="input-underline" />
-                {errors.name && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.name.message}</p>}
-              </div>
-              <div>
-                <label htmlFor="phone" className="label-caps block mb-2" style={{ color: 'var(--color-on-surface-variant)' }}>PHONE</label>
-                <input id="phone" {...register('phone')} type="tel" placeholder="+91 XXXXX" className="input-underline" />
-                {errors.phone && <p className="label-caps mt-1" style={{ color: '#ef4444', fontSize: '10px' }}>{errors.phone.message}</p>}
-              </div>
-            </div>
-
-            <button type="submit" className="btn-primary w-full justify-center">
-              CALCULATE ESTIMATE
-            </button>
-          </form>
-
-          {/* Result */}
-          <AnimatePresence>
-            {result && (
-              <motion.div
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                className="mt-8 p-8 text-center"
+            <table
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: ".9rem",
+              }}
+            >
+              <caption
                 style={{
-                  backgroundColor: 'var(--color-brand-navy)',
-                  border: '1px solid var(--color-brand-gold)',
+                  textAlign: "left",
+                  padding: "1.25rem",
+                  fontWeight: 600,
                 }}
               >
-                <p className="label-caps mb-2" style={{ color: 'var(--color-brand-gold)' }}>ESTIMATED RANGE</p>
+                Reference rates for flat, accessible sites
+              </caption>
+              <thead className="sr-only">
+                <tr>
+                  <th scope="col">Survey</th>
+                  <th scope="col">Indicative rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(PRICING).map(([key, price]) => (
+                  <tr key={key} style={{ borderTop: "1px solid #dce2d7" }}>
+                    <th
+                      scope="row"
+                      style={{
+                        textAlign: "left",
+                        padding: "1rem 1.25rem",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {price.label}
+                    </th>
+                    <td style={{ textAlign: "right", padding: "1rem 1.25rem" }}>
+                      {formatINR(price.min)}–{formatINR(price.max)}{" "}
+                      <span style={{ whiteSpace: "nowrap" }}>
+                        per {price.unit}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p
+            style={{
+              fontSize: ".875rem",
+              color: "#58675e",
+              marginTop: "1.25rem",
+            }}
+          >
+            This is a non-binding budget estimate. Site access, travel, survey
+            scope, required outputs, minimum mobilisation charges and applicable
+            taxes will be confirmed in your written quotation.
+          </p>
+        </div>
+        <div
+          className="detail-panel"
+          style={{ background: "#fff", padding: "clamp(1.5rem, 3vw, 2.75rem)" }}
+        >
+          <h3 style={{ fontSize: "1.65rem", marginBottom: ".5rem" }}>
+            Calculate a survey estimate
+          </h3>
+          <p
+            style={{
+              color: "#58675e",
+              marginBottom: "1.75rem",
+              fontSize: ".9rem",
+            }}
+          >
+            Your calculation stays in this browser. No enquiry is sent unless
+            you choose to contact us.
+          </p>
+          <form
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            onChange={() => {
+              setResult(null);
+              setCalculation(null);
+            }}
+            style={{ display: "grid", gap: "1.25rem" }}
+          >
+            <div className="form-field">
+              <label htmlFor={`${formId}-type`}>Survey type</label>
+              <select
+                id={`${formId}-type`}
+                {...register("surveyType")}
+                className="form-control"
+                defaultValue=""
+                required
+                aria-invalid={Boolean(errors.surveyType)}
+                aria-describedby={
+                  errors.surveyType ? `${formId}-type-error` : undefined
+                }
+              >
+                <option value="" disabled>
+                  Choose a survey
+                </option>
+                {(Object.keys(PRICING) as SurveyType[]).map((key) => (
+                  <option key={key} value={key}>
+                    {PRICING[key].label}
+                  </option>
+                ))}
+              </select>
+              {errors.surveyType && (
+                <p className="form-error" id={`${formId}-type-error`}>
+                  {errors.surveyType.message}
+                </p>
+              )}
+            </div>
+            <div className="form-field">
+              <label htmlFor={`${formId}-area`}>
+                {isKm ? "Corridor length (kilometres)" : "Site area (acres)"}
+              </label>
+              <input
+                id={`${formId}-area`}
+                {...register("area", { valueAsNumber: true })}
+                className="form-control"
+                type="number"
+                inputMode="decimal"
+                step="0.01"
+                min="0.01"
+                max="100000"
+                placeholder={isKm ? "e.g. 10" : "e.g. 5"}
+                required
+                aria-invalid={Boolean(errors.area)}
+                aria-describedby={
+                  errors.area ? `${formId}-area-error` : `${formId}-area-hint`
+                }
+              />
+              {errors.area ? (
+                <p className="form-error" id={`${formId}-area-error`}>
+                  {errors.area.message}
+                </p>
+              ) : (
+                <p
+                  id={`${formId}-area-hint`}
+                  style={{ fontSize: ".8rem", color: "#58675e" }}
+                >
+                  {isKm
+                    ? "Enter the approximate length of the survey corridor."
+                    : "1 acre = 43,560 square feet = approximately 4,047 square metres."}
+                </p>
+              )}
+            </div>
+            <div className="form-field">
+              <label htmlFor={`${formId}-terrain`}>Site terrain</label>
+              <select
+                id={`${formId}-terrain`}
+                {...register("terrain")}
+                className="form-control"
+                defaultValue=""
+                required
+                aria-invalid={Boolean(errors.terrain)}
+                aria-describedby={
+                  errors.terrain ? `${formId}-terrain-error` : undefined
+                }
+              >
+                <option value="" disabled>
+                  Choose the terrain
+                </option>
+                {(Object.keys(TERRAIN_MULTIPLIERS) as TerrainType[]).map(
+                  (key) => (
+                    <option key={key} value={key}>
+                      {TERRAIN_MULTIPLIERS[key].label}
+                    </option>
+                  ),
+                )}
+              </select>
+              {errors.terrain && (
+                <p className="form-error" id={`${formId}-terrain-error`}>
+                  {errors.terrain.message}
+                </p>
+              )}
+            </div>
+            <button className="button button-dark" type="submit">
+              Calculate estimate <ArrowUpRight size={17} aria-hidden="true" />
+            </button>
+          </form>
+          <div aria-live="polite" aria-atomic="true">
+            {result && calculation && (
+              <div
+                ref={resultRef}
+                tabIndex={-1}
+                style={{
+                  background: "#15291f",
+                  color: "#f5f4ee",
+                  marginTop: "1.5rem",
+                  padding: "1.5rem",
+                  borderRadius: 8,
+                }}
+              >
+                <p className="eyebrow" style={{ color: "#d7ee9d" }}>
+                  Indicative project total
+                </p>
                 <p
                   style={{
-                    fontFamily: 'var(--font-syne)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    fontWeight: '800',
-                    color: 'var(--color-brand-offwhite)',
-                    marginBottom: '0.75rem',
+                    fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                    color: "#f5f4ee",
+                    lineHeight: 1.2,
+                    fontWeight: 600,
+                    margin: ".75rem 0",
                   }}
                 >
                   {formatINR(result.min)} – {formatINR(result.max)}
                 </p>
-                <p className="label-caps mb-6" style={{ color: 'var(--color-brand-slate)' }}>
-                  Indicative estimate · Subject to site conditions
+                <p style={{ fontSize: ".9rem", color: "#d5ded7" }}>
+                  For {calculation.area}{" "}
+                  {result.unit === "km"
+                    ? "km"
+                    : calculation.area === 1
+                      ? "acre"
+                      : "acres"}{" "}
+                  ·{" "}
+                  {TERRAIN_MULTIPLIERS[calculation.terrain].label.toLowerCase()}
+                </p>
+                <p
+                  style={{
+                    fontSize: ".85rem",
+                    margin: "1rem 0 1.5rem",
+                    color: "#d5ded7",
+                  }}
+                >
+                  A planning range, subject to site review and a written
+                  quotation.
                 </p>
                 <a
-                  href={`https://wa.me/${SITE.whatsappNumber}?text=${waMsg}`}
+                  href={`https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary w-full justify-center"
-                  style={{ backgroundColor: '#25D366', border: 'none', color: 'white' }}
+                  className="button button-lime"
+                  style={{ width: "100%" }}
                 >
-                  SEND VIA WHATSAPP →
+                  Discuss this estimate{" "}
+                  <ArrowUpRight size={17} aria-hidden="true" />
                 </a>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
+          </div>
+          <p style={{ marginTop: "1.25rem", fontSize: ".9rem" }}>
+            Have drawings or a complex scope?{" "}
+            <Link className="text-link" href="/contact#enquiry">
+              Request a tailored quote
+            </Link>
+            .
+          </p>
+          <noscript>
+            <p>
+              Call{" "}
+              <a href={`tel:${SITE.phone.replace(/\s/g, "")}`}>{SITE.phone}</a>{" "}
+              for help with an estimate.
+            </p>
+          </noscript>
         </div>
       </div>
     </section>
-  )
+  );
 }

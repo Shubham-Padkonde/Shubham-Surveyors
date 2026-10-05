@@ -1,55 +1,77 @@
-import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import {
+  contactSchema,
+  readJsonBody,
+  RequestBodyError,
+} from "@/lib/contact-validation";
 
-export async function POST(req: NextRequest) {
+export const runtime = "nodejs";
+
+const unavailableMessage =
+  "Your enquiry could not be sent. Please call, email or WhatsApp our team using the contact details on this page.";
+
+export async function POST(request: Request) {
   try {
-    const body = await req.json()
-    const { name, phone, email, service, state, projectDetails } = body
-
-    if (!name || !phone || !projectDetails) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+    const parsed = contactSchema.safeParse(await readJsonBody(request));
+    if (!parsed.success) {
+      return NextResponse.json(
+        {
+          error: "Please check the form fields and try again.",
+          fields: parsed.error.flatten().fieldErrors,
+        },
+        { status: 400 },
+      );
     }
-
-    const gmailUser = process.env.GMAIL_USER
-    const gmailPass = process.env.GMAIL_APP_PASSWORD
-
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
     if (!gmailUser || !gmailPass) {
-      console.warn('Gmail credentials not configured — email not sent')
-      return NextResponse.json({ success: true })
+      console.error(
+        "Contact email is unavailable: mail credentials are not configured.",
+      );
+      return NextResponse.json({ error: unavailableMessage }, { status: 503 });
     }
-
-    const isQuote = email === 'via-quote-form@noreply.com'
-
+    const { name, phone, email, service, state, projectDetails } = parsed.data;
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: { user: gmailUser, pass: gmailPass },
-    })
-
-    await transporter.sendMail({
-      from: `"Shubham Surveyors Website" <${gmailUser}>`,
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 20_000,
+    });
+    // Plain text prevents enquiry content from injecting HTML into the owner's email.
+    const sent = await transporter.sendMail({
+      from: { name: "Shubham Surveyors website", address: gmailUser },
       to: gmailUser,
-      replyTo: isQuote ? undefined : email,
-      subject: isQuote
-        ? `New Quote Request: ${service ?? 'Survey'} — ${name}`
-        : `New Enquiry: ${service ?? 'General'} — ${name}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:24px;border:1px solid #eee;">
-          <h2 style="color:#0D1B2A;margin-bottom:16px;">${isQuote ? '📋 New Quote Request' : '📬 New Contact Enquiry'}</h2>
-          <table cellpadding="8" style="border-collapse:collapse;width:100%;">
-            <tr style="border-bottom:1px solid #eee;"><td style="color:#666;width:140px;"><strong>Name</strong></td><td>${name}</td></tr>
-            <tr style="border-bottom:1px solid #eee;"><td style="color:#666;"><strong>Phone</strong></td><td>${phone}</td></tr>
-            ${!isQuote ? `<tr style="border-bottom:1px solid #eee;"><td style="color:#666;"><strong>Email</strong></td><td>${email}</td></tr>` : ''}
-            <tr style="border-bottom:1px solid #eee;"><td style="color:#666;"><strong>Service</strong></td><td>${service ?? 'Not specified'}</td></tr>
-            ${state ? `<tr style="border-bottom:1px solid #eee;"><td style="color:#666;"><strong>State</strong></td><td>${state}</td></tr>` : ''}
-            <tr><td style="color:#666;vertical-align:top;"><strong>Details</strong></td><td style="white-space:pre-line">${projectDetails}</td></tr>
-          </table>
-        </div>
-      `,
-    })
-
-    return NextResponse.json({ success: true })
-  } catch (err) {
-    console.error('Contact email error:', err)
-    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 })
+      replyTo: email,
+      subject: `Website enquiry: ${service}`,
+      text: [
+        "New website enquiry",
+        "",
+        `Name: ${name}`,
+        `Phone: ${phone}`,
+        `Email: ${email}`,
+        `Service: ${service}`,
+        `Project location: ${state}`,
+        "",
+        "Project details:",
+        projectDetails,
+      ].join("\n"),
+    });
+    if (!sent.accepted?.length) {
+      console.error("Contact email was not accepted by the mail provider.");
+      return NextResponse.json({ error: unavailableMessage }, { status: 503 });
+    }
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    if (error instanceof RequestBodyError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status },
+      );
+    }
+    // Do not log submitted personal information or mail credentials.
+    console.error("Contact email delivery failed.");
+    return NextResponse.json({ error: unavailableMessage }, { status: 503 });
   }
 }

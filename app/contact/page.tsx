@@ -1,48 +1,82 @@
-import type { Metadata } from 'next'
-import ContactSection from '@/components/sections/ContactSection'
-import SectionLabel from '@/components/ui/SectionLabel'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
+import type { Metadata } from "next";
+import Link from "next/link";
+import ContactSection from "@/components/sections/ContactSection";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: "Contact land surveyors in Pune & Lonavala",
   description:
-    'Contact Shubham Surveyors for precision land surveys. Offices in Pune, Maharashtra. All-India coverage. Response within 4 hours.',
-  alternates: { canonical: 'https://shubhamsurveyors.com/contact' },
-}
+    "Discuss your land survey with Shubham Surveyors. Contact our Pune and Lonavala offices for boundary, topographic, DGPS and infrastructure surveys across India.",
+  alternates: { canonical: `${SITE.url}/contact` },
+  openGraph: {
+    title: "Talk to Shubham Surveyors",
+    description:
+      "Survey advice, project enquiries and quotations from our Pune and Lonavala teams.",
+    url: `${SITE.url}/contact`,
+  },
+};
 
 export default function ContactPage() {
   return (
     <>
-      <section
-        className="pt-40 pb-16"
-        style={{
-          backgroundColor: 'var(--color-brand-navy)',
-          paddingLeft: 'clamp(1rem, 4vw, 4rem)',
-          paddingRight: 'clamp(1rem, 4vw, 4rem)',
-        }}
-      >
-        <div className="bg-blueprint-dark absolute inset-0 opacity-40 pointer-events-none" />
-        <RevealOnScroll>
-          <SectionLabel index="§ CNT" label="Contact" dark />
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(2rem, 6vw, 4rem)',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-offwhite)',
-              maxWidth: '600px',
-              marginBottom: '1rem',
-            }}
-          >
-            GET IN TOUCH WITH OUR TEAM
+      <section className="page-hero">
+        <div className="page-shell">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Contact</span>
+          </nav>
+          <p className="eyebrow">Pune · Lonavala · Across India</p>
+          <h1>
+            Let’s put your project
+            <br />
+            on solid ground.
           </h1>
-          <p style={{ fontFamily: 'var(--font-jost)', fontSize: '1.1rem', color: 'var(--color-inverse-primary)' }}>
-            Response within 4 business hours. All-India coverage.
+          <p className="lead">
+            From a single plot to an infrastructure corridor, start with a
+            conversation with our survey team. Tell us what you’re planning and
+            we’ll help you take the next step.
           </p>
-        </RevealOnScroll>
+        </div>
       </section>
       <ContactSection />
+      <section className="section-wrap">
+        <div className="page-shell">
+          <div className="section-head">
+            <p className="eyebrow">A productive first conversation</p>
+            <h2 className="section-heading">
+              A little preparation goes a long way.
+            </h2>
+          </div>
+          <div className="detail-grid">
+            <article className="detail-panel">
+              <p className="eyebrow">01 / Location</p>
+              <h3>Where is your site?</h3>
+              <p>
+                Share the village, city or district and approximate area. A map
+                pin helps us understand access and plan a site visit.
+              </p>
+            </article>
+            <article className="detail-panel">
+              <p className="eyebrow">02 / Purpose</p>
+              <h3>What are you planning?</h3>
+              <p>
+                Tell us whether the survey supports a purchase, design,
+                construction, boundary check or an infrastructure project.
+              </p>
+            </article>
+            <article className="detail-panel">
+              <p className="eyebrow">03 / Output</p>
+              <h3>What do you need?</h3>
+              <p>
+                Mention any drawing formats, contour intervals, project
+                specifications and target dates. We’ll confirm the practical
+                scope with you.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }

@@ -1,63 +1,52 @@
-import type { Metadata } from 'next'
-import IndustryPageTemplate from '@/components/industries/IndustryPageTemplate'
-import { SITE } from '@/lib/constants'
+import type { Metadata } from "next";
+import IndustryPageTemplate from "@/components/industries/IndustryPageTemplate";
+import { SITE } from "@/lib/constants";
+
+const content = {
+  slug: "agriculture",
+  sector: "Agriculture & land",
+  headline: "Work with the shape of your land.",
+  intro:
+    "Farm and rural land surveys for site understanding, level planning and the preparation of clear, usable land information.",
+  capabilities: [
+    {
+      title: "Land and feature measurement",
+      desc: "Record the agreed site extent and physical features, using the available records to understand the survey brief.",
+    },
+    {
+      title: "Levels for irrigation planning",
+      desc: "Provide ground levels, contours or channel profiles for the designer evaluating water movement and irrigation layouts.",
+    },
+    {
+      title: "Access and land development",
+      desc: "Capture terrain and existing routes to support decisions about access, grading and farm infrastructure.",
+    },
+    {
+      title: "Boundary enquiry support",
+      desc: "Prepare measured site information and comparisons with supplied plans. Official measurement queries follow the Land Records Department’s procedure.",
+    },
+  ],
+  deliverables: [
+    "Measured site plan with the agreed field features.",
+    "Levels, contours or sections required by the designer.",
+    "Coordinate or area schedules with clear references.",
+    "A record of survey coverage, date and limitations.",
+  ],
+  briefing: [
+    "Village, taluka, district and survey or Gat references.",
+    "Available 7/12 extract, maps or earlier measurements.",
+    "The intended use of the survey and approximate area.",
+    "Crop conditions, access permissions and an on-site contact.",
+  ],
+  note: "A private survey supports technical planning. Official Mojani, changes to records and questions of ownership need the appropriate authority or adviser.",
+};
 
 export const metadata: Metadata = {
-  title: 'Agriculture & Land Survey Services',
-  description:
-    'Precision land surveys for agricultural land demarcation, irrigation planning, soil surveys, and land consolidation in India.',
-  alternates: { canonical: 'https://shubhamsurveyors.com/industries/agriculture' },
-}
+  title: "Agriculture & land survey services",
+  description: content.intro,
+  alternates: { canonical: SITE.url + "/industries/" + content.slug },
+};
 
-const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Agriculture & Land Survey Services',
-  serviceType: 'Agricultural Land Survey',
-  description:
-    'Precision land surveys for agricultural land demarcation, irrigation planning, soil surveys, and land consolidation in India.',
-  provider: { '@type': 'ProfessionalService', name: SITE.name, url: SITE.url },
-  areaServed: { '@type': 'Country', name: 'India' },
-  url: `${SITE.url}/industries/agriculture`,
-}
-
-export default function AgriculturePage() {
-  return (
-    <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-    <IndustryPageTemplate
-      index="§ IND-04"
-      slug="agriculture"
-      sector="Agriculture & Land"
-      headline="PRECISION FOR EVERY ACRE."
-      intro="Agricultural land surveys require the same precision as any engineering project — water follows terrain, boundary disputes destroy livelihoods, and crop planning depends on accurate contour data."
-      coordinate="20.7002° N, 77.0082° E"
-      capabilities={[
-        { title: 'Agricultural Land Demarcation', desc: 'Precise boundary marking for agricultural parcels as per 7/12 extract and village maps. Essential for land purchase, consolidation, and dispute resolution.' },
-        { title: 'Irrigation Channel Layout', desc: 'Topographic surveys and contour mapping for gravity-fed irrigation design. Ensures optimal water flow and minimal earthwork cost.' },
-        { title: 'Land Leveling Surveys', desc: 'Precision surveys for field leveling — critical for uniform water distribution, reduced erosion, and higher crop yield.' },
-        { title: 'Land Acquisition Support', desc: 'Joint measurement surveys, area calculation, and compensation documentation for government land acquisition processes.' },
-      ]}
-      steps={[
-        { num: '01', title: 'Village Map Study', desc: 'Analysis of Gat map, 7/12 extract, and revenue records.' },
-        { num: '02', title: 'Field Survey', desc: 'RTK DGPS boundary survey and topographic mapping of the agricultural land.' },
-        { num: '03', title: 'Data Processing', desc: 'Contour map generation, area calculation, and boundary plan drafting.' },
-        { num: '04', title: 'Revenue Report', desc: 'Signed survey report accepted by Taluka Revenue Office.' },
-      ]}
-      deliverables={[
-        { format: 'Land Demarcation Plan', standard: 'Revenue Compliant', timeline: '3–5 days' },
-        { format: 'Contour Map (0.5m interval)', standard: 'IS Standard', timeline: '5–7 days' },
-        { format: 'Area Calculation Statement', standard: 'Taluka Office Format', timeline: '3–5 days' },
-        { format: 'Irrigation Layout Plan', standard: 'Irrigation Dept Format', timeline: '7–10 days' },
-      ]}
-      advantages={[
-        { title: 'Revenue Department Recognized', desc: 'Our agricultural survey reports are accepted by Taluka offices across Maharashtra without objection.' },
-        { title: 'Village Map Expertise', desc: 'Deep expertise in Gat maps, village cadastral records, and historical boundary documentation.' },
-        { title: 'Dispute Resolution', desc: 'Court-admissible survey evidence that has resolved hundreds of agricultural boundary disputes.' },
-      ]}
-      statValue="7/12"
-      statLabel="EXTRACT COMPLIANT SURVEYS"
-    />
-    </>
-  )
+export default function IndustryPage() {
+  return <IndustryPageTemplate {...content} />;
 }

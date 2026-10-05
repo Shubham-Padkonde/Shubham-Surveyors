@@ -1,63 +1,52 @@
-import type { Metadata } from 'next'
-import IndustryPageTemplate from '@/components/industries/IndustryPageTemplate'
-import { SITE } from '@/lib/constants'
+import type { Metadata } from "next";
+import IndustryPageTemplate from "@/components/industries/IndustryPageTemplate";
+import { SITE } from "@/lib/constants";
+
+const content = {
+  slug: "real-estate",
+  sector: "Real estate & development",
+  headline: "A better starting point for every build.",
+  intro:
+    "Topographic, boundary-reference and layout surveys for developers, architects and construction teams in Pune, Maharashtra and across India.",
+  capabilities: [
+    {
+      title: "A base for design",
+      desc: "Capture site features, spot levels and contours so the architect and engineer can develop the layout with a shared understanding of the ground.",
+    },
+    {
+      title: "Layout and construction set-out",
+      desc: "Transfer the issued design to the site using agreed control, plot references and setting-out requirements.",
+    },
+    {
+      title: "Boundary comparison",
+      desc: "Measure physical features and compare them with the records supplied, clearly distinguishing observed features from documented boundaries.",
+    },
+    {
+      title: "As-built information",
+      desc: "Record agreed completed works and provide measured information for the project team’s review and documentation.",
+    },
+  ],
+  deliverables: [
+    "Topographic plan and spot-level information.",
+    "CAD and PDF drawings in the agreed reference system.",
+    "Setting-out coordinates or layout records as scoped.",
+    "Measured area schedules with clearly stated definitions.",
+  ],
+  briefing: [
+    "Site location, land references and approximate area.",
+    "Current architectural, engineering or approved layout plans.",
+    "The purpose of the survey and the project stage.",
+    "The receiving professional’s format and reference requirements.",
+  ],
+  note: "Survey information supports your architect, engineer and registration team. Official approvals and professional certifications are separate requirements.",
+};
 
 export const metadata: Metadata = {
-  title: 'Real Estate & RERA Survey Services',
-  description:
-    'RERA-compliant boundary demarcation, layout surveys, and carpet area certification for developers across India.',
-  alternates: { canonical: 'https://shubhamsurveyors.com/industries/real-estate' },
-}
+  title: "Real estate & development survey services",
+  description: content.intro,
+  alternates: { canonical: SITE.url + "/industries/" + content.slug },
+};
 
-const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Real Estate & Township Survey Services',
-  serviceType: 'RERA & Real Estate Survey',
-  description:
-    'RERA-compliant boundary demarcation, layout surveys, and carpet area certification for developers across India.',
-  provider: { '@type': 'ProfessionalService', name: SITE.name, url: SITE.url },
-  areaServed: { '@type': 'Country', name: 'India' },
-  url: `${SITE.url}/industries/real-estate`,
-}
-
-export default function RealEstatePage() {
-  return (
-    <>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-    <IndustryPageTemplate
-      index="§ IND-02"
-      slug="real-estate"
-      sector="Real Estate & Township Development"
-      headline="THE GEOMETRY OF VALUE."
-      intro="In real estate, millimeters translate to marketable square footage. Our dual-frequency RTK GNSS and robotic total stations eliminate spatial ambiguity, ensuring legal boundaries and carpet areas are documented with unimpeachable accuracy."
-      coordinate="18.5204° N, 73.8567° E"
-      capabilities={[
-        { title: 'Topographic Mapping', desc: 'High-density terrain modeling for optimal master planning. Detailed contour generation to inform drainage, grading, and infrastructure layout.' },
-        { title: 'Layout Demarcation', desc: 'Transposing CAD masterplans onto physical terrain. Pinpoint pegging of plots, roads, and utilities prior to earthworks commencement.' },
-        { title: 'RERA Compliance Surveys', desc: 'Statutory boundary verification, built-area calculation, and carpet area certification aligning strictly with RERA standards.' },
-        { title: 'Encroachment Detection', desc: 'Precise comparison of registered plan vs. physical reality. Court-admissible documentation of any encroachment.' },
-      ]}
-      steps={[
-        { num: '01', title: 'Document Review', desc: 'Analysis of 7/12 extract, property card, and approved layout plan.' },
-        { num: '02', title: 'Boundary Survey', desc: 'DGPS-controlled field survey of all boundary pillars and corners.' },
-        { num: '03', title: 'Layout Demarcation', desc: 'Physical pegging of all plot corners and road edges per approved plan.' },
-        { num: '04', title: 'RERA Certificate', desc: 'Signed area statement and layout plan submitted to RERA authority.' },
-      ]}
-      deliverables={[
-        { format: 'Boundary Survey Report', standard: 'RERA Compliant', timeline: '5–7 days' },
-        { format: 'Carpet Area Statement', standard: 'ISO 9001:2015', timeline: '3–5 days' },
-        { format: 'Layout Demarcation Plan', standard: 'AutoCAD .DWG', timeline: '7–10 days' },
-        { format: 'As-Built Verification', standard: 'Court Admissible', timeline: '10–14 days' },
-      ]}
-      advantages={[
-        { title: 'RERA Specialist', desc: '100% of our RERA survey reports have been accepted by state RERA authorities without objection.' },
-        { title: '± 2mm Precision', desc: 'Carpet area calculations accurate to ± 2mm — well within RERA tolerance requirements.' },
-        { title: 'Legal Standing', desc: 'All survey reports carry legal standing for property registration, court proceedings, and bank valuation.' },
-      ]}
-      statValue="±2MM"
-      statLabel="CARPET AREA PRECISION"
-    />
-    </>
-  )
+export default function IndustryPage() {
+  return <IndustryPageTemplate {...content} />;
 }

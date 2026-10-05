@@ -1,293 +1,353 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import SectionLabel from '@/components/ui/SectionLabel'
-import RevealOnScroll from '@/components/ui/RevealOnScroll'
-import Breadcrumb from '@/components/ui/Breadcrumb'
-import { CheckCircle, MapPin, Clock, ShieldCheck } from 'lucide-react'
-import { SITE, PRICING } from '@/lib/constants'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, MapPin } from "lucide-react";
+import { SITE } from "@/lib/constants";
+import { SERVICE_DETAILS } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: 'Land Surveyors in Pune',
+  title: "Land surveyors in Pune",
   description:
-    'Pune-based land surveyors since 1994. RTK DGPS, boundary, topographic, and RERA-compliant surveys for PMC, PCMC, and NHAI NH-48 corridor projects.',
+    "Pune-based Shubham Surveyors, established in 1994. Boundary, topographic, DGPS and Total Station surveys with clear scopes, CAD plans and site measurements.",
   alternates: { canonical: `${SITE.url}/land-surveyors-pune` },
-}
-
-const services = [
-  { title: 'Boundary & Land Survey', desc: 'Court-admissible boundary demarcation across Pune, RERA compliant and accepted by Pune Revenue Office.' },
-  { title: 'RTK DGPS Survey', desc: 'Sub-centimeter accuracy differential GPS surveys for PMC, PCMC, and government infrastructure projects.' },
-  { title: 'Topographic Survey', desc: 'High-density contour and elevation mapping for construction and planning projects across Pune and PCMC limits.' },
-  { title: 'Highway & Infrastructure Survey', desc: 'NHAI and PWD standard corridor surveys, including work along the NH-48 corridor through Pune.' },
-  { title: 'RERA Layout Survey', desc: 'RERA-compliant boundary and layout plans for real estate developers and townships across Pune.' },
-  { title: 'GIS & Digital Mapping', desc: 'GIS data capture and digital terrain models for municipal and private clients in Pune.' },
-]
-
-const process = [
-  { num: '01', title: 'Site Assessment', desc: 'Initial consultation and document review (7/12 extract, property card, layout plan) within 48 hours.' },
-  { num: '02', title: 'Field Survey', desc: 'RTK DGPS or Total Station field measurement, with control points tied to PMC/PCMC survey benchmarks.' },
-  { num: '03', title: 'Data Processing', desc: 'CAD drafting, area calculation, and boundary plan preparation to RERA/revenue office format.' },
-  { num: '04', title: 'Report Delivery', desc: 'Signed survey report and drawings delivered in .DWG, .DXF, and PDF — accepted by Pune authorities.' },
-]
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: SITE.name,
+    title: "Land surveyors in Pune | Shubham Surveyors",
+    description:
+      "Pune-based Shubham Surveyors, established in 1994. Boundary, topographic, DGPS and Total Station surveys with clear scopes, CAD plans and site measurements.",
+    url: `${SITE.url}/land-surveyors-pune`,
+  },
+};
 
 const faqs = [
-  { question: 'How much does a land survey cost in Pune?', answer: `Costs depend on survey type and area. Boundary surveys typically run ₹${PRICING.boundary.min.toLocaleString('en-IN')}–₹${PRICING.boundary.max.toLocaleString('en-IN')} per acre, RTK DGPS surveys ₹${PRICING.rtk_dgps.min.toLocaleString('en-IN')}–₹${PRICING.rtk_dgps.max.toLocaleString('en-IN')} per acre, and RERA layout surveys ₹${PRICING.layout_rera.min.toLocaleString('en-IN')}–₹${PRICING.layout_rera.max.toLocaleString('en-IN')} per acre. Final pricing depends on site terrain and access.` },
-  { question: 'How long does a boundary survey take in Pune?', answer: 'Most boundary surveys in Pune are completed within 3-7 days of the field visit, depending on plot size and document availability. Site visits are typically arranged within 48 hours of inquiry.' },
-  { question: 'Do I need a RERA survey for my Pune property project?', answer: 'Yes — RERA registration in Maharashtra requires a boundary and layout survey confirming the project area, carpet area calculations, and plot boundaries match the registered plans before the authority will approve the project.' },
-  { question: 'Is your survey report accepted by PMC and PCMC?', answer: 'Yes. Our survey reports and boundary plans are prepared to the format required by the Pune Municipal Corporation (PMC), Pimpri-Chinchwad Municipal Corporation (PCMC), and the Taluka Revenue Office.' },
-]
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-  })),
-}
-
-const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Shubham Surveyors — Pune',
-  description: 'Land surveyors headquartered in Pune, Maharashtra, serving PMC, PCMC, and the NHAI NH-48 corridor since 1994.',
-  parentOrganization: { '@id': `${SITE.url}/#organization` },
-  url: `${SITE.url}/land-surveyors-pune`,
-  telephone: SITE.phone,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'B 1 Wing, Flat No. 211, Forest Castle, Vetal Nagar, Ambegaon (Bk)',
-    addressLocality: 'Pune',
-    addressRegion: 'Maharashtra',
-    postalCode: '411046',
-    addressCountry: 'IN',
+  {
+    question: "How much does a land survey in Pune cost?",
+    answer:
+      "The fee depends on the survey purpose, site area, access, terrain, required detail and deliverables. Send a location pin, approximate area and any existing plan so we can discuss a suitable scope and quotation.",
   },
-  areaServed: { '@type': 'City', name: 'Pune' },
-}
+  {
+    question: "Do you take enquiries from Pimpri-Chinchwad and nearby areas?",
+    answer:
+      "Yes. Share the exact location for sites in Pune, Pimpri-Chinchwad and surrounding areas such as Hinjawadi, Wagholi, Chakan, Talegaon, Mulshi and Lonavala. We confirm site access, team availability and the field programme when preparing the proposal.",
+  },
+  {
+    question: "What should I send before a site visit?",
+    answer:
+      "A location pin, approximate area and the purpose of the survey are a useful start. Add available site plans, 7/12 or property-card references, previous measurements and your architect’s or engineer’s drawing requirements.",
+  },
+  {
+    question: "Can you provide drawings for my architect or engineer?",
+    answer:
+      "Yes. We can agree CAD and PDF outputs, units, coordinate references, contour intervals and the feature list with your consultant before the survey begins.",
+  },
+  {
+    question: "Is private jaga mojni the same as official Mojani?",
+    answer:
+      "Jaga mojni is commonly used to describe land measurement. A private measured plan and the official Land Records Department measurement process serve different purposes. We can explain our survey support and direct you to the official Mahabhumi service for government measurement enquiries.",
+  },
+];
 
 export default function LandSurveyorsPunePage() {
-  const whatsappMessage = encodeURIComponent('Hi, I need a land survey in Pune')
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        name: "Land surveying in Pune",
+        url: `${SITE.url}/land-surveyors-pune`,
+        provider: { "@id": `${SITE.url}/#organization` },
+        areaServed: { "@type": "City", name: "Pune" },
+        description:
+          "Boundary, topographic, DGPS and Total Station surveying from Shubham Surveyors in Pune.",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Land surveyors in Pune",
+            item: `${SITE.url}/land-surveyors-pune`,
+          },
+        ],
+      },
+    ],
+  };
+  const whatsapp = `https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent("Hello, I would like to discuss a land survey in Pune. My site location is: ")}`;
 
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Breadcrumb items={[{ name: 'Land Surveyors in Pune', href: '/land-surveyors-pune' }]} />
-
-      {/* Hero */}
-      <section
-        className="pt-24 pb-20 relative overflow-hidden"
-        style={{ backgroundColor: 'var(--color-brand-navy)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <div className="bg-blueprint-dark absolute inset-0 opacity-40 pointer-events-none" />
-        <RevealOnScroll className="relative z-10">
-          <SectionLabel index="§ HQ" label="Headquartered in Pune" dark />
-          <h1
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 5.5vw, 3.5rem)',
-              fontWeight: '800',
-              textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
-              color: 'var(--color-brand-offwhite)',
-              maxWidth: '900px',
-              marginBottom: '1.5rem',
-            }}
+    <div className="page-shell">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <section className="page-hero">
+        <div className="section-wrap">
+          <nav
+            className="breadcrumb"
+            style={{ padding: "0 0 24px", border: 0 }}
+            aria-label="Breadcrumb"
           >
-            Land Surveyors in Pune
+            <ol>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <span aria-current="page">Land surveyors in Pune</span>
+              </li>
+            </ol>
+          </nav>
+          <p className="eyebrow">Pune, Maharashtra · Established 1994</p>
+          <h1>
+            Land surveyors
+            <br />
+            in Pune.
           </h1>
-          <p
-            style={{
-              fontFamily: 'var(--font-jost)',
-              fontSize: '1.1rem',
-              lineHeight: '1.7',
-              color: 'var(--color-inverse-primary)',
-              maxWidth: '600px',
-              borderLeft: '2px solid var(--color-brand-gold)',
-              paddingLeft: '1.5rem',
-              marginBottom: '2rem',
-            }}
-          >
-            Based at Forest Castle, Vetal Nagar, Ambegaon (Bk), Pune — serving PMC, PCMC, and the
-            NHAI NH-48 corridor since 1994. RTK DGPS, boundary, and RERA-compliant surveys with site
-            visits arranged within 48 hours anywhere in Pune.
+          <p className="lead">
+            Land surveyors in Pune for property owners, architects and project
+            teams. From boundary measurements to contour plans, we help you
+            understand your site and prepare for what comes next.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/quote" className="btn-primary">GET A QUOTE →</Link>
-            <Link
-              href={`https://wa.me/${SITE.whatsappNumber}?text=${whatsappMessage}`}
+          <div className="flex flex-wrap gap-3">
+            <Link href="/quote" className="button button-lime">
+              Plan your Pune survey{" "}
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <a
+              href={whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-4 label-caps"
-              style={{ backgroundColor: '#25D366', color: 'var(--color-brand-navy)' }}
+              className="button button-outline"
             >
-              <CheckCircle size={16} />
-              CHAT ON WHATSAPP
+              Share your site on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">A team close to your project</p>
+            <h2 className="section-heading">
+              Rooted in Pune.
+              <br />
+              Working with your brief.
+            </h2>
+          </div>
+          <p>
+            Shubham Surveyors has been in practice since 1994. Our Pune address
+            is in Ambegaon (Bk), with a second contact location in Lonavala. We
+            start every enquiry by understanding the site, the available
+            references and what you need the survey to achieve.
+          </p>
+        </div>
+        <div className="detail-grid">
+          <article className="detail-panel">
+            <MapPin size={24} aria-hidden="true" />
+            <h3>Pune</h3>
+            <address className="not-italic">{SITE.address}</address>
+            <a
+              href={`tel:${SITE.phone.replace(/\s/g, "")}`}
+              className="text-link"
+            >
+              {SITE.phone} <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </article>
+          <article className="detail-panel">
+            <MapPin size={24} aria-hidden="true" />
+            <h3>Lonavala</h3>
+            <address className="not-italic">{SITE.addressLonavala}</address>
+            <p>
+              Please call before visiting so we can arrange a suitable time.
+            </p>
+            <Link href="/contact" className="text-link">
+              Contact the team <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Choose your service</p>
+            <h2 className="section-heading">What does your site need?</h2>
+          </div>
+          <p>
+            Start with the decision you need to make. We can help identify a
+            survey scope and the files your project team will need.
+          </p>
+        </div>
+        <div className="service-grid">
+          {SERVICE_DETAILS.map((service) => (
+            <Link
+              className="service-card"
+              href={`/services/${service.slug}`}
+              key={service.slug}
+            >
+              <p className="eyebrow">{service.number}</p>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+              <span className="text-link">
+                View scope & deliverables{" "}
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="detail-grid">
+          <article className="detail-panel">
+            <p className="eyebrow">For property owners</p>
+            <h2>Start with the parcel and its references.</h2>
+            <p>
+              For a purchase check, area measurement or marking enquiry, share
+              the village or locality, approximate extent and any available
+              property plans. Point out existing stones, walls, fences and any
+              portion that needs closer attention.
+            </p>
+            <p>
+              A measured drawing helps you compare the physical site with
+              supplied information. Where the matter requires official
+              demarcation, we explain the distinction and the survey support we
+              can provide.
+            </p>
+            <Link href="/services/mojani-support" className="text-link">
+              Understand Mojani support{" "}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </article>
+          <article className="detail-panel">
+            <p className="eyebrow">For architects & project teams</p>
+            <h2>Define the drawing before the field work.</h2>
+            <p>
+              Tell us the survey extent, feature list, contour interval,
+              benchmark requirements and CAD format. If adjoining road levels,
+              drainage connections or existing building details matter to your
+              design, include them in the brief.
+            </p>
+            <p>
+              For work in PMC, PCMC or another jurisdiction, share the actual
+              submission or consultant specification so we can review the survey
+              requirements with you.
+            </p>
+            <Link href="/services/topographic-survey" className="text-link">
+              Explore site & contour surveys{" "}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Planning the visit</p>
+            <h2 className="section-heading">
+              A better brief.
+              <br />A smoother survey.
+            </h2>
+          </div>
+          <p>
+            Site access, vegetation and the required detail can matter as much
+            as the area. Sharing these early helps us plan the work
+            realistically.
+          </p>
+        </div>
+        <div className="detail-grid">
+          <article className="detail-panel">
+            <p className="eyebrow">01</p>
+            <h3>Share your site</h3>
+            <p>
+              Send a location pin, approximate area and the purpose of the
+              survey, along with any available drawings.
+            </p>
+          </article>
+          <article className="detail-panel">
+            <p className="eyebrow">02</p>
+            <h3>Agree the scope</h3>
+            <p>
+              We discuss the field method, included features, output formats,
+              fee and expected programme.
+            </p>
+          </article>
+          <article className="detail-panel">
+            <p className="eyebrow">03</p>
+            <h3>Measure & prepare</h3>
+            <p>
+              The team carries out the agreed field work, checks the data and
+              prepares the deliverables.
+            </p>
+          </article>
+          <article className="detail-panel">
+            <p className="eyebrow">04</p>
+            <h3>Review the handover</h3>
+            <p>
+              Receive your files with the reference information and an
+              explanation of the scope covered.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="section-head">
+          <div>
+            <p className="eyebrow">Pune survey enquiries</p>
+            <h2 className="section-heading">Common questions.</h2>
+          </div>
+          <a
+            href="https://share.google/jhxqVbuElVFH4Ocna"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link"
+          >
+            Find us on Google <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+        <div className="faq-list">
+          {faqs.map((faq) => (
+            <details key={faq.question}>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="cta-band">
+        <div className="section-wrap">
+          <p className="eyebrow">Let’s talk about your land</p>
+          <h2>Your next step starts here.</h2>
+          <p>Send the site location and tell us what you need to understand.</p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/quote" className="button button-lime">
+              Request a survey <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <Link
+              href="/locations/maharashtra"
+              className="button button-outline"
+            >
+              Explore Maharashtra coverage
             </Link>
           </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* Local presence */}
-      <section
-        className="py-20"
-        style={{ backgroundColor: 'var(--color-surface)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { icon: <MapPin size={20} />, title: 'B 1 Wing, Forest Castle, Vetal Nagar, Ambegaon (Bk), Pune 411046', desc: 'Our main office and field team are headquartered in Pune.' },
-            { icon: <Clock size={20} />, title: '48-Hour Site Visits', desc: 'Site visits anywhere in Pune, PCMC, or surrounding talukas within 48 hours.' },
-            { icon: <ShieldCheck size={20} />, title: 'PMC & PCMC Accepted', desc: 'Reports formatted to Pune Municipal Corporation and PCMC requirements.' },
-          ].map((item) => (
-            <div key={item.title} className="p-7" style={{ border: '1px solid var(--color-outline)' }}>
-              <div style={{ color: '#8B6508', marginBottom: '1rem' }}>{item.icon}</div>
-              <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '1rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-on-surface)', marginBottom: '0.5rem' }}>
-                {item.title}
-              </h3>
-              <p style={{ fontFamily: 'var(--font-jost)', fontSize: '0.875rem', lineHeight: '1.7', color: 'var(--color-on-surface-variant)' }}>
-                {item.desc}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
-
-      {/* Services */}
-      <section
-        className="py-24"
-        style={{ backgroundColor: 'var(--color-brand-offwhite)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <RevealOnScroll>
-          <SectionLabel index="§ 02 / SERVICES" label="What We Offer" />
-          <h2
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '3rem',
-            }}
-          >
-            Survey Services in Pune
-          </h2>
-        </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
-            <RevealOnScroll key={service.title} delay={i * 0.06}>
-              <div className="p-7" style={{ border: '1px solid var(--color-outline)', backgroundColor: 'var(--color-surface)' }}>
-                <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '1.05rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-on-surface)', marginBottom: '0.75rem' }}>
-                  {service.title}
-                </h3>
-                <p style={{ fontFamily: 'var(--font-jost)', fontSize: '0.9rem', lineHeight: '1.7', color: 'var(--color-on-surface-variant)' }}>
-                  {service.desc}
-                </p>
-              </div>
-            </RevealOnScroll>
-          ))}
-        </div>
-      </section>
-
-      {/* Process */}
-      <section
-        className="py-24"
-        style={{ backgroundColor: 'var(--color-surface)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <RevealOnScroll>
-          <SectionLabel index="§ 03 / PROCESS" label="How We Work" />
-          <h2
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '3rem',
-            }}
-          >
-            Our Pune Survey Process
-          </h2>
-        </RevealOnScroll>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {process.map((step, i) => (
-            <RevealOnScroll key={step.num} delay={i * 0.07}>
-              <div className="p-6 flex flex-col gap-3" style={{ border: '1px solid var(--color-outline)', backgroundColor: 'var(--color-brand-offwhite)' }}>
-                <div style={{ color: '#8B6508', fontSize: '1.5rem', fontFamily: 'var(--font-syne)', fontWeight: '800' }}>
-                  {step.num}
-                </div>
-                <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '0.9rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--color-on-surface)' }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontFamily: 'var(--font-jost)', fontSize: '0.8rem', lineHeight: '1.6', color: 'var(--color-on-surface-variant)' }}>
-                  {step.desc}
-                </p>
-              </div>
-            </RevealOnScroll>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section
-        className="py-24"
-        style={{ backgroundColor: 'var(--color-brand-navy)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <RevealOnScroll>
-          <SectionLabel index="§ 04 / FAQ" label="Common Questions" dark />
-          <h2
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-brand-offwhite)',
-              marginBottom: '3rem',
-            }}
-          >
-            Land Survey FAQs — Pune
-          </h2>
-        </RevealOnScroll>
-        <div className="flex flex-col gap-6 max-w-3xl">
-          {faqs.map((faq) => (
-            <div key={faq.question} style={{ borderBottom: '1px solid var(--color-brand-slate)', paddingBottom: '1.5rem' }}>
-              <h3 style={{ fontFamily: 'var(--font-syne)', fontSize: '1rem', fontWeight: '700', color: 'var(--color-brand-offwhite)', marginBottom: '0.5rem' }}>
-                {faq.question}
-              </h3>
-              <p style={{ fontFamily: 'var(--font-jost)', fontSize: '0.9rem', lineHeight: '1.7', color: 'var(--color-inverse-primary)' }}>
-                {faq.answer}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section
-        className="py-20 text-center"
-        style={{ backgroundColor: 'var(--color-surface)', borderTop: '1px solid var(--color-outline)', paddingLeft: 'clamp(1rem, 4vw, 4rem)', paddingRight: 'clamp(1rem, 4vw, 4rem)' }}
-      >
-        <RevealOnScroll>
-          <h2
-            style={{
-              fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(1.5rem, 4vw, 2.5rem)',
-              fontWeight: '700',
-              textTransform: 'uppercase',
-              color: 'var(--color-on-surface)',
-              marginBottom: '1.5rem',
-            }}
-          >
-            Start Your Pune Survey Project
-          </h2>
-          <p style={{ fontFamily: 'var(--font-jost)', fontSize: '1rem', lineHeight: '1.7', color: 'var(--color-on-surface-variant)', maxWidth: '560px', margin: '0 auto 2rem' }}>
-            Contact us for a free consultation. Site visits arranged within 48 hours anywhere in Pune.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/quote" className="btn-primary">GET A QUOTE →</Link>
-            <Link href="/contact" className="btn-secondary">CONTACT US</Link>
-          </div>
-        </RevealOnScroll>
-      </section>
-    </>
-  )
+    </div>
+  );
 }
