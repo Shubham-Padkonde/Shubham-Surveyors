@@ -8,16 +8,17 @@ import { SERVICE_DETAILS } from "@/lib/services";
 export const metadata: Metadata = {
   title: "Land & geospatial surveying services across India",
   description:
-    "Explore boundary, topographic, RTK DGPS, total station, highway and GIS surveys across India. Clear scopes, considered fieldwork and practical deliverables.",
+    "Land, building, railway line, water supply, drainage and irrigation surveys across India. Explore DGPS, topographic and mapping services for your project.",
   alternates: { canonical: `${SITE.url}/services` },
   openGraph: {
     images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Land & geospatial surveying services across India | Shubham Surveyors",
+    title:
+      "Land & geospatial surveying services across India | Shubham Surveyors",
     description:
-      "Explore boundary, topographic, RTK DGPS, total station, highway and GIS surveys across India. Clear scopes, considered fieldwork and practical deliverables.",
+      "Land, building, railway line, water supply, drainage and irrigation surveys across India. Explore DGPS, topographic and mapping services for your project.",
     url: `${SITE.url}/services`,
   },
 };
@@ -103,7 +104,7 @@ export default function ServicesPage() {
             measurements into information your project can use. Explore the
             right survey, what it includes and how to prepare.
           </p>
-          <Link href="/quote" className="button button-lime">
+          <Link href="/contact#enquiry-form" className="button button-lime">
             Discuss your survey <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </div>
@@ -112,7 +113,9 @@ export default function ServicesPage() {
       <section className="section-wrap">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Seven areas of expertise</p>
+            <p className="eyebrow">
+              {SERVICE_DETAILS.length} areas of expertise
+            </p>
             <h2 className="section-heading">
               A clear scope.
               <br />A useful result.
@@ -201,8 +204,8 @@ export default function ServicesPage() {
             </p>
             <p>
               We support survey projects across India, planning field access,
-              travel and mobilisation around the site and your programme.
-              These details form part of the agreed scope.
+              travel and mobilisation around the site and your programme. These
+              details form part of the agreed scope.
             </p>
             <Link href="/locations" className="text-link">
               Explore our coverage <ArrowUpRight size={16} aria-hidden="true" />
@@ -220,7 +223,7 @@ export default function ServicesPage() {
             step.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/quote" className="button button-lime">
+            <Link href="/contact#enquiry-form" className="button button-lime">
               Request a survey <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
             <Link href="/contact" className="button button-outline">

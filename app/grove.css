@@ -452,6 +452,16 @@ svg {
 .grove-service-detail a {
   margin-top: 12px;
 }
+.grove-project-services {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+}
+.grove-project-services a {
+  margin-top: 0;
+}
 .grove-services-all {
   margin-top: 26px;
 }

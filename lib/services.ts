@@ -512,6 +512,341 @@ export const SERVICE_DETAILS: SurveyService[] = [
     ],
     related: ["topographic-survey", "dgps-survey", "highway-survey"],
   },
+  {
+    slug: "building-survey",
+    number: "08",
+    title: "Building surveys",
+    shortTitle: "Building survey",
+    description:
+      "Measured building plans, dimensions and levels for renovation, space planning and as-built records across India.",
+    introduction:
+      "Work with a clear record of the building as it stands. We measure accessible spaces, building outlines and agreed features to prepare drawings for your architect or project team. Whether you are planning an alteration, documenting an existing property or checking dimensions against supplied drawings, we agree the required detail before the site visit.",
+    bestFor:
+      "Architects, property owners, facility managers and contractors who need measured drawings of an existing building.",
+    deliverables: [
+      "Measured floor plans showing agreed rooms, openings and accessible building features.",
+      "Building outlines, dimensions and floor levels tied to the agreed reference.",
+      "Elevations and sections where included in the measurement brief.",
+      "Editable CAD drawings and PDF plans for coordination or as-built documentation.",
+    ],
+    preparation: [
+      "Share the building location, number of floors and approximate floor area.",
+      "Provide existing plans and identify the spaces and features to be measured.",
+      "Confirm whether floor plans, elevations, sections or a drawing comparison are needed.",
+      "Arrange access to the agreed rooms and coordinate the visit with occupants or site staff.",
+    ],
+    process: [
+      {
+        title: "Define the drawing brief",
+        description:
+          "We agree the survey extent, drawing scale and features your project team needs.",
+      },
+      {
+        title: "Plan access",
+        description:
+          "The visit is coordinated around occupancy, restricted spaces and the available site references.",
+      },
+      {
+        title: "Measure the building",
+        description:
+          "Accessible dimensions, positions and levels are recorded using methods suited to the brief.",
+      },
+      {
+        title: "Prepare the record",
+        description:
+          "We check the measurements, prepare drawings and identify areas that could not be accessed.",
+      },
+    ],
+    scopeNote:
+      "This is a measured building survey. Structural condition assessments, safety certification and building approval advice are separate services and are not implied by a measured drawing.",
+    faqs: [
+      {
+        question:
+          "Can you prepare drawings when no existing plans are available?",
+        answer:
+          "Yes. We can scope a measured record of accessible areas. Tell us which plans, elevations or sections your architect needs and how the drawings will be used.",
+      },
+      {
+        question: "Can the survey support renovation work?",
+        answer:
+          "Measured drawings give your architect a base for planning changes. Specify key dimensions, floor levels and connections to adjoining spaces in the brief.",
+      },
+      {
+        question: "Does this include a structural inspection?",
+        answer:
+          "No. The service records dimensions and agreed visible features. A qualified structural engineer should assess structural condition or safety when that is required.",
+      },
+    ],
+    related: ["total-station-survey", "topographic-survey", "boundary-survey"],
+  },
+  {
+    slug: "railway-line-survey",
+    number: "09",
+    title: "Railway line surveys",
+    shortTitle: "Railway line survey",
+    description:
+      "Railway corridor measurements, alignment references, longitudinal profiles and cross-sections for project teams across India.",
+    introduction:
+      "Railway projects need survey information that connects the route, surrounding terrain and agreed engineering references. We scope corridor measurements around the supplied alignment, chainage, survey width and section intervals. Fieldwork is planned with your project team around access permissions and the working arrangements for the railway environment.",
+    bestFor:
+      "Railway consultants, infrastructure contractors and project teams planning or documenting a rail corridor.",
+    deliverables: [
+      "A corridor plan showing agreed alignment references and accessible site features.",
+      "Longitudinal profiles and cross-sections at the specified chainages.",
+      "Control-point and benchmark schedules within the agreed survey scope.",
+      "CAD drawings, coordinate data and setting-out or as-built records where commissioned.",
+    ],
+    preparation: [
+      "Provide the route location, length, corridor width and alignment files.",
+      "Share the consultant’s survey specification, chainage references and drawing requirements.",
+      "Identify required detail at crossings, structures, stations or adjoining land.",
+      "Confirm site permissions and the railway authority’s access and safe working arrangements.",
+    ],
+    process: [
+      {
+        title: "Review the corridor",
+        description:
+          "We define the survey limits, alignment references and engineering outputs with your team.",
+      },
+      {
+        title: "Coordinate the visit",
+        description:
+          "The field programme follows the agreed access permissions and site working arrangements.",
+      },
+      {
+        title: "Measure and check",
+        description:
+          "The team records control, levels and specified features within the accessible survey area.",
+      },
+      {
+        title: "Deliver plans and sections",
+        description:
+          "Checked observations are organised into the drawings and data required by the project.",
+      },
+    ],
+    scopeNote:
+      "Survey work on railway property depends on authorised access and the relevant site arrangements. The measurement service does not include track-safety certification, railway design approval or authority acceptance.",
+    faqs: [
+      {
+        question: "Can you survey an existing railway corridor?",
+        answer:
+          "Share the location, required outputs and access arrangements. We review the scope and permissions before confirming a field programme, particularly where the corridor is operational.",
+      },
+      {
+        question: "Can you use our project chainage and coordinate system?",
+        answer:
+          "Yes, subject to reviewing the supplied alignment, control and reference definitions. These are agreed before measurements are combined with your design data.",
+      },
+      {
+        question: "Are profiles and cross-sections included?",
+        answer:
+          "They can be included at the intervals and locations specified by your engineer. The quotation will identify the corridor width, section spacing and additional detail points.",
+      },
+    ],
+    related: ["highway-survey", "dgps-survey", "topographic-survey"],
+  },
+  {
+    slug: "water-supply-survey",
+    number: "10",
+    title: "Water supply surveys",
+    shortTitle: "Water supply survey",
+    description:
+      "Route plans, ground levels and pipeline corridor profiles to support water supply projects and as-built records across India.",
+    introduction:
+      "A water supply scheme needs a measured understanding of the route and its surroundings. We capture terrain levels, accessible features and agreed connection references along the proposed or existing pipeline corridor. Your engineer can use the resulting plans and profiles as inputs for route development, design coordination and construction documentation.",
+    bestFor:
+      "Water supply consultants, utility project teams and contractors who need coordinated route and level information.",
+    deliverables: [
+      "A route plan with agreed corridor features, crossings and accessible asset positions.",
+      "Longitudinal profiles and cross-sections where specified by the design team.",
+      "Ground levels, benchmark references and a coordinate schedule within the survey scope.",
+      "CAD and PDF drawings, with setting-out or as-built measurements where commissioned.",
+    ],
+    preparation: [
+      "Share the proposed route, approximate length and required corridor width.",
+      "Provide available pipeline records, connection locations and the engineer’s specification.",
+      "Confirm the level datum, coordinate system and detail needed at crossings or structures.",
+      "Arrange access and identify traffic, vegetation or utility-owner restrictions.",
+    ],
+    process: [
+      {
+        title: "Understand the route",
+        description:
+          "We review the alignment, connection references and the information needed by your engineer.",
+      },
+      {
+        title: "Establish control",
+        description:
+          "The available coordinate and level references are checked for the corridor survey.",
+      },
+      {
+        title: "Capture site detail",
+        description:
+          "Fieldwork records terrain and the accessible features included in the brief.",
+      },
+      {
+        title: "Prepare project inputs",
+        description:
+          "Plans, profiles and reference notes are assembled in the agreed drawing formats.",
+      },
+    ],
+    scopeNote:
+      "Surface observations and supplied utility records do not confirm the position or depth of buried pipes. Utility detection, hydraulic design, pressure testing and water-quality testing require separately agreed specialist work.",
+    faqs: [
+      {
+        question: "Can you survey a proposed pipeline route?",
+        answer:
+          "Yes. Share the route, corridor width and your consultant’s required profiles, sections and features so we can define the field scope.",
+      },
+      {
+        question: "Can you document a newly installed water line?",
+        answer:
+          "As-built measurements can be scoped while the relevant points and pipe features are accessible. Coordinate the survey with the contractor before those features are covered.",
+      },
+      {
+        question: "Will the survey locate every underground pipe?",
+        answer:
+          "No. A surface survey records accessible features and distinguishes those observations from supplied records. Buried utility detection needs its own agreed method and scope.",
+      },
+    ],
+    related: ["drainage-line-survey", "topographic-survey", "dgps-survey"],
+  },
+  {
+    slug: "drainage-line-survey",
+    number: "11",
+    title: "Drainage line surveys",
+    shortTitle: "Drainage line survey",
+    description:
+      "Drainage route plans, surface levels and accessible chamber and outfall measurements for engineering projects across India.",
+    introduction:
+      "Drainage planning begins with reliable level information. We survey the agreed route, surrounding ground and accessible drainage features to help your engineer understand the site. The brief can include channel sections, chamber cover levels, safely accessible invert levels and outfall references, with each observation tied to the agreed datum.",
+    bestFor:
+      "Civil engineers, drainage consultants, developers and contractors planning or recording drainage infrastructure.",
+    deliverables: [
+      "A drainage route plan showing surveyed channels, chambers, outfalls and agreed surrounding features.",
+      "Ground and cover levels, plus invert levels where safely accessible and included in the brief.",
+      "Longitudinal profiles and channel cross-sections at specified locations.",
+      "CAD drawings, PDF plans and level schedules with the applicable reference information.",
+    ],
+    preparation: [
+      "Provide the site extent, drainage route and available network drawings.",
+      "Identify the outfalls, connection points and chambers your engineer needs surveyed.",
+      "Specify the required level datum, section intervals and drawing format.",
+      "Arrange authorised access and flag blocked, flooded or otherwise inaccessible features.",
+    ],
+    process: [
+      {
+        title: "Set the survey extent",
+        description:
+          "We agree which drainage features, adjoining levels and connections are required.",
+      },
+      {
+        title: "Review access",
+        description:
+          "The field team identifies the features that can be measured under the agreed site arrangements.",
+      },
+      {
+        title: "Record positions and levels",
+        description:
+          "Measurements capture the specified accessible features relative to the project references.",
+      },
+      {
+        title: "Document the network",
+        description:
+          "Plans, sections and level schedules distinguish measured detail from supplied information.",
+      },
+    ],
+    scopeNote:
+      "The survey is limited to agreed accessible features. Confined-space entry, CCTV inspection, blockage clearance, buried utility detection and hydraulic capacity assessment are not included in a standard measurement brief.",
+    faqs: [
+      {
+        question: "Can you record drain invert levels?",
+        answer:
+          "Invert levels can be included where the feature is safely accessible under the agreed arrangements. Inaccessible points are identified in the handover rather than reported as measured.",
+      },
+      {
+        question: "Does this cover stormwater drains and sewer routes?",
+        answer:
+          "Either can be scoped for route and level measurement. Tell us the network type, access conditions and required features when requesting a quotation.",
+      },
+      {
+        question: "Will the survey show whether a drain has enough capacity?",
+        answer:
+          "The measured levels and geometry can support your drainage engineer’s assessment. Hydraulic capacity calculations and condition investigations are separate from the survey drawings.",
+      },
+    ],
+    related: ["water-supply-survey", "topographic-survey", "irrigation-survey"],
+  },
+  {
+    slug: "irrigation-survey",
+    number: "12",
+    title: "Irrigation surveys",
+    shortTitle: "Irrigation survey",
+    description:
+      "Terrain mapping, canal alignment measurements, profiles and cross-sections for irrigation planning and field projects across India.",
+    introduction:
+      "Understand how the terrain relates to your irrigation project. We measure land levels, agreed canal or channel alignments and accessible site features to provide a base for your engineer’s planning. The scope can cover agricultural land, conveyance routes and associated surface features, with detail selected for the project’s stage and design requirements.",
+    bestFor:
+      "Irrigation consultants, agricultural project teams, landowners and contractors who need terrain and alignment data.",
+    deliverables: [
+      "A topographic plan with agreed ground features, spot levels and contours.",
+      "Canal or channel alignment plans with longitudinal profiles and cross-sections where specified.",
+      "Coordinate and benchmark schedules for the agreed survey references.",
+      "CAD drawings and PDF plans, with setting-out or as-built records where commissioned.",
+    ],
+    preparation: [
+      "Share the land extent, approximate area and any proposed canal or pipeline route.",
+      "Provide available plans, benchmark information and the engineer’s survey specification.",
+      "Confirm contour intervals, section spacing and important structures or connections.",
+      "Explain seasonal access, standing crops, water conditions and permissions for the site visit.",
+    ],
+    process: [
+      {
+        title: "Define the project area",
+        description:
+          "We review the terrain, route and survey detail needed for the intended work.",
+      },
+      {
+        title: "Plan the field visit",
+        description:
+          "Access, seasonal conditions and project control are considered before measurement begins.",
+      },
+      {
+        title: "Measure land and alignment",
+        description:
+          "The team records levels, sections and accessible features within the agreed scope.",
+      },
+      {
+        title: "Prepare a measured base",
+        description:
+          "Checked drawings and data are handed over for your engineer’s planning or construction workflow.",
+      },
+    ],
+    scopeNote:
+      "Survey data provides measured inputs for an irrigation project. Water availability studies, hydraulic design, soil testing and permissions for water use are separate from the measurement service.",
+    faqs: [
+      {
+        question: "Can you survey farmland for irrigation planning?",
+        answer:
+          "Yes. Share the land extent and your engineer’s required terrain detail. We can agree spot levels, contours and the relevant surface features before fieldwork.",
+      },
+      {
+        question: "Can you prepare canal profiles and cross-sections?",
+        answer:
+          "They can be included along an agreed alignment at specified intervals. Confirm the canal extent, reference datum and additional detail required at structures or crossings.",
+      },
+      {
+        question: "Does an irrigation survey include system design?",
+        answer:
+          "The survey supplies measured terrain and route information. Your irrigation engineer uses these inputs alongside water, soil and project requirements to develop the design.",
+      },
+    ],
+    related: [
+      "topographic-survey",
+      "water-supply-survey",
+      "drainage-line-survey",
+    ],
+  },
 ];
 
 export function getSurveyService(slug: string) {

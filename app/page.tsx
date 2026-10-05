@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowUpRight, Crosshair } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import { SOCIAL_IMAGES } from "@/lib/metadata";
+import { SERVICE_DETAILS } from "@/lib/services";
 import GuideArtwork from "@/components/brand/GuideArtwork";
 import HeroVideo from "@/components/sections/HeroVideo";
 
@@ -55,6 +56,15 @@ const services = [
     body: "Organised spatial information that makes field data easier to understand, manage and use across your project.",
   },
 ];
+const projectServices = SERVICE_DETAILS.filter((service) =>
+  [
+    "building-survey",
+    "railway-line-survey",
+    "water-supply-survey",
+    "drainage-line-survey",
+    "irrigation-survey",
+  ].includes(service.slug),
+);
 const faqs = [
   [
     "Do you carry out surveys across India?",
@@ -212,6 +222,31 @@ export default function HomePage() {
                 </div>
               </details>
             ))}
+            <details>
+              <summary>
+                <small>07</small>
+                <span>Building, rail & water surveys</span>
+                <span className="grove-plus" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <div className="grove-service-detail">
+                <p>
+                  Measured buildings and infrastructure, from railway corridors
+                  to water supply, drainage and irrigation projects.
+                </p>
+                <ul className="grove-project-services">
+                  {projectServices.map((service) => (
+                    <li key={service.slug}>
+                      <Link href={`/services/${service.slug}`}>
+                        {service.shortTitle}
+                        <ArrowUpRight size={15} aria-hidden="true" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
           </div>
           <Link href="/services" className="grove-services-all">
             Explore all survey services{" "}
