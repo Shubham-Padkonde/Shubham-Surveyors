@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 interface Article {
   title: string;
@@ -209,7 +210,7 @@ const articles: Record<string, Article> = {
     title: "How to prepare for a land survey",
     category: "Start here",
     description:
-      "A practical land survey preparation checklist for Pune and Maharashtra: site details, available documents, access, project scope and drawing handover.",
+      "A practical land survey preparation checklist for projects across India: site details, available documents, access, project scope and drawing handover.",
     takeaway:
       "The most useful first message includes a location, approximate area and purpose. You do not need to choose the instrument before speaking to the surveyor.",
     sections: [
@@ -346,6 +347,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: article.description,
     alternates: { canonical: SITE.url + "/knowledge/" + slug },
     openGraph: {
+      images: SOCIAL_IMAGES,
       title: article.title,
       description: article.description,
       type: "article",
@@ -418,8 +420,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           </h1>
           <p className="lead">{article.description}</p>
           <p style={{ marginTop: "1.5rem", opacity: 0.8 }}>
-            By Shubham Surveyors · Updated{" "}
-            <time dateTime="2026-10-05">5 October 2026</time>
+            By Shubham Surveyors
           </p>
         </div>
       </header>
@@ -433,7 +434,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
         <article style={{ maxWidth: "780px" }}>
           <div
             className="detail-panel"
-            style={{ background: "#e9eef8", marginBottom: "3rem" }}
+            style={{ background: "#e5e3d7", marginBottom: "3rem" }}
           >
             <p className="eyebrow">The useful starting point</p>
             <p style={{ fontSize: "1.2rem", lineHeight: 1.7 }}>
@@ -462,7 +463,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
                   style={{
                     lineHeight: 1.85,
                     marginBottom: "1rem",
-                    color: "#566176",
+                    color: "#526155",
                   }}
                 >
                   {paragraph}
@@ -492,11 +493,11 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           ))}
           <p
             style={{
-              borderTop: "1px solid #dbe0e9",
+              borderTop: "1px solid #c8c7b8",
               paddingTop: "1.5rem",
               fontSize: ".9rem",
               lineHeight: 1.7,
-              color: "#566176",
+              color: "#526155",
             }}
           >
             This guide provides general survey information. Official
@@ -556,12 +557,12 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           </div>
           <div
             className="detail-panel"
-            style={{ background: "#10182a", color: "#f4f5f7" }}
+            style={{ background: "#153d32", color: "#eae6da" }}
           >
             <h2 style={{ fontSize: "1.6rem", marginBottom: "1rem" }}>
               Have a site in mind?
             </h2>
-            <p style={{ color: "#c9d3e9", marginBottom: "1.5rem" }}>
+            <p style={{ color: "#d6ddcf", marginBottom: "1.5rem" }}>
               Tell us the location and what you need the survey to support.
             </p>
             <Link className="button button-lime" href="/quote">

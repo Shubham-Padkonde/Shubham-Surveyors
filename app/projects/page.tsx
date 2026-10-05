@@ -2,17 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Building2, Route, Mountain, Sprout } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Survey project applications | Pune & Maharashtra",
+  title: "Survey project applications across India",
   description:
     "Explore how land surveys support development, road design, earthworks and agricultural planning. Discuss relevant surveying experience with Shubham Surveyors.",
   alternates: { canonical: SITE.url + "/projects" },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Survey project applications | Pune & Maharashtra | Shubham Surveyors",
+    title: "Survey project applications across India | Shubham Surveyors",
     description:
       "Explore how land surveys support development, road design, earthworks and agricultural planning. Discuss relevant surveying experience with Shubham Surveyors.",
     url: `${SITE.url}/projects`,

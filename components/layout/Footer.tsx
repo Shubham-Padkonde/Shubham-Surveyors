@@ -28,10 +28,10 @@ const columns = [
   {
     title: "Where we work",
     links: [
+      ["Projects across India", "/locations"],
+      ["Our office locations", "/contact"],
       ["Land surveyors in Pune", "/land-surveyors-pune"],
-      ["Maharashtra & Lonavala", "/locations/maharashtra"],
-      ["Across India", "/locations"],
-      ["Contact the team", "/contact"],
+      ["Maharashtra expertise", "/locations/maharashtra"],
     ],
   },
 ];
@@ -40,24 +40,28 @@ export default function Footer() {
     <footer className="site-footer">
       <div className="footer-top">
         <div>
-          <p className="eyebrow">A strong foundation starts here</p>
+          <p className="eyebrow">Let’s begin with a conversation</p>
           <h2>
-            Let’s get your project
+            What’s possible
             <br />
-            on solid ground.
+            on your ground?
           </h2>
         </div>
-        <Link href="/quote" prefetch={false} className="button button-lime">
-          Talk to a surveyor <ArrowUpRight size={20} aria-hidden="true" />
+        <Link
+          href="/contact"
+          prefetch={false}
+          className="grove-footer-arrow"
+          aria-label="Talk to a surveyor about your project"
+        >
+          <ArrowUpRight size={42} strokeWidth={1} aria-hidden="true" />
         </Link>
       </div>
       <div className="footer-grid">
         <div className="footer-brand">
-          <Link href="/" className="footer-wordmark" aria-label="Shubham Surveyors. Home">
-            <BrandMark size={64} color="#E9EEFF" className="brand-mark" />
+          <Link href="/" className="footer-wordmark">
+            <BrandMark size={52} className="brand-mark" />
             <span className="brand-wordmark">
-              <strong>Shubham</strong>{" "}
-              <strong>Surveyors<span className="brand-period">.</span></strong>
+              <strong>Shubham</strong> <strong>Surveyors</strong>
             </span>
           </Link>
           <p>
@@ -84,7 +88,11 @@ export default function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    prefetch={href === "/quote" ? false : undefined}
+                    prefetch={
+                      href === "/quote" || href === "/contact"
+                        ? false
+                        : undefined
+                    }
                   >
                     {label}
                   </Link>
@@ -101,7 +109,7 @@ export default function Footer() {
           <Link href="/terms-of-service">Terms</Link>
           <a href="/sitemap.xml">Sitemap</a>
         </div>
-        <span>Pune, Maharashtra, India</span>
+        <span>Serving projects across India</span>
       </div>
     </footer>
   );

@@ -4,16 +4,18 @@ import Image from "next/image";
 import { ArrowDownRight, ArrowUpRight, Phone } from "lucide-react";
 import ContactSection from "@/components/sections/ContactSection";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Contact land surveyors in Pune & Lonavala",
+  title: "Contact land surveyors | Projects across India",
   description:
-    "Discuss your land survey with Shubham Surveyors. Contact our Pune and Lonavala offices for boundary, topographic, DGPS and infrastructure surveys across India.",
+    "Discuss a land survey anywhere in India. Share your site, purpose and required outputs with Shubham Surveyors for a considered scope and quotation.",
   alternates: { canonical: `${SITE.url}/contact` },
   openGraph: {
+    images: SOCIAL_IMAGES,
     title: "Talk to Shubham Surveyors",
     description:
-      "Survey advice, project enquiries and quotations from our Pune and Lonavala teams.",
+      "A direct conversation about your land, survey requirements and next steps. Supporting projects across India since 1994.",
     url: `${SITE.url}/contact`,
   },
 };
@@ -32,13 +34,13 @@ export default function ContactPage() {
             <div className="conversion-hero-copy">
               <p className="eyebrow">A direct line to the ground</p>
               <h1>
-                Great projects.
+                Let’s understand
                 <br />
-                <span>Start here.</span>
+                <span>your land.</span>
               </h1>
               <p className="lead">
                 A new plot. An ambitious development. A question about your land.
-                Wherever you’re starting, let’s find a clear way forward.
+                Wherever your site is in India, let’s find a clear way forward.
               </p>
               <div className="conversion-hero-actions">
                 <a href="#enquiry" className="button button-lime">
@@ -48,12 +50,12 @@ export default function ContactPage() {
                   <Phone size={16} aria-hidden="true" /> {SITE.phone}
                 </a>
               </div>
-              <p className="conversion-kicker">Pune & Lonavala / Serving projects across India</p>
+              <p className="conversion-kicker">Serving projects across India / Since 1994</p>
             </div>
             <figure className="conversion-visual contact-location-visual">
               <Image
-                src="/images/terrain-editorial.webp"
-                alt="Conceptual landscape inspired by the hills and lakes of Maharashtra"
+                src="/images/grove-field.webp"
+                alt="Conceptual landscape with rugged hills, golden grass and a lone tree"
                 fill
                 loading="eager"
                 fetchPriority="high"
@@ -62,11 +64,11 @@ export default function ContactPage() {
               />
               <div className="contact-visual-shade" aria-hidden="true" />
               <figcaption className="contact-visual-caption">
-                <span className="conversion-kicker">Local knowledge. A wider perspective.</span>
+                <span className="conversion-kicker">Ground knowledge. A wider perspective.</span>
                 <div className="contact-route-line">
-                  <span>Pune</span><ArrowUpRight size={30} aria-hidden="true" /><span>Lonavala</span>
+                  <span>Land</span><ArrowUpRight size={30} aria-hidden="true" /><span>Clarity</span>
                 </div>
-                <span className="conversion-kicker">AI-generated / Maharashtra-inspired landscape</span>
+                <span className="conversion-kicker">AI-generated concept landscape</span>
               </figcaption>
             </figure>
           </div>

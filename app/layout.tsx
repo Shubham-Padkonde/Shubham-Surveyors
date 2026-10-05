@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Jost } from "next/font/google";
 import "./globals.css";
+import "./grove.css";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 const heading = Manrope({
   subsets: ["latin"],
@@ -19,29 +21,30 @@ const body = Jost({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#10182a",
+  themeColor: "#153d32",
 };
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Land Surveyors in Pune & Maharashtra | Shubham Surveyors",
+    default: "Land Surveyors in India | Shubham Surveyors",
     template: "%s | Shubham Surveyors",
   },
   description:
-    "Land surveyors in Pune and Lonavala since 1994. Boundary, topographic, Total Station and DGPS surveys for projects across Maharashtra and India.",
+    "Land surveying and geospatial services across India since 1994. Boundary, topographic, Total Station, DGPS and engineering surveys for your project.",
   applicationName: SITE.name,
   authors: [{ name: SITE.name }],
   creator: SITE.name,
   publisher: SITE.name,
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Shubham Surveyors | Clarity on the ground.",
+    title: "Shubham Surveyors | Know the land. See what’s possible.",
     description:
-      "Land surveying, mapping and engineering support. Based in Pune and Lonavala. Serving projects across India since 1994.",
+      "Land surveying, mapping and engineering support for projects across India. On the ground since 1994.",
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: SOCIAL_IMAGES },
   robots: {
     index: true,
     follow: true,
@@ -57,7 +60,7 @@ const business = {
   logo: `${SITE.url}/logo-mark.png`,
   image: `${SITE.url}/opengraph-image`,
   description:
-    "Land surveying and geospatial services based in Pune and Lonavala, Maharashtra, established in 1994.",
+    "Land surveying and geospatial services for projects across India since 1994, with offices in Pune and Lonavala.",
   telephone: SITE.phone.replace(/\s/g, ""),
   email: SITE.email,
   foundingDate: SITE.founded,
@@ -82,11 +85,7 @@ const business = {
       addressCountry: "IN",
     },
   },
-  areaServed: [
-    { "@type": "Country", name: "India" },
-    { "@type": "State", name: "Maharashtra" },
-    { "@type": "City", name: "Pune" },
-  ],
+  areaServed: [{ "@type": "Country", name: "India" }],
   sameAs: SITE.sameAs,
 };
 export default function RootLayout({
@@ -95,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-IN" className={`${heading.variable} ${body.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${heading.variable} ${body.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content

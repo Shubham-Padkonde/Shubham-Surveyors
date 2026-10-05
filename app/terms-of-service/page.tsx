@@ -56,15 +56,12 @@ export default function TermsOfServicePage() {
       <section className="section-wrap">
         <div className="page-shell">
           <div style={{ maxWidth: 800 }}>
-            <p style={{ color: "#566176", marginBottom: "2rem" }}>
-              Last updated: 5 October 2026
-            </p>
             {sections.map(({ heading, body }) => (
               <section key={heading} style={{ marginBottom: "2.5rem" }}>
                 <h2 style={{ fontSize: "1.4rem", marginBottom: ".75rem" }}>
                   {heading}
                 </h2>
-                <p style={{ color: "#566176", lineHeight: 1.8 }}>{body}</p>
+                <p style={{ color: "#526155", lineHeight: 1.8 }}>{body}</p>
               </section>
             ))}
             <h2 style={{ fontSize: "1.4rem", marginBottom: ".75rem" }}>

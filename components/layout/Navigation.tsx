@@ -2,8 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { ArrowUpRight, Menu, X, Phone } from "lucide-react";
-import { SITE } from "@/lib/constants";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import BrandMark from "@/components/brand/BrandMark";
 const links = [
   { label: "Services", href: "/services" },
@@ -18,19 +17,25 @@ export default function Navigation() {
   const toggle = useRef<HTMLButtonElement>(null);
   return (
     <>
-      <div className="utility-bar">
-        <div className="utility-inner">
-          <span>
-            On the ground since 1994 <span className="utility-dot">·</span> Pune
-            & Lonavala
-          </span>
-          <a href={`tel:${SITE.phone.replace(/\s/g, "")}`}>
-            <Phone size={13} aria-hidden="true" /> {SITE.phone}
-          </a>
-        </div>
-      </div>
+      <aside className="grove-rail" aria-label="Shubham Surveyors brand">
+        <Link
+          href="/"
+          aria-label="Shubham Surveyors home"
+          onClick={() => setOpen(false)}
+        >
+          <BrandMark size={47} />
+        </Link>
+        <span className="grove-rail-motto">
+          Ground knowledge. Greater possibilities.
+        </span>
+        <span className="grove-rail-year">
+          EST.
+          <br />
+          1994
+        </span>
+      </aside>
       <header
-        className="site-header"
+        className={`site-header grove-navigation${pathname === "/" ? " home-navigation" : ""}${open ? " navigation-open" : ""}`}
         onKeyDown={(event) => {
           if (event.key === "Escape") {
             setOpen(false);
@@ -39,16 +44,10 @@ export default function Navigation() {
         }}
       >
         <div className="nav-inner">
-          <Link
-            href="/"
-            className="brand"
-            aria-label="Shubham Surveyors. Home"
-            onClick={() => setOpen(false)}
-          >
-            <BrandMark size={48} color="#315DFF" className="brand-mark" />
+          <Link href="/" className="brand" onClick={() => setOpen(false)}>
+            <BrandMark size={40} className="brand-mark" />
             <span className="brand-wordmark">
-              <strong>Shubham</strong>{" "}
-              <strong>Surveyors<span className="brand-period">.</span></strong>
+              <strong>Shubham</strong> <strong>Surveyors</strong>
             </span>
           </Link>
           <nav className="desktop-nav" aria-label="Main navigation">
@@ -56,6 +55,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={link.href === "/contact" ? false : undefined}
                 onClick={() => setOpen(false)}
                 aria-current={
                   pathname.startsWith(link.href) ? "page" : undefined
@@ -71,7 +71,7 @@ export default function Navigation() {
             className="button button-dark nav-quote"
             onClick={() => setOpen(false)}
           >
-            Discuss your project <ArrowUpRight size={17} aria-hidden="true" />
+            Discuss your land <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
           <button
             ref={toggle}
@@ -95,6 +95,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={link.href === "/contact" ? false : undefined}
                 onClick={() => setOpen(false)}
                 aria-current={
                   pathname.startsWith(link.href) ? "page" : undefined

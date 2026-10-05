@@ -2,20 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 import { LOCATIONS } from "@/lib/locations";
 
 export const metadata: Metadata = {
-  title: "Survey locations | Pune, Lonavala & project coverage",
+  title: "Land survey coverage across India",
   description:
-    "Contact Shubham Surveyors in Pune and Lonavala. Discuss land surveys across Maharashtra and project enquiries elsewhere in India.",
+    "Discuss a land survey anywhere in India. Shubham Surveyors plans fieldwork, access and mobilisation around your site, survey scope and required outputs.",
   alternates: { canonical: `${SITE.url}/locations` },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Survey locations | Pune, Lonavala & project coverage | Shubham Surveyors",
+    title: "Land survey coverage across India | Shubham Surveyors",
     description:
-      "Contact Shubham Surveyors in Pune and Lonavala. Discuss land surveys across Maharashtra and project enquiries elsewhere in India.",
+      "Discuss a land survey anywhere in India. Shubham Surveyors plans fieldwork, access and mobilisation around your site, survey scope and required outputs.",
     url: `${SITE.url}/locations`,
   },
 };
@@ -39,16 +41,16 @@ export default function LocationsPage() {
               </li>
             </ol>
           </nav>
-          <p className="eyebrow">Our locations & coverage</p>
+          <p className="eyebrow">Surveying across India</p>
           <h1>
-            Based in Maharashtra.
+            Across India.
             <br />
-            Ready to discuss your site.
+            Focused on your site.
           </h1>
           <p className="lead">
-            Our contact locations are Pune and Lonavala. We review survey
-            enquiries across Maharashtra and elsewhere in India, with
-            availability and mobilisation agreed for each project.
+            From an individual plot to a wider infrastructure corridor, we
+            plan survey work around the location, terrain and decisions ahead.
+            Share your site anywhere in India and we’ll define the next steps.
           </p>
           <Link href="/contact" className="button button-lime">
             Contact the team <ArrowUpRight size={18} aria-hidden="true" />
@@ -59,8 +61,8 @@ export default function LocationsPage() {
       <section className="section-wrap">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Find us</p>
-            <h2 className="section-heading">Two local points of contact.</h2>
+            <p className="eyebrow">Find our team</p>
+            <h2 className="section-heading">A direct point of contact.</h2>
           </div>
           <p>
             Please call ahead to arrange a visit. Field schedules mean the best
@@ -94,24 +96,24 @@ export default function LocationsPage() {
       <section className="section-wrap">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Our home region</p>
-            <h2 className="section-heading">Surveying in Maharashtra.</h2>
+            <p className="eyebrow">Plan the fieldwork</p>
+            <h2 className="section-heading">Every site has its own context.</h2>
           </div>
           <p>
-            From property measurements to design surveys and infrastructure
-            corridors, share your location and project brief so we can assess
-            the right scope.
+            Terrain, access, survey references and the required outputs shape
+            the approach. We agree the field programme and mobilisation as
+            part of your project scope.
           </p>
         </div>
-        <Link href="/locations/maharashtra" className="service-card">
-          <p className="eyebrow">Pune · Lonavala · Maharashtra</p>
-          <h3>Local context. A clear project brief.</h3>
+        <Link href="/knowledge/survey-preparation" className="service-card">
+          <p className="eyebrow">A useful starting point</p>
+          <h3>A location. A purpose. A clear brief.</h3>
           <p>
-            Explore survey services, preparation guidance and our approach to
-            field work across Maharashtra.
+            Bring a location pin, approximate site area or corridor length,
+            available references and a description of what you need to know.
           </p>
           <span className="text-link">
-            Explore Maharashtra <ArrowUpRight size={18} aria-hidden="true" />
+            Prepare for your survey <ArrowUpRight size={18} aria-hidden="true" />
           </span>
         </Link>
       </section>
@@ -119,17 +121,17 @@ export default function LocationsPage() {
       <section className="section-wrap">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Beyond Maharashtra</p>
+            <p className="eyebrow">Nationwide project enquiries</p>
             <h2 className="section-heading">Tell us where your project is.</h2>
           </div>
           <p>
-            The regions below are enquiry routes, not a list of offices. We
-            confirm field availability, travel, permissions and programme after
-            reviewing the project.
+            Select your region to start a project enquiry. Our office addresses
+            are listed above; field access, travel, permissions and programme
+            are confirmed around each brief.
           </p>
         </div>
         <div className="service-grid">
-          {LOCATIONS.filter((location) => location.state !== "maharashtra").map(
+          {LOCATIONS.map(
             (location) => (
               <Link
                 className="service-card"

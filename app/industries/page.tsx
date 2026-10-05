@@ -10,19 +10,21 @@ import {
   Zap,
 } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Survey services by industry | Pune & Maharashtra",
+  title: "Survey services by industry | Across India",
   description:
-    "Land survey support for real estate, infrastructure, earthworks, agriculture, urban planning and utilities. Explore the right scope for your project.",
+    "Survey support across India for real estate, infrastructure, earthworks, agriculture, urban planning and utilities. Define the right scope for your project.",
   alternates: { canonical: SITE.url + "/industries" },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "Survey services by industry | Pune & Maharashtra | Shubham Surveyors",
+    title: "Survey services by industry | Across India | Shubham Surveyors",
     description:
-      "Land survey support for real estate, infrastructure, earthworks, agriculture, urban planning and utilities. Explore the right scope for your project.",
+      "Survey support across India for real estate, infrastructure, earthworks, agriculture, urban planning and utilities. Define the right scope for your project.",
     url: `${SITE.url}/industries`,
   },
 };
@@ -82,7 +84,7 @@ export default function IndustriesPage() {
             <span aria-hidden="true">/</span>
             <span>Industries</span>
           </nav>
-          <p className="eyebrow">Surveying in context</p>
+          <p className="eyebrow">Different sectors. Across India.</p>
           <h1>
             Different projects.
             <br />

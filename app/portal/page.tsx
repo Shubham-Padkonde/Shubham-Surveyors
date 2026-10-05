@@ -41,7 +41,7 @@ export default function PortalPage() {
             Need a progress update, survey drawing or project document? Our team
             is here to help.
           </p>
-          <p style={{ color: "#566176", margin: "1.5rem 0 2rem" }}>
+          <p style={{ color: "#526155", margin: "1.5rem 0 2rem" }}>
             Send your project reference or site location using your usual
             contact details. We’ll confirm your connection to the project and
             arrange the information you need. Online account access is not

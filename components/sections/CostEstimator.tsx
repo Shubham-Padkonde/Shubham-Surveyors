@@ -91,7 +91,7 @@ export default function CostEstimator() {
               </thead>
               <tbody>
                 {Object.entries(PRICING).map(([key, price]) => (
-                  <tr key={key} style={{ borderTop: "1px solid #dbe0e9" }}>
+                  <tr key={key} style={{ borderTop: "1px solid #c8c7b8" }}>
                     <th
                       scope="row"
                       style={{
@@ -116,7 +116,7 @@ export default function CostEstimator() {
           <p
             style={{
               fontSize: ".875rem",
-              color: "#566176",
+              color: "#536055",
               marginTop: "1.25rem",
             }}
           >
@@ -127,14 +127,14 @@ export default function CostEstimator() {
         </div>
         <div
           className="detail-panel"
-          style={{ background: "#fff", padding: "clamp(1.5rem, 3vw, 2.75rem)" }}
+          style={{ background: "#fffdf7", padding: "clamp(1.5rem, 3vw, 2.75rem)" }}
         >
           <h3 style={{ fontSize: "1.65rem", marginBottom: ".5rem" }}>
             Calculate a survey estimate
           </h3>
           <p
             style={{
-              color: "#566176",
+              color: "#536055",
               marginBottom: "1.75rem",
               fontSize: ".9rem",
             }}
@@ -206,7 +206,7 @@ export default function CostEstimator() {
               ) : (
                 <p
                   id={`${formId}-area-hint`}
-                  style={{ fontSize: ".8rem", color: "#566176" }}
+                  style={{ fontSize: ".8rem", color: "#536055" }}
                 >
                   {isKm
                     ? "Enter the approximate length of the survey corridor."
@@ -254,20 +254,20 @@ export default function CostEstimator() {
                 ref={resultRef}
                 tabIndex={-1}
                 style={{
-                  background: "#10182a",
-                  color: "#f4f5f7",
+                  background: "#153d32",
+                  color: "#eae6da",
                   marginTop: "1.5rem",
                   padding: "1.5rem",
                   borderRadius: 8,
                 }}
               >
-                <p className="eyebrow" style={{ color: "#dce6ff" }}>
+                <p className="eyebrow" style={{ color: "#ccb982" }}>
                   Indicative project total
                 </p>
                 <p
                   style={{
                     fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                    color: "#f4f5f7",
+                    color: "#eae6da",
                     lineHeight: 1.2,
                     fontWeight: 600,
                     margin: ".75rem 0",
@@ -275,7 +275,7 @@ export default function CostEstimator() {
                 >
                   {formatINR(result.min)} – {formatINR(result.max)}
                 </p>
-                <p style={{ fontSize: ".9rem", color: "#cbd3e1" }}>
+                <p style={{ fontSize: ".9rem", color: "#d6ddcf" }}>
                   For {calculation.area}{" "}
                   {result.unit === "km"
                     ? "km"
@@ -289,7 +289,7 @@ export default function CostEstimator() {
                   style={{
                     fontSize: ".85rem",
                     margin: "1rem 0 1.5rem",
-                    color: "#cbd3e1",
+                    color: "#d6ddcf",
                   }}
                 >
                   A planning range, subject to site review and a written

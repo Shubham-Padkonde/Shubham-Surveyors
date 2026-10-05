@@ -7,7 +7,7 @@ const content = {
   sector: "Real estate & development",
   headline: "A better starting point for every build.",
   intro:
-    "Topographic, boundary-reference and layout surveys for developers, architects and construction teams in Pune, Maharashtra and across India.",
+    "Topographic, boundary-reference and layout surveys for developers, architects and construction teams across India.",
   capabilities: [
     {
       title: "A base for design",

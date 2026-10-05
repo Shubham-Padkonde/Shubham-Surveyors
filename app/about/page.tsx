@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Crosshair, FileCheck2, MapPin } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import { SOCIAL_IMAGES } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "About us | Pune surveyors since 1994",
+  title: "About us | Surveyors in India since 1994",
   description:
-    "Meet Shubham Surveyors, a Pune land surveying practice established in 1994. 30+ years of experience and 5,000+ surveys for landowners and project teams.",
+    "Land and geospatial surveying across India since 1994. Meet the practice behind 5,000+ projects for landowners, architects, developers and engineering teams.",
   alternates: { canonical: SITE.url + "/about" },
   openGraph: {
+    images: SOCIAL_IMAGES,
     type: "website",
     locale: "en_IN",
     siteName: SITE.name,
-    title: "About us | Pune surveyors since 1994 | Shubham Surveyors",
+    title: "About us | Surveyors in India since 1994 | Shubham Surveyors",
     description:
-      "Meet Shubham Surveyors, a Pune land surveying practice established in 1994. 30+ years of experience and 5,000+ surveys for landowners and project teams.",
+      "Land and geospatial surveying across India since 1994. Meet the practice behind 5,000+ projects for landowners, architects, developers and engineering teams.",
     url: `${SITE.url}/about`,
   },
 };
@@ -29,7 +31,7 @@ export default function AboutPage() {
             <span aria-hidden="true">/</span>
             <span>About</span>
           </nav>
-          <p className="eyebrow">Pune roots. A wider perspective.</p>
+          <p className="eyebrow">Ground knowledge. A nationwide perspective.</p>
           <h1>
             Good decisions
             <br />
@@ -37,7 +39,8 @@ export default function AboutPage() {
           </h1>
           <p className="lead">
             Since 1994, Shubham Surveyors has helped landowners, architects,
-            developers and engineers understand the land they work with.
+            developers and engineers across India understand the land they work
+            with.
           </p>
           <Link href="/contact" className="button button-lime">
             Talk to our team <ArrowUpRight size={18} />
@@ -59,9 +62,9 @@ export default function AboutPage() {
           }}
         >
           {[
-            ["1994", "Established in Pune"],
+            ["1994", "Year established"],
             ["30+", "Years of surveying experience"],
-            ["5,000+", "Surveys delivered"],
+            ["5,000+", "Projects delivered"],
           ].map(([value, label]) => (
             <div className="detail-panel" key={label}>
               <p
@@ -140,16 +143,17 @@ export default function AboutPage() {
       >
         <div className="section-head">
           <div>
-            <p className="eyebrow">Local knowledge, direct contact</p>
+            <p className="eyebrow">A national perspective, a direct conversation</p>
             <h2 className="section-heading">
-              Based in Maharashtra.
+              Every landscape.
               <br />
-              Ready for your brief.
+              A considered approach.
             </h2>
           </div>
           <p className="lead">
-            Speak with us about sites in Pune, Lonavala and across Maharashtra,
-            or discuss mobilisation for a project elsewhere in India.
+            Share your site location anywhere in India. We plan the survey
+            method, access and mobilisation around your brief, then confirm the
+            scope and programme.
           </p>
         </div>
         <div

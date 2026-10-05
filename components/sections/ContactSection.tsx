@@ -79,24 +79,24 @@ export default function ContactSection() {
       aria-labelledby={`${formId}-heading`}
     >
       <div className="page-shell contact-grid">
-        <div style={{ color: "#f4f5f7" }}>
-          <p className="eyebrow" style={{ color: "#dce6ff" }}>
+        <div style={{ color: "#eae6da" }}>
+          <p className="eyebrow" style={{ color: "#ccb982" }}>
             Let’s talk about your site
           </p>
           <h2
             id={`${formId}-heading`}
             className="section-heading"
-            style={{ color: "#f4f5f7" }}
+            style={{ color: "#eae6da" }}
           >
             Every good project starts with clarity.
           </h2>
           <p
             className="lead"
-            style={{ color: "#cbd3e1", marginBottom: "2rem" }}
+            style={{ color: "#d6ddcf", marginBottom: "2rem" }}
           >
-            Tell us where your land is and what you need to achieve. Our Pune
-            and Lonavala teams will help define the right survey, scope and next
-            steps.
+            Tell us where your land is and what you need to achieve. We help
+            plan surveys across India, with a clear scope, practical fieldwork
+            and useful next steps.
           </p>
           <div
             style={{ display: "grid", gap: "1.25rem", marginBottom: "2rem" }}
@@ -124,7 +124,7 @@ export default function ContactSection() {
               />
               <div>
                 <strong>Pune office</strong>
-                <p style={{ color: "#cbd3e1", marginTop: ".35rem" }}>
+                <p style={{ color: "#d6ddcf", marginTop: ".35rem" }}>
                   {SITE.address}
                 </p>
               </div>
@@ -137,7 +137,7 @@ export default function ContactSection() {
               />
               <div>
                 <strong>Lonavala office</strong>
-                <p style={{ color: "#cbd3e1", marginTop: ".35rem" }}>
+                <p style={{ color: "#d6ddcf", marginTop: ".35rem" }}>
                   {SITE.addressLonavala}
                 </p>
               </div>
@@ -157,14 +157,14 @@ export default function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-outline"
-              style={{ color: "#f4f5f7", borderColor: "#79849a" }}
+              style={{ color: "#eae6da", borderColor: "#819383" }}
             >
               Find us on Google
             </a>
           </div>
           <p
             style={{
-              color: "#cbd3e1",
+              color: "#d6ddcf",
               fontSize: ".875rem",
               marginTop: "1.25rem",
             }}
@@ -182,8 +182,8 @@ export default function ContactSection() {
         <div
           className="detail-panel"
           style={{
-            background: "#fff",
-            color: "#10182a",
+            background: "#fffdf7",
+            color: "#153d32",
             padding: "clamp(1.5rem, 3vw, 2.75rem)",
           }}
         >
@@ -192,7 +192,7 @@ export default function ContactSection() {
           </h3>
           <p
             style={{
-              color: "#566176",
+              color: "#536055",
               marginBottom: "1.75rem",
               fontSize: ".9rem",
             }}
@@ -278,7 +278,7 @@ export default function ContactSection() {
                   {...register("state")}
                   {...field("state")}
                   className="form-control"
-                  placeholder="e.g. Pune, Maharashtra"
+                  placeholder="City or district, state"
                   maxLength={120}
                   required
                 />
@@ -323,7 +323,7 @@ export default function ContactSection() {
                 style={{
                   gridColumn: "1 / -1",
                   fontSize: ".8rem",
-                  color: "#566176",
+                  color: "#536055",
                 }}
               >
                 We’ll use these details to respond to your enquiry. Please avoid
@@ -356,8 +356,8 @@ export default function ContactSection() {
                 style={{
                   marginTop: "1rem",
                   padding: "1rem",
-                  background: status === "error" ? "#fff0ee" : "#e9efff",
-                  color: status === "error" ? "#9a3025" : "#1f3c7a",
+                  background: status === "error" ? "#fff0ee" : "#e5ecda",
+                  color: status === "error" ? "#9a3025" : "#234329",
                 }}
               >
                 {message}
