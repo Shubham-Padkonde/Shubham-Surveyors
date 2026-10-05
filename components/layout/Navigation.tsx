@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Menu, X, Phone } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import BrandMark from "@/components/brand/BrandMark";
 const links = [
   { label: "Services", href: "/services" },
   { label: "Our approach", href: "/about" },
@@ -45,18 +45,10 @@ export default function Navigation() {
             aria-label="Shubham Surveyors. Home"
             onClick={() => setOpen(false)}
           >
-            <Image
-              src="/logo-mark.png"
-              width={42}
-              height={42}
-              alt=""
-              priority
-            />
-            <span>
-              SHUBHAM{" "}
-              <strong>
-                SURVEYORS<span className="brand-period">.</span>
-              </strong>
+            <BrandMark size={48} color="#315DFF" className="brand-mark" />
+            <span className="brand-wordmark">
+              <strong>Shubham</strong>{" "}
+              <strong>Surveyors<span className="brand-period">.</span></strong>
             </span>
           </Link>
           <nav className="desktop-nav" aria-label="Main navigation">

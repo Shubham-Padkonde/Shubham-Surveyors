@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -9,10 +10,9 @@ import {
   ScanLine,
   Route,
   Map,
-  Check,
   Plus,
+  Crosshair,
 } from "lucide-react";
-import TerrainVisual from "@/components/sections/TerrainVisual";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -104,57 +104,54 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      <section className="home-hero">
-        <div className="hero-copy">
+      <section className="editorial-hero">
+        <div className="editorial-hero-image">
+          <Image src="/images/terrain-editorial.webp" alt="Illustrative aerial landscape of mountain ridges, fields and a reservoir" fill preload sizes="100vw" />
+        </div>
+        <div className="editorial-hero-overlay" />
+        <div className="editorial-hero-content">
           <p className="eyebrow">
-            <span className="status-dot" /> LAND SURVEYORS · PUNE, INDIA
+            <span className="hero-line" /> LAND SURVEYING & GEOSPATIAL · SINCE 1994
           </p>
           <h1>
-            Clarity on
-            <br />
-            the ground.
-            <br />
-            <span>Confidence</span>
-            <br />
-            in every plan.
+            A clearer view.<br />
+            <span>A stronger</span><br />
+            foundation.
           </h1>
           <p className="hero-description">
-            From a single plot to the next big development. Precise land
-            surveying and geospatial expertise, built on 30+ years in the field.
+            We turn the complexity of the land into the confidence to move forward.
+            Precise surveys. Practical insight. Possibilities, mapped.
           </p>
           <div className="hero-actions">
-            <Link href="/quote" prefetch={false} className="button button-dark">
+            <Link href="/quote" prefetch={false} className="button button-cobalt">
               Start your project <ArrowUpRight size={19} aria-hidden="true" />
             </Link>
-            <Link href="/services" className="text-link">
-              Explore our services <ArrowRight size={18} aria-hidden="true" />
+            <Link href="/services" className="hero-secondary">
+              Explore our expertise <ArrowUpRight size={19} aria-hidden="true" />
             </Link>
           </div>
-          <div className="hero-location">
-            <span className="cross-mark">+</span>
-            <span>
-              Based in Pune & Lonavala.
-              <br />
-              <strong>On the ground across India.</strong>
-            </span>
-          </div>
         </div>
-        <TerrainVisual />
+        <div className="hero-field-marker" aria-hidden="true"><Crosshair size={44} strokeWidth={.7} /><span>THE BIG PICTURE.<br />DOWN TO THE LAST DETAIL.</span></div>
+        <div className="editorial-hero-bottom">
+          <span><span className="live-dot" /> PUNE & LONAVALA <span className="hero-slash">/</span> SERVING INDIA</span>
+          <span className="hero-image-credit">AI-generated landscape illustration</span>
+          <a href="#services" aria-label="Explore below: our expertise">EXPLORE BELOW <span aria-hidden="true">↓</span></a>
+        </div>
       </section>
       <section className="trust-strip" aria-label="Our experience">
         <div>
           <strong>
             1994<span>↗</span>
           </strong>
-          <span>Where our story began</span>
+          <span>Our foundation</span>
         </div>
         <div>
           <strong>30+</strong>
-          <span>Years of field experience</span>
+          <span>Years on the ground</span>
         </div>
         <div>
           <strong>5,000+</strong>
-          <span>Surveys delivered</span>
+          <span>Surveys. Real-world insight.</span>
         </div>
         <div className="trust-statement">
           <span>
@@ -172,9 +169,9 @@ export default function HomePage() {
           <div>
             <p className="eyebrow">01 / Our expertise</p>
             <h2 className="section-heading">
-              The right survey.
+              Precision is the start.
               <br />
-              <span>A clearer way forward.</span>
+              <span>Possibility is the point.</span>
             </h2>
           </div>
           <div>
@@ -187,23 +184,17 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="home-services">
+        <div className="expertise-index">
           {services.map((service, i) => (
             <Link
-              className="home-service"
+              className="expertise-row"
               href={`/services/${service.href}`}
               key={service.href}
             >
-              <div className="service-top">
-                <service.icon size={29} strokeWidth={1.3} aria-hidden="true" />
-                <span>0{i + 1}</span>
-              </div>
-              <h3>{service.name}</h3>
+              <span className="expertise-number">0{i + 1}</span>
+              <div className="expertise-title"><service.icon size={27} strokeWidth={1.2} aria-hidden="true" /><h3>{service.name}</h3></div>
               <p>{service.description}</p>
-              <div className="service-bottom">
-                <span>{service.label}</span>
-                <ArrowUpRight size={21} aria-hidden="true" />
-              </div>
+              <span className="expertise-arrow"><ArrowUpRight size={24} aria-hidden="true" /></span>
             </Link>
           ))}
         </div>
@@ -214,28 +205,17 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-      <section className="approach-section">
-        <div className="approach-visual">
-          <div className="plan-art" aria-hidden="true">
-            <div className="plan-north">N ↑</div>
-            <div className="plan-parcel p1">01</div>
-            <div className="plan-parcel p2">02</div>
-            <div className="plan-parcel p3">03</div>
-            <div className="plan-road">ACCESS ROAD</div>
-            <span className="plan-point pp1">+</span>
-            <span className="plan-point pp2">+</span>
-            <span className="plan-point pp3">+</span>
-            <div className="plan-stamp">
-              <Check size={17} /> A clear picture of your site
-            </div>
-          </div>
-          <p>ILLUSTRATIVE DRAWING / EVERY PROJECT HAS ITS OWN SCOPE</p>
-        </div>
+      <section className="approach-section field-approach">
+        <figure className="field-photo">
+          <Image src="/images/survey-editorial.webp" alt="Illustrative Total Station instrument set up on a tripod in open terrain" fill sizes="(max-width: 800px) 100vw, 50vw" />
+          <div className="field-photo-label"><span>01 / ON THE GROUND</span><Crosshair size={34} strokeWidth={1} /></div>
+          <figcaption>AI-generated illustration · not a client project</figcaption>
+        </figure>
         <div className="approach-copy">
           <p className="eyebrow">02 / From field to finished plan</p>
           <h2 className="section-heading">
-            Every measurement.
-            <br />A better decision.
+            Technology measures.
+            <br /><span>Experience understands.</span>
           </h2>
           <p className="lead">
             A survey is more than a drawing. It’s the starting point for

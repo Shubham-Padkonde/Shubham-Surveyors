@@ -2,7 +2,7 @@
 
 Production website: https://shubhamsurveyors.com
 
-Next.js App Router website for the Pune and Lonavala surveying practice. Public service and knowledge content renders on the server; client JavaScript is limited to navigation, the survey illustration, enquiry form and cost calculator.
+Next.js App Router website for the Pune and Lonavala surveying practice. Public service and knowledge content renders on the server; client JavaScript is limited to navigation, the enquiry form and cost calculator.
 
 ## Run locally
 
@@ -41,6 +41,14 @@ The browser-only cost calculator does not collect personal data or send enquirie
 Client identities are confidential. Project application examples and survey illustrations are labelled as illustrative, not presented as completed client work. Keep factual metrics current and do not add invented testimonials, review ratings, certifications, guaranteed accuracy or regulatory approvals.
 
 The original public routes are retained. Regional enquiry pages outside Maharashtra remain accessible with noindex,follow until there is sufficient distinct local content to warrant indexing. They are excluded from the sitemap. To index a regional page later, first publish useful, verifiable location-specific information, then update its robots metadata and the sitemap filter. Do not create city-name copies.
+
+## Visual identity and imagery
+
+The visual identity uses midnight navy, cobalt and cool white. The original geometric S symbol is maintained as `public/brand-symbol.svg` and the reusable `components/brand/BrandMark.tsx`; icons and social previews use the same identity.
+
+The landscape and surveying-instrument visuals in `public/images` were generated with OpenAI's built-in image generation tool on 5 October 2026. They are conceptual illustrations, not photographs of the business's equipment, employees or client projects. Keep their visible provenance captions. PNG originals are retained; pages use proportional, compressed WebP versions through Next Image with responsive sizes. Do not replace them with confidential project material.
+
+Visual reference research included Fugro's redesign case study (https://www.makerstreet.nl/cases/fugro), Murphy Geospatial (https://murphygs.com/) and the Awwwards-listed Rickman Architecture + Design website (https://www.awwwards.com/sites/rickman-architecture-design). The implementation uses original layout, assets and branding.
 
 ## Deployment
 

@@ -150,7 +150,7 @@ export default function IndustryPageTemplate({
               Read the survey preparation guide <ArrowUpRight size={16} />
             </Link>
           </div>
-          <div className="detail-panel" style={{ background: "#e7eddd" }}>
+          <div className="detail-panel" style={{ background: "#e9eef8" }}>
             <p className="eyebrow">Outputs to agree</p>
             <h2 style={{ fontSize: "1.8rem", marginBottom: "1.5rem" }}>
               Information your team can use

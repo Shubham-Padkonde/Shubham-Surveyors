@@ -19,7 +19,7 @@ const body = Jost({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#15291f",
+  themeColor: "#10182a",
 };
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
