@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/constants";
+import BrandMark from "@/components/brand/BrandMark";
 const columns = [
   {
     title: "Expertise",
@@ -52,10 +53,12 @@ export default function Footer() {
       </div>
       <div className="footer-grid">
         <div className="footer-brand">
-          <Link href="/" className="footer-wordmark">
-            Shubham
-            <br />
-            Surveyors<span>.</span>
+          <Link href="/" className="footer-wordmark" aria-label="Shubham Surveyors. Home">
+            <BrandMark size={64} color="#E9EEFF" className="brand-mark" />
+            <span className="brand-wordmark">
+              <strong>Shubham</strong>{" "}
+              <strong>Surveyors<span className="brand-period">.</span></strong>
+            </span>
           </Link>
           <p>
             Precision in the field.

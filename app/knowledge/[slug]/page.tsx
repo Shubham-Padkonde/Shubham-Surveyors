@@ -433,7 +433,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
         <article style={{ maxWidth: "780px" }}>
           <div
             className="detail-panel"
-            style={{ background: "#e7eddd", marginBottom: "3rem" }}
+            style={{ background: "#e9eef8", marginBottom: "3rem" }}
           >
             <p className="eyebrow">The useful starting point</p>
             <p style={{ fontSize: "1.2rem", lineHeight: 1.7 }}>
@@ -462,7 +462,7 @@ export default async function KnowledgeArticlePage({ params }: Props) {
                   style={{
                     lineHeight: 1.85,
                     marginBottom: "1rem",
-                    color: "#4b5b50",
+                    color: "#566176",
                   }}
                 >
                   {paragraph}
@@ -492,11 +492,11 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           ))}
           <p
             style={{
-              borderTop: "1px solid #d6ddcf",
+              borderTop: "1px solid #dbe0e9",
               paddingTop: "1.5rem",
               fontSize: ".9rem",
               lineHeight: 1.7,
-              color: "#4b5b50",
+              color: "#566176",
             }}
           >
             This guide provides general survey information. Official
@@ -556,12 +556,12 @@ export default async function KnowledgeArticlePage({ params }: Props) {
           </div>
           <div
             className="detail-panel"
-            style={{ background: "#15291f", color: "#f5f4ee" }}
+            style={{ background: "#10182a", color: "#f4f5f7" }}
           >
             <h2 style={{ fontSize: "1.6rem", marginBottom: "1rem" }}>
               Have a site in mind?
             </h2>
-            <p style={{ color: "#d5dfcf", marginBottom: "1.5rem" }}>
+            <p style={{ color: "#c9d3e9", marginBottom: "1.5rem" }}>
               Tell us the location and what you need the survey to support.
             </p>
             <Link className="button button-lime" href="/quote">

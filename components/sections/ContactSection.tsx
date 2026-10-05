@@ -79,20 +79,20 @@ export default function ContactSection() {
       aria-labelledby={`${formId}-heading`}
     >
       <div className="page-shell contact-grid">
-        <div style={{ color: "#f5f4ee" }}>
-          <p className="eyebrow" style={{ color: "#d7ee9d" }}>
+        <div style={{ color: "#f4f5f7" }}>
+          <p className="eyebrow" style={{ color: "#dce6ff" }}>
             Let’s talk about your site
           </p>
           <h2
             id={`${formId}-heading`}
             className="section-heading"
-            style={{ color: "#f5f4ee" }}
+            style={{ color: "#f4f5f7" }}
           >
             Every good project starts with clarity.
           </h2>
           <p
             className="lead"
-            style={{ color: "#d5ded7", marginBottom: "2rem" }}
+            style={{ color: "#cbd3e1", marginBottom: "2rem" }}
           >
             Tell us where your land is and what you need to achieve. Our Pune
             and Lonavala teams will help define the right survey, scope and next
@@ -124,7 +124,7 @@ export default function ContactSection() {
               />
               <div>
                 <strong>Pune office</strong>
-                <p style={{ color: "#d5ded7", marginTop: ".35rem" }}>
+                <p style={{ color: "#cbd3e1", marginTop: ".35rem" }}>
                   {SITE.address}
                 </p>
               </div>
@@ -137,7 +137,7 @@ export default function ContactSection() {
               />
               <div>
                 <strong>Lonavala office</strong>
-                <p style={{ color: "#d5ded7", marginTop: ".35rem" }}>
+                <p style={{ color: "#cbd3e1", marginTop: ".35rem" }}>
                   {SITE.addressLonavala}
                 </p>
               </div>
@@ -157,14 +157,14 @@ export default function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               className="button button-outline"
-              style={{ color: "#f5f4ee", borderColor: "#6e8175" }}
+              style={{ color: "#f4f5f7", borderColor: "#79849a" }}
             >
               Find us on Google
             </a>
           </div>
           <p
             style={{
-              color: "#d5ded7",
+              color: "#cbd3e1",
               fontSize: ".875rem",
               marginTop: "1.25rem",
             }}
@@ -183,7 +183,7 @@ export default function ContactSection() {
           className="detail-panel"
           style={{
             background: "#fff",
-            color: "#15291f",
+            color: "#10182a",
             padding: "clamp(1.5rem, 3vw, 2.75rem)",
           }}
         >
@@ -192,7 +192,7 @@ export default function ContactSection() {
           </h3>
           <p
             style={{
-              color: "#58675e",
+              color: "#566176",
               marginBottom: "1.75rem",
               fontSize: ".9rem",
             }}
@@ -323,7 +323,7 @@ export default function ContactSection() {
                 style={{
                   gridColumn: "1 / -1",
                   fontSize: ".8rem",
-                  color: "#58675e",
+                  color: "#566176",
                 }}
               >
                 We’ll use these details to respond to your enquiry. Please avoid
@@ -356,8 +356,8 @@ export default function ContactSection() {
                 style={{
                   marginTop: "1rem",
                   padding: "1rem",
-                  background: status === "error" ? "#fff0ee" : "#edf5dd",
-                  color: status === "error" ? "#9a3025" : "#234329",
+                  background: status === "error" ? "#fff0ee" : "#e9efff",
+                  color: status === "error" ? "#9a3025" : "#1f3c7a",
                 }}
               >
                 {message}
