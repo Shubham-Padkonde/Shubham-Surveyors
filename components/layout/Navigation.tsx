@@ -53,7 +53,7 @@ export default function Navigation() {
               priority
             />
             <span>
-              SHUBHAM
+              SHUBHAM{" "}
               <strong>
                 SURVEYORS<span className="brand-period">.</span>
               </strong>
@@ -75,6 +75,7 @@ export default function Navigation() {
           </nav>
           <Link
             href="/quote"
+            prefetch={false}
             className="button button-dark nav-quote"
             onClick={() => setOpen(false)}
           >
@@ -113,6 +114,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/quote"
+              prefetch={false}
               className="button button-dark"
               onClick={() => setOpen(false)}
             >

@@ -123,7 +123,7 @@ export default function HomePage() {
             surveying and geospatial expertise, built on 30+ years in the field.
           </p>
           <div className="hero-actions">
-            <Link href="/quote" className="button button-dark">
+            <Link href="/quote" prefetch={false} className="button button-dark">
               Start your project <ArrowUpRight size={19} aria-hidden="true" />
             </Link>
             <Link href="/services" className="text-link">
