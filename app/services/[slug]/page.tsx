@@ -114,12 +114,15 @@ export default async function ServicePage({ params }: Props) {
             </ol>
           </nav>
           <p className="eyebrow">
-            {service.number} / {service.slug === "mojani-support" ? "Maharashtra land-records support" : "Survey services across India"}
+            {service.number} /{" "}
+            {service.slug === "mojani-support"
+              ? "Maharashtra land-records support"
+              : "Survey services across India"}
           </p>
           <h1>{service.title}</h1>
           <p className="lead">{service.description}</p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/quote" className="button button-lime">
+            <Link href="/contact#enquiry-form" className="button button-lime">
               Discuss this survey <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
             <a
@@ -269,7 +272,7 @@ export default async function ServicePage({ params }: Props) {
             the scope, programme and deliverables.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/quote" className="button button-lime">
+            <Link href="/contact#enquiry-form" className="button button-lime">
               Request a survey <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
             <Link href="/about" className="button button-outline">
