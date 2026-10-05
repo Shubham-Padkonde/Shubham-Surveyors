@@ -17,23 +17,6 @@ export default function Navigation() {
   const toggle = useRef<HTMLButtonElement>(null);
   return (
     <>
-      <aside className="grove-rail" aria-label="Shubham Surveyors brand">
-        <Link
-          href="/"
-          aria-label="Shubham Surveyors home"
-          onClick={() => setOpen(false)}
-        >
-          <BrandMark size={47} />
-        </Link>
-        <span className="grove-rail-motto">
-          Ground knowledge. Greater possibilities.
-        </span>
-        <span className="grove-rail-year">
-          EST.
-          <br />
-          1994
-        </span>
-      </aside>
       <header
         className={`site-header grove-navigation${pathname === "/" ? " home-navigation" : ""}${open ? " navigation-open" : ""}`}
         onKeyDown={(event) => {
@@ -44,8 +27,13 @@ export default function Navigation() {
         }}
       >
         <div className="nav-inner">
-          <Link href="/" className="brand" onClick={() => setOpen(false)}>
-            <BrandMark size={40} className="brand-mark" />
+          <Link
+            href="/"
+            className="brand"
+            aria-label="Shubham Surveyors home"
+            onClick={() => setOpen(false)}
+          >
+            <BrandMark size={48} className="brand-mark" />
             <span className="brand-wordmark">
               <strong>Shubham</strong> <strong>Surveyors</strong>
             </span>
@@ -55,7 +43,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                prefetch={link.href === "/contact" ? false : undefined}
+                prefetch={false}
                 onClick={() => setOpen(false)}
                 aria-current={
                   pathname.startsWith(link.href) ? "page" : undefined
@@ -66,12 +54,12 @@ export default function Navigation() {
             ))}
           </nav>
           <Link
-            href="/quote"
+            href="/contact"
             prefetch={false}
             className="button button-dark nav-quote"
             onClick={() => setOpen(false)}
           >
-            Discuss your land <ArrowUpRight size={17} aria-hidden="true" />
+            Discuss your project <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
           <button
             ref={toggle}
@@ -95,7 +83,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                prefetch={link.href === "/contact" ? false : undefined}
+                prefetch={false}
                 onClick={() => setOpen(false)}
                 aria-current={
                   pathname.startsWith(link.href) ? "page" : undefined
@@ -106,7 +94,7 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              href="/quote"
+              href="/contact"
               prefetch={false}
               className="button button-dark"
               onClick={() => setOpen(false)}

@@ -43,7 +43,7 @@ export default function ContactPage() {
                 Wherever your site is in India, let’s find a clear way forward.
               </p>
               <div className="conversion-hero-actions">
-                <a href="#enquiry" className="button button-lime">
+                <a href="#enquiry-form" className="button button-lime">
                   Tell us about your site <ArrowDownRight size={19} aria-hidden="true" />
                 </a>
                 <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="text-link">

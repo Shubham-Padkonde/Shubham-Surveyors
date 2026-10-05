@@ -180,6 +180,7 @@ export default function ContactSection() {
         </div>
 
         <div
+          id="enquiry-form"
           className="detail-panel"
           style={{
             background: "#fffdf7",
@@ -194,7 +195,7 @@ export default function ContactSection() {
             style={{
               color: "#536055",
               marginBottom: "1.75rem",
-              fontSize: ".9rem",
+              fontSize: "1rem",
             }}
           >
             All fields are required. A location, approximate area and intended
